@@ -2,7 +2,7 @@
  * @name PinDMs
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 1.8.3
+ * @version 1.8.4
  * @description Allows you to pin DMs, making them appear at the top of your DMs/ServerList
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -17,17 +17,25 @@ module.exports = (_ => {
 		"info": {
 			"name": "PinDMs",
 			"author": "DevilBro",
-			"version": "1.8.3",
+			"version": "1.8.4",
 			"description": "Allows you to pin DMs, making them appear at the top of your DMs/ServerList"
 		},
 		"changeLog": {
 			"fixed": {
-				"Unread Badge": "Fixed Issue where the unread badge for pinned categories would not get updated after the first new message"
+				"Pin to Server List": "Works again"
 			}
 		}
 	};
 
-	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	return (window.Lightcord && !Node.prototype.isPrototypeOf(window.Lightcord) || window.LightCord && !Node.prototype.isPrototypeOf(window.LightCord) || window.Astra && !Node.prototype.isPrototypeOf(window.Astra)) ? class {
+		getName () {return config.info.name;}
+		getAuthor () {return config.info.author;}
+		getVersion () {return config.info.version;}
+		getDescription () {return "Do not use LightCord!";}
+		load () {BdApi.alert("Attention!", "By using LightCord you are risking your Discord Account, due to using a 3rd Party Client. Switch to an official Discord Client (https://discord.com/) with the proper BD Injection (https://betterdiscord.app/)");}
+		start() {}
+		stop() {}
+	} : !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
 		getName () {return config.info.name;}
 		getAuthor () {return config.info.author;}
 		getVersion () {return config.info.version;}
@@ -89,12 +97,10 @@ module.exports = (_ => {
 				
 				this.patchedModules = {
 					before: {
-						PrivateChannelsList: "render",
-						UnreadDMs: "render"
+						PrivateChannelsList: "render"
 					},
 					after: {
 						PrivateChannelsList: "render",
-						UnreadDMs: "render",
 						PrivateChannel: ["render", "componentDidMount"],
 						DirectMessage: ["render", "componentDidMount", "componentWillUnmount"]
 					}
@@ -121,6 +127,7 @@ module.exports = (_ => {
 						position: relative;
 						top: -1px;
 						margin-right: 6px;
+						background-color: var(--background-accent);
 					}
 					${BDFDB.dotCN._pindmspinnedchannelsheaderarrow} {
 						flex: 0;
@@ -167,27 +174,20 @@ module.exports = (_ => {
 			}
 			
 			onStart () {
-				// REMOVE 24.04.2021
-				if (!BDFDB.DataUtils.load(this, "pinned", BDFDB.UserUtils.me.id)) {
-					let pinned = {};
-					let channelListPinned = BDFDB.DataUtils.load(this, "dmCategories");
-					let guildListPinned = BDFDB.DataUtils.load(this, "pinnedRecents");
-					if (!BDFDB.ObjectUtils.isEmpty(channelListPinned)) pinned.channelList = channelListPinned;
-					if (!BDFDB.ObjectUtils.isEmpty(guildListPinned)) pinned.guildList = guildListPinned;
-					if (pinned.channelList || pinned.guildList) BDFDB.DataUtils.save(pinned, this, "pinned", BDFDB.UserUtils.me.id);
-				}
+				BDFDB.PatchUtils.patch(this, BDFDB.LibraryModules.DirectMessageUnreadStore, "getUnreadPrivateChannelIds", {after: e => {
+					let sortedRecents = this.sortAndUpdate("guildList");
+					if (sortedRecents.length) {
+						const dms = [];
+						for (let pos in sortedRecents) if (!dms.includes(sortedRecents[pos])) dms.push(sortedRecents[pos]);
+						e.returnValue = BDFDB.ArrayUtils.removeCopies(dms.concat(e.returnValue));
+					}
+				}});
+				
 				this.forceUpdateAll();
 			}
 			
 			onStop () {
 				this.forceUpdateAll();
-				
-				let unreadDMsInstance = BDFDB.ReactUtils.findOwner(document.querySelector(BDFDB.dotCN.app), {name: "UnreadDMs", unlimited: true});
-				if (unreadDMsInstance) {
-					delete unreadDMsInstance.props.pinnedPrivateChannelIds;
-					unreadDMsInstance.props.unreadPrivateChannelIds = BDFDB.LibraryModules.DirectMessageUnreadStore.getUnreadPrivateChannelIds();
-					BDFDB.ReactUtils.forceUpdate(unreadDMsInstance);
-				}
 			}
 
 			getSettingsPanel (collapseStates = {}) {
@@ -399,11 +399,11 @@ module.exports = (_ => {
 					else {
 						if (typeof e.returnvalue.props.children == "function") {
 							let childrenRender = e.returnvalue.props.children;
-							e.returnvalue.props.children = (...args) => {
+							e.returnvalue.props.children = BDFDB.TimeUtils.suppress((...args) => {
 								let children = childrenRender(...args);
 								this.injectCategories(e.instance, children, categories);
 								return children;
-							};
+							}, "", this);
 						}
 						else this.injectCategories(e.instance, e.returnvalue, categories);
 					}
@@ -591,13 +591,12 @@ module.exports = (_ => {
 										}),
 										unreadAmount ? BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Badges.NumberBadge, {
 											className: BDFDB.disCN._pindmspinnedchannelsheaderamount,
-											count: unreadAmount,
-											style: {backgroundColor: BDFDB.DiscordConstants.Colors.STATUS_RED}
+											count: unreadAmount
 										}) : null,
 										this.settings.general.channelAmount ? BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Badges.NumberBadge, {
 											className: BDFDB.disCN._pindmspinnedchannelsheaderamount,
 											count: foundDMs.length,
-											style: {backgroundColor: "var(--bdfdb-blurple)"}
+											disableColor: true
 										}) : null,
 										BDFDB.ReactUtils.createElement("div", {
 											className: BDFDB.disCNS._pindmspinnedchannelsheaderarrow + BDFDB.disCNS.channelheadericonwrapper + BDFDB.disCN.channelheadericonclickable,
@@ -621,48 +620,6 @@ module.exports = (_ => {
 					}
 					else return renderSection(...args);
 				};
-			}
-
-			processUnreadDMs (e) {
-				e.instance.props.pinnedPrivateChannelIds = [];
-				let sortedRecents = this.sortAndUpdate("guildList");
-				if (sortedRecents.length) {
-					e.instance.props.unreadPrivateChannelIds = [];
-					for (let pos in sortedRecents) {
-						let id = sortedRecents[pos];
-						if (e.instance.props.channels[id]) {
-							if (!e.instance.props.pinnedPrivateChannelIds.includes(id)) e.instance.props.pinnedPrivateChannelIds.push(id);
-							if (!e.instance.props.unreadPrivateChannelIds.includes(id)) e.instance.props.unreadPrivateChannelIds.push(id);
-						}
-					}
-					e.instance.props.unreadPrivateChannelIds = e.instance.props.unreadPrivateChannelIds.concat(BDFDB.LibraryModules.DirectMessageUnreadStore.getUnreadPrivateChannelIds());
-					if (e.returnvalue) {
-						if (draggedChannel && releasedChannel) {
-							let pinnedPrivateChannelIds = [].concat(e.instance.props.pinnedPrivateChannelIds), newData = {};
-							BDFDB.ArrayUtils.remove(pinnedPrivateChannelIds, draggedChannel, true);
-							pinnedPrivateChannelIds.splice(pinnedPrivateChannelIds.indexOf(releasedChannel) + 1, 0, draggedChannel);
-							for (let pos in pinnedPrivateChannelIds) newData[pinnedPrivateChannelIds[pos]] = parseInt(pos);
-							this.savePinnedChannels(newData, "guildList");
-							draggedChannel = null;
-							releasedChannel = null;
-							BDFDB.ReactUtils.forceUpdate(e.instance);
-						}
-						if (draggedChannel) {
-							let [children, index] = BDFDB.ReactUtils.findParent(e.returnvalue, {filter: child => BDFDB.ObjectUtils.get(child, "props.channel.id") == draggedChannel});
-							children.splice(index, 1);
-						}
-						if (this.hoveredChannel) {
-							let [children, index] = BDFDB.ReactUtils.findParent(e.returnvalue, {filter: child => BDFDB.ObjectUtils.get(child, "props.channel.id") == this.hoveredChannel});
-							children.splice(index + 1, 0, BDFDB.ReactUtils.createElement("div", {
-								className: BDFDB.disCNS.guildouter + BDFDB.disCN._pindmsrecentplaceholder,
-								children: BDFDB.ReactUtils.createElement("div", {
-									children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.GuildComponents.Items.DragPlaceholder, {})
-								})
-							}));
-						}
-					}
-				}
-				else e.instance.props.unreadPrivateChannelIds = BDFDB.LibraryModules.DirectMessageUnreadStore.getUnreadPrivateChannelIds();
 			}
 
 			processPrivateChannel (e) {
@@ -755,57 +712,10 @@ module.exports = (_ => {
 					if (e.node) {
 						if (e.methodname == "componentDidMount") {
 							BDFDB.DOMUtils.removeClass(e.node, BDFDB.disCN._pindmsrecentpinned);
-							e.node.removeEventListener("contextmenu", e.node.PinDMsContextMenuListener);
-							e.node.addEventListener("contextmenu", e.node.PinDMsContextMenuListener);
-							if (this.isPinnedInGuilds(e.instance.props.channel.id)) {
-								BDFDB.DOMUtils.addClass(e.node, BDFDB.disCN._pindmsrecentpinned);
-								e.node.removeEventListener("mousedown", e.node.PinDMsMouseDownListener);
-								if (!this.settings.recentOrder.guildList) {
-									for (let child of e.node.querySelectorAll("a")) child.setAttribute("draggable", false);
-									e.node.PinDMsMouseDownListener = event => {
-										let mousemove = event2 => {
-											if (Math.sqrt((event.pageX - event2.pageX)**2) > 20 || Math.sqrt((event.pageY - event2.pageY)**2) > 20) {
-												BDFDB.ListenerUtils.stopEvent(event);
-												draggedChannel = e.instance.props.channel.id;
-												BDFDB.PatchUtils.forceAllUpdates(this, "UnreadDMs");
-												let dragPreview = this.createDragPreview(e.node, event2);
-												document.removeEventListener("mousemove", mousemove);
-												document.removeEventListener("mouseup", mouseup);
-												let dragging = event3 => {
-													this.updateDragPreview(dragPreview, event3);
-													let placeholder = BDFDB.DOMUtils.getParent(BDFDB.dotCN._pindmsrecentplaceholder, event3.target);
-													let maybeHoveredChannel = (BDFDB.ReactUtils.findValue(BDFDB.DOMUtils.getParent(BDFDB.dotCN._pindmsrecentpinned, placeholder ? placeholder.previousSibling : event3.target), "channel", {up: true}) || {}).id;
-													let update = maybeHoveredChannel != hoveredChannel;
-													if (maybeHoveredChannel) hoveredChannel = maybeHoveredChannel;
-													else hoveredChannel = null; 
-													if (update) BDFDB.PatchUtils.forceAllUpdates(this, "UnreadDMs");
-												};
-												let releasing = event3 => {
-													BDFDB.DOMUtils.remove(dragPreview);
-													if (hoveredChannel) releasedChannel = hoveredChannel;
-													else draggedChannel = null;
-													hoveredChannel = null;
-													BDFDB.PatchUtils.forceAllUpdates(this, "UnreadDMs");
-													document.removeEventListener("mousemove", dragging);
-													document.removeEventListener("mouseup", releasing);
-												};
-												document.addEventListener("mousemove", dragging);
-												document.addEventListener("mouseup", releasing);
-											}
-										};
-										let mouseup = _ => {
-											document.removeEventListener("mousemove", mousemove);
-											document.removeEventListener("mouseup", mouseup);
-										};
-										document.addEventListener("mousemove", mousemove);
-										document.addEventListener("mouseup", mouseup);
-									};
-									e.node.addEventListener("mousedown", e.node.PinDMsMouseDownListener);
-								}
-							}
+							if (this.isPinnedInGuilds(e.instance.props.channel.id)) BDFDB.DOMUtils.addClass(e.node, BDFDB.disCN._pindmsrecentpinned);
 						}
 						if (e.methodname == "componentWillUnmount") {
-							if (this.getChannelListCategory(e.instance.props.channel.id)) BDFDB.PatchUtils.forceAllUpdates(this, "PrivateChannelsList");
+							if (this.getChannelListCategory(e.instance.props.channel.id)) this.updateContainer("channelList");
 						}
 					}
 					if (e.returnvalue) {
@@ -818,7 +728,7 @@ module.exports = (_ => {
 								icon: BDFDB.LibraryComponents.SvgIcon.Names.NOVA_PIN
 							});
 						}
-						if (this.getChannelListCategory(e.instance.props.channel.id)) BDFDB.PatchUtils.forceAllUpdates(this, "PrivateChannelsList");
+						if (this.getChannelListCategory(e.instance.props.channel.id)) this.updateContainer("channelList");
 					}
 				}
 			}
@@ -1004,7 +914,7 @@ module.exports = (_ => {
 						if (!Object.keys(this.settings.preCategories).every(type => this.settings.preCategories[type].enabled) && BDFDB.ObjectUtils.isEmpty(this.getPinnedChannels(type))) this.forceUpdateAll();
 						break;
 					case "guildList": 
-						BDFDB.PatchUtils.forceAllUpdates(this, "UnreadDMs");
+						BDFDB.GuildUtils.rerenderAll(true);
 						break;
 				}
 			}
@@ -1063,6 +973,19 @@ module.exports = (_ => {
 							context_unpinguild:					"Отделете от списъка със сървъри",
 							header_pinneddms:					"Закачени директни съобщения",
 							modal_colorpicker1:					"Категория цвят"
+						};
+					case "cs":		// Czech
+						return {
+							context_addtonewcategory:			"Přidat do nové kategorie",
+							context_disablepredefined:			"Deaktivovat předdefinovanou kategorii",
+							context_inpredefined:				"Připnuté v předdefinované katrgorii",
+							context_pinchannel:					"Připnout do seznamu kanálů",
+							context_pindm:						"Připnout do PZ",
+							context_pinguild:					"Připnout do seznamu serverů",
+							context_unpinchannel:				"Odepnout ze seznamu kanálů",
+							context_unpinguild:					"Odepnout ze seznamu serverů",
+							header_pinneddms:					"Připnuté přímé zprávy",
+							modal_colorpicker1:					"Barva kategorie"
 						};
 					case "da":		// Danish
 						return {
@@ -1141,6 +1064,19 @@ module.exports = (_ => {
 							context_unpinguild:					"Détacher de la liste des serveurs",
 							header_pinneddms:					"Messages privés épinglés",
 							modal_colorpicker1:					"Couleur de la catégorie"
+						};
+					case "hi":		// Hindi
+						return {
+							context_addtonewcategory:			"नई श्रेणी में जोड़ें",
+							context_disablepredefined:			"पूर्वनिर्धारित श्रेणी को निष्क्रिय करें",
+							context_inpredefined:				"एक पूर्वनिर्धारित श्रेणी में पिन किया गया",
+							context_pinchannel:					"चैनल सूची में पिन करें",
+							context_pindm:						"पिन डीएम",
+							context_pinguild:					"सर्वर सूची में पिन करें",
+							context_unpinchannel:				"चैनल सूची से अलग करें",
+							context_unpinguild:					"सर्वर सूची से अलग करें",
+							header_pinneddms:					"पिन किए गए सीधे संदेश",
+							modal_colorpicker1:					"श्रेणी रंग"
 						};
 					case "hr":		// Croatian
 						return {
