@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-panel" version="1.0">
+  <property name="configver" type="int" value="2"/>
+  <property name="panels" type="array">
+    <value type="int" value="0"/>
+    <property name="panel-0" type="empty">
+      <property name="autohide-behavior" type="uint" value="0"/>
+      <property name="background-style" type="uint" value="0"/>
+      <property name="length" type="uint" value="100"/>
+      <property name="length-adjust" type="bool" value="true"/>
+      <property name="mode" type="uint" value="0"/>
+      <property name="output-name" type="string" value="Primary"/>
+      <property name="plugin-ids" type="array">
+        <value type="int" value="1"/>
+        <value type="int" value="2"/>
+        <value type="int" value="16"/>
+        <value type="int" value="8"/>
+        <value type="int" value="3"/>
+        <value type="int" value="4"/>
+        <value type="int" value="5"/>
+        <value type="int" value="7"/>
+        <value type="int" value="21"/>
+        <value type="int" value="10"/>
+        <value type="int" value="11"/>
+        <value type="int" value="12"/>
+      </property>
+      <property name="position" type="string" value="p=6;x=0;y=0"/>
+      <property name="position-locked" type="bool" value="true"/>
+      <property name="size" type="uint" value="24"/>
+      <property name="span-monitors" type="bool" value="false"/>
+      <property name="disable-struts" type="bool" value="false"/>
+      <property name="nrows" type="uint" value="1"/>
+    </property>
+  </property>
+  <property name="plugins" type="empty">
+    <property name="plugin-1" type="string" value="whiskermenu"/>
+    <property name="plugin-10" type="string" value="pulseaudio">
+      <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
+      <property name="enable-mpris" type="bool" value="true"/>
+      <property name="mixer-command" type="string" value="pavucontrol"/>
+      <property name="mpris-players" type="string" value="chromium.instance12572;chromium.instance14812;chromium.instance15212;chromium.instance16870;chromium.instance1765;chromium.instance1781;chromium.instance1782;chromium.instance1793;chromium.instance1796;chromium.instance1798;chromium.instance1807;chromium.instance1812;chromium.instance1816;chromium.instance1819;chromium.instance1823;chromium.instance1833;chromium.instance1835;chromium.instance1840;chromium.instance1851;chromium.instance1878;chromium.instance1921;chromium.instance1992;chromium.instance20109;chromium.instance2033;chromium.instance2040;chromium.instance2054;chromium.instance2060;chromium.instance2066;chromium.instance2078;chromium.instance2081;chromium.instance2083;chromium.instance2095;chromium.instance2123;chromium.instance2124;chromium.instance2128;chromium.instance2164;chromium.instance2194;chromium.instance2322;chromium.instance2387;chromium.instance2401;chromium.instance2417;chromium.instance2427;chromium.instance2447;chromium.instance2501;chromium.instance2510;chromium.instance2559;chromium.instance2695;chromium.instance2711;chromium.instance2728;chromium.instance2835;chromium.instance3001;chromium.instance3270;chromium.instance3565;chromium.instance3688;chromium.instance3805;chromium.instance3820;chromium.instance45214;chromium.instance5278;chromium.instance6857;chromium.instance7224;chromium.instance7345;chromium.instance8282;chromium.instance9492;chromium.instance9541;firefox.instance10105;firefox.instance10463;firefox.instance11113;firefox.instance11392;firefox.instance11631;firefox.instance11640;firefox.instance12064;firefox.instance13215;firefox.instance13438;firefox.instance13770;firefox.instance14916;firefox.instance15805;firefox.instance1611;firefox.instance16274;firefox.instance17061;firefox.instance1742;firefox.instance1756;firefox.instance17588;firefox.instance1759;firefox.instance1768;firefox.instance1771;firefox.instance1785;firefox.instance1787;firefox.instance17907;firefox.instance1791;firefox.instance1792;firefox.instance1803;firefox.instance18261;firefox.instance1827;firefox.instance1862;firefox.instance1868;firefox.instance1881;firefox.instance1884;firefox.instance1905;firefox.instance1952;firefox.instance1956;firefox.instance1995;firefox.instance1997;firefox.instance2009;firefox.instance2062;firefox.instance20885;firefox.instance2125;firefox.instance2147;firefox.instance2160;firefox.instance2184;firefox.instance2198;firefox.instance2211;firefox.instance22295;firefox.instance2729;firefox.instance2860;firefox.instance2911;firefox.instance3107;firefox.instance3468;firefox.instance4270;firefox.instance4527;firefox.instance4570;firefox.instance4671;firefox.instance4727;firefox.instance48089;firefox.instance5116;firefox.instance5161;firefox.instance5698;firefox.instance6241;firefox.instance6305;firefox.instance6809;firefox.instance7212;firefox.instance7465;firefox.instance7712;firefox.instance8004;firefox.instance8012;firefox.instance8447;firefox.instance8529;firefox.instance9246;parole;spotify"/>
+      <property name="show-notifications" type="bool" value="true"/>
+    </property>
+    <property name="plugin-11" type="string" value="separator">
+      <property name="expand" type="bool" value="false"/>
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-12" type="string" value="clock">
+      <property name="digital-format" type="string" value="%a %d, %I:%M %p "/>
+      <property name="mode" type="uint" value="2"/>
+    </property>
+    <property name="plugin-2" type="string" value="separator">
+      <property name="expand" type="bool" value="false"/>
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-3" type="string" value="tasklist">
+      <property name="flat-buttons" type="bool" value="false"/>
+      <property name="show-handle" type="bool" value="false"/>
+      <property name="show-labels" type="bool" value="true"/>
+      <property name="sort-order" type="uint" value="0"/>
+      <property name="grouping" type="uint" value="0"/>
+      <property name="middle-click" type="uint" value="1"/>
+      <property name="show-wireframes" type="bool" value="false"/>
+      <property name="include-all-workspaces" type="bool" value="false"/>
+      <property name="show-only-minimized" type="bool" value="false"/>
+      <property name="include-all-monitors" type="bool" value="true"/>
+    </property>
+    <property name="plugin-4" type="string" value="separator">
+      <property name="expand" type="bool" value="true"/>
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-5" type="string" value="systray">
+      <property name="names-ordered" type="array">
+        <value type="string" value="system-config-printer"/>
+        <value type="string" value="task manager"/>
+        <value type="string" value="zoom"/>
+        <value type="string" value="bluetooth enabled"/>
+        <value type="string" value="discord"/>
+        <value type="string" value="steam"/>
+        <value type="string" value="networkmanager applet"/>
+        <value type="string" value="update-notifier"/>
+        <value type="string" value="blueman-tray"/>
+        <value type="string" value="network"/>
+        <value type="string" value="onboard"/>
+        <value type="string" value="ibus panel"/>
+        <value type="string" value="thunar"/>
+      </property>
+      <property name="show-frame" type="bool" value="false"/>
+      <property name="size-max" type="uint" value="18"/>
+      <property name="square-icons" type="bool" value="true"/>
+      <property name="names-hidden" type="array">
+        <value type="string" value="network"/>
+        <value type="string" value="blueman-tray"/>
+        <value type="string" value="networkmanager applet"/>
+        <value type="string" value="ibus panel"/>
+        <value type="string" value="onboard"/>
+      </property>
+    </property>
+    <property name="plugin-7" type="string" value="indicator">
+      <property name="blacklist" type="array">
+        <value type="string" value="libappmenu.so"/>
+      </property>
+      <property name="known-indicators" type="array">
+        <value type="string" value="com.canonical.indicator.messages"/>
+      </property>
+      <property name="square-icons" type="bool" value="true"/>
+      <property name="mode-whitelist" type="bool" value="false"/>
+    </property>
+    <property name="plugin-8" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+      <property name="expand" type="bool" value="true"/>
+    </property>
+    <property name="plugin-16" type="string" value="pager">
+      <property name="rows" type="uint" value="1"/>
+      <property name="miniature-view" type="bool" value="false"/>
+    </property>
+    <property name="notes" type="empty">
+      <property name="global" type="empty">
+        <property name="skip-taskbar-hint" type="bool" value="true"/>
+        <property name="background-color" type="string" value="#f0f0ccccf0f0"/>
+        <property name="tabs-position" type="int" value="3"/>
+        <property name="font-description" type="string" value="Sans 14"/>
+      </property>
+      <property name="new-window" type="empty">
+        <property name="width" type="int" value="300"/>
+        <property name="height" type="int" value="375"/>
+        <property name="sticky" type="bool" value="true"/>
+        <property name="always-on-top" type="bool" value="false"/>
+      </property>
+    </property>
+    <property name="plugin-21" type="string" value="power-manager-plugin"/>
+  </property>
+</channel>

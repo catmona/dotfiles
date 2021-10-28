@@ -1,0 +1,10 @@
+/*//META{"name":"MinifiedMemberlist","description":"Minifies the Memberlist in guilds and group chats.","author":"Chloe-ko#6669","version":"2.1"}*//**/
+
+@import url('https://cfcdn.nyu.moe/minifiedMemberlist.source.css');
+
+/*User changeable settings*/
+
+:root {
+	--hover-animation-speed: .35s;
+	--seperator-color: #707e81;
+}
