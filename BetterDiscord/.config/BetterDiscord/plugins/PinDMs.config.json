@@ -1,20 +1,8 @@
 {
 	"general": {
-		"channelAmount": false,
+		"channelAmount": true,
 		"pinIcon": false,
 		"unreadAmount": true
-	},
-	"pinned": {
-		"135840962998960129": {
-			"[object Object]": {
-				"801898254207549450": 0
-			}
-		}
-	},
-	"pinnedRecents": {
-		"801896981727412254": 0,
-		"804105284074471454": 2,
-		"813492652892225556": 1
 	},
 	"preCategories": {
 		"friends": {
@@ -33,12 +21,5 @@
 	"recentOrder": {
 		"channelList": false,
 		"guildList": false
-	},
-	"settings": {
-		"showCategoryAmount": true,
-		"showCategoryUnread": true,
-		"showPinIcon": false,
-		"sortInRecentOrder": false,
-		"sortInRecentOrderGuild": false
 	}
 }

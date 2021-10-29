@@ -2,8 +2,8 @@
 
 <channel name="xsettings" version="1.0">
   <property name="Net" type="empty">
-    <property name="ThemeName" type="string" value="cats theme 1"/>
-    <property name="IconThemeName" type="string" value="cat icons"/>
+    <property name="ThemeName" type="string" value="oomox-kitty_2"/>
+    <property name="IconThemeName" type="string" value="oomox-kitty"/>
     <property name="DoubleClickTime" type="empty"/>
     <property name="DoubleClickDistance" type="empty"/>
     <property name="DndDragThreshold" type="empty"/>

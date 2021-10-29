@@ -4,16 +4,16 @@
   <property name="ActiveProfile" type="string" value="Default"/>
   <property name="Default" type="empty">
     <property name="eDP-1" type="string" value="Laptop">
-      <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="72911d0d9bcec76958450e5414421ec608451c42"/>
-      <property name="Resolution" type="string" value="1368x912"/>
-      <property name="RefreshRate" type="double" value="59.892357"/>
+      <property name="Active" type="bool" value="false"/>
+      <property name="EDID" type="string" value="cb6bdca896703d2434cfcc33724972c303714585"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="60.007852"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="true"/>
+      <property name="Primary" type="bool" value="false"/>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
-        <property name="Y" type="int" value="0"/>
+        <property name="Y" type="int" value="18"/>
       </property>
     </property>
     <property name="HDMI-1-1" type="string" value="ASUS 24&quot;">
@@ -84,10 +84,10 @@
   </property>
   <property name="Fallback" type="empty">
     <property name="eDP-1" type="string" value="Laptop">
-      <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="72911d0d9bcec76958450e5414421ec608451c42"/>
-      <property name="Resolution" type="string" value="1368x912"/>
-      <property name="RefreshRate" type="double" value="59.892357"/>
+      <property name="Active" type="bool" value="false"/>
+      <property name="EDID" type="string" value="cb6bdca896703d2434cfcc33724972c303714585"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="60.007852"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="true"/>

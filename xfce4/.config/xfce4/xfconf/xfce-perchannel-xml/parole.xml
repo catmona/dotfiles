@@ -19,6 +19,6 @@
     <property name="volume" type="int" value="100"/>
   </property>
   <property name="folders" type="empty">
-    <property name="last-used-media" type="string" value="/home/cat/Downloads"/>
+    <property name="last-used-media" type="string" value="/home/cat/Documents/Zoom/2021-10-18 17.50.32 Catherine Sangiovanni&apos;s Zoom Meeting 96804161415"/>
   </property>
 </channel>
