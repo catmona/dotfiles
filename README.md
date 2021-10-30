@@ -10,6 +10,8 @@ Use Stow to manage dotfiles
 
 **Blackish Pink** ![#2D2A32](https://via.placeholder.com/15/2D2A32/000000?text=+) `#2D2A32`
 
+**Darkish UI** ![#2f2a33](https://via.placeholder.com/15/2f2a33/000000?text=+) `#2f2a33`
+
 **Dark Magenta** ![#211d24](https://via.placeholder.com/15/211d24/000000?text=+) `#211d24`
 
 **Selected** ![#3b3741](https://via.placeholder.com/15/3b3741/000000?text=+) `#3b3741`

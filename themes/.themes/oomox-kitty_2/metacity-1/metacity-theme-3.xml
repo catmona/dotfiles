@@ -29,14 +29,14 @@
 
 <!-- minimize, maximize -->
 <constant name="C_button_bg_hover" value="gtk:custom(wm_button_hover_bg,#f1f1f1)" />
-<constant name="C_button_bg_active" value="gtk:custom(wm_button_active_bg,#3b3741)" />
+<constant name="C_button_bg_active" value="gtk:custom(wm_button_active_bg,#B594B6)" />
 
 <constant name="C_button_border_hover" value="gtk:custom(wm_button_hover_border,#f1f1f1)" />
 
 <constant name="C_icon_bg_focused" value="gtk:custom(wm_icon_bg,#f1f1f1)" />
 <constant name="C_icon_bg_unfocused" value="gtk:custom(wm_icon_unfocused_bg,#bdbcbd)" />
 <constant name="C_icon_bg_hover" value="gtk:custom(wm_icon_hover_bg,#bdbcbd)" />
-<constant name="C_icon_bg_active" value="gtk:custom(wm_icon_active_bg,#2D2A32)" />
+<constant name="C_icon_bg_active" value="gtk:custom(wm_icon_active_bg,#2f2a33)" />
 
 <!-- geometries -->
 
