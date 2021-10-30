@@ -326,7 +326,7 @@ span time { /* timestamp */
     color: grey;
 }
 
-.divider-3_HH5L { /* new messages divider */
+.isUnread-3Ef-o9 { /* new messages divider */
     --divider-color: var(--grape);
     border-bottom-color: var(--divider-color);
     border-left-color: var(--divider-color);
