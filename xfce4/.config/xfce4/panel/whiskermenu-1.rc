@@ -1,5 +1,5 @@
 favorites=exo-web-browser.desktop,exo-mail-reader.desktop,exo-file-manager.desktop,libreoffice-writer.desktop,libreoffice-calc.desktop,pidgin.desktop,exo-terminal-emulator.desktop
-recent=panel-preferences.desktop,xfce-wm-settings.desktop,xfce-ui-settings.desktop,xfce-wmtweaks-settings.desktop,com.github.themix_project.Oomox.desktop,org.gnome.font-viewer.desktop,xfce-workspaces-settings.desktop,net.lutris.Lutris.desktop,xfce4-taskmanager.desktop,software-properties-drivers.desktop
+recent=xfce-ui-settings.desktop,xfce-wm-settings.desktop,com.github.themix_project.Oomox.desktop,panel-preferences.desktop,xfce-wmtweaks-settings.desktop,org.gnome.font-viewer.desktop,xfce-workspaces-settings.desktop,net.lutris.Lutris.desktop,xfce4-taskmanager.desktop,software-properties-drivers.desktop
 button-icon=yd-ind-idle
 button-single-row=false
 show-button-title=false
