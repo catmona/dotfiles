@@ -2,5 +2,10 @@
     "currentVersionInfo": {
         "version": "1.1.0",
         "hasShownChangelog": true
+    },
+    "settings": {
+        "customPronouns": {},
+        "showOnTimestamp": true,
+        "showInUserPopout": true
     }
 }

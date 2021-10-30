@@ -390,6 +390,14 @@ span time { /* timestamp */
     color: var(--light-grey) !important;
 }
 
+.PronounDB-pronouns-text { /* pronounDB text */
+    color: var(--grey);
+}
+
+.contents-18-Yxp { /* red button text */
+    color: var(--white);
+}
+
 
 /* reaction border */
 .reaction-1hd86g.reactionMe-wv5HKu {
