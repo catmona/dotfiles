@@ -1,0 +1,455 @@
+/**
+  * @name kitty null
+  * @description A modified DarkNull (by Asteria) with included minifiedMemberList by Chloe-ko
+
+  * @author Cat
+  * @version 1.0.0
+  * @invite QRxZPvc
+  * @website https://github.com/Asteria5675/BetterDiscordThemes/blob/master/null/README.md
+ */
+ /* Null Import | Don't Delete */
+ @import url('https://asteria5675.github.io/BetterDiscordThemes/SourceCodes/src/null.css');
+ /* Imports *//*
+ @import url('https://asteria5675.github.io/addons/Bigger_Chat_Avatars.css');
+ */@import url('https://asteria5675.github.io/addons/null_addons.css');
+/*
+ @import url('https://asteria5675.github.io/addons/full_popout_avatars.css');
+/**/
+/*//
+
+                Read the READ.md from github for visual explanations
+            ------------------------------------------------------------
+
+                                                                                              ____ __   __   __   __  __
+    <https://github.com/Asteria5675/BetterDiscordThemes/blob/master/null/README.md>           \  __  \  \ \  \ \  \ \ \ \ 
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                      \ \  \ \  \ \  \ \  \ \ \ \
+                                                                                                \ \  \ \  \ \_ \ \  \ \ \ \
+                                                                                                 \_\  \_|  \____ _|  \_| \_|
+            ------------------------------------------------------------
+                Read the READ.md from github for visual explanations
+           
+//*/
+/* 
+ Quick explanation:
+    1. Find the colour you desire in HSL        [example: hsl(217, 12%, 15%) for a navy blue]
+
+    2. Replace the variables from .theme-dark variables list
+        -the first value of hsl() is hue[h]     [ --hue: 0; --> --hue: 217;                 ]
+        -second value [s] is saturation         [ --saturation: 0%; --> --saturation: 12%   ]
+        -third value [l] is lightness           [ --lightness: 0%; --> --lightness: 15%     ]
+
+Changing the above values will NOT CHANGE ANYTHING
+Change the values below >> NOT the ones contained within /*...*/
+/**/
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+@import url("https://discordstyles.github.io/RadialStatus/dist/RadialStatus.css");
+
+:root {
+    --white: #f1f1f1;
+    --pink: #f8c2e2;
+    --brown: #9C6E81;
+    --blackpink: #2D2A32;
+    --magenta: #211d24;
+    --selected: #3b3741;
+    --light-red: #d87389;
+    --red: #DA627D;
+    --opal: #AED0C9;
+    --light-cyan: #CEFDFF;
+    --grape: #B594B6;
+    --light-grey: #c0c0c0;
+    --grey: #807a79;
+    --yellow: #fcc891;
+    --light-yellow: #f7d9b9;
+    --orange: #D98287;
+    --light-orange: #ff9296;
+    --blue: #6694CC;
+    --green: #8fda8f;
+
+    /* RADIAL STATUS */
+    --rs-small-spacing: 1.5px; /* Gap between avatar and status for members list/dms | MUST end in px */
+    --rs-medium-spacing: 2.5px; /* Gap between avatar and status for User popout | MUST end in px */
+    --rs-large-spacing: 3.5px; /* Gap between avatar and status for User profiles | MUST end in px */
+
+    --rs-small-width: 1.75px; /* Thickness of status border for members list/dms | MUST end in px */
+    --rs-medium-width: 2.75px; /* Thickness of status border for User popout | MUST end in px */
+    --rs-large-width: 3.75px; /* Thickness of status border for User profile | MUST end in px */
+
+    --rs-avatar-shape: 50%; /* 50% for round - 0% for square */
+
+    --rs-online-color: var(--pink); /* Colour for online status */
+    --rs-idle-color: var(--yellow); /* Colour for idle status */
+    --rs-dnd-color: var(--red); /* Colour for dnd status */
+    --rs-offline-color: var(--grey); /* Colour for offline status */
+    --rs-streaming-color: var(--pink); /* Colour for streaming status */
+    --rs-invisible-color: var(--grape); /* Colour for invisible status - Note: this will only show for your own invisibility */
+    --rs-phone-color: var(--blue); /* Colour of the ring and phone icon when a user is on their phone |  */
+
+    --rs-phone-visible: none; /* Visibility of the phone icon next to a users avatar. | block = visible | none = hidden */
+
+    /* MINIMIZED MEMBERLIST */
+    --hover-animation-speed: 0.27s;
+
+    /*THEME */
+    --channels-default: var(--light-grey);
+    --interactive-active: var(--white);
+    --interactive-muted:  var(--grey);
+    --text-muted: var(--brown);
+    --brand-experiment-360: var(--pink); /* text accents I think? */
+    --brand-experiment: var(--brown);
+    --text-link: var(--pink);
+    --text-positive: var(--yellow); /* voice connected */
+    --text-negative: var(--red);
+    --control-brand-foreground: var(--brown);
+
+    /*      Test Variables to mess around for different colours                */
+        --test: hsla(217, 0%, 6%, 1) ; /* hsla(217, 33%, 18%, 0.99); */
+        --example-black: hsla(0, 0%, 0%, 0.99);
+    
+    /*  HSL values      - change these values for different background color                                  */
+        --hue: 263 ;                /* Value between [0,360] */
+        --saturation: 9% ;          /* shade of grey(0%) to full color(100%) | Value is in (%) */
+        --lightness: 18% ;          /* 0% is black \ 100% is white | Value is in (%) >>>>Note advised to NOT use high ligtness<<<*/
+        --alpha: 0.61 ;                /* 1 is for solid color | follow the readme to understand alpha for transparency */
+    
+    /*  Change these values to 0%(not --hue-addition) if you want the one colour throughout Discord*/
+        --hue-addition: 4 ;          
+        --saturation-addition: 3% ;  
+        --lightness-addition: -5% ; 
+        --alpha-addition: 0.355 ;       /* Additional alpha for main parts of Discord if making a semi transparent Discord from this theme */
+    
+  /* Image / Transparency */
+/* Change the below url to a direct image link(right click image on browser > copy image address) [insert your link between '()' in 'url()' ]*/
+        --image: url('https://cdn.discordapp.com/attachments/902739961537769492/903798669965418506/5923908.jpg');
+         /* Only Affects transparency option*/
+        --titlebar-alpha: 0; /* Top Title Bar */
+        --blur: 1px; /* 0px for no blur | Blur on image not desktop */
+ 
+    /*  Accent Colors / Tooltips / Mentions                                                                        */
+    
+        --accent-color:   var(--pink);
+        --tooltip-background: var(--accent-color); /* Discord Default: #000 | Theme Default: var(--accent-color)*/
+        --tooltip-text: white;              /* Discord Default: #dcddde*/
+        --blurple:    var(--brown);         /* Discord Default: #7289DA | Theme Default var(--accent-color) */
+        --mention-channel-background: 0.2;      /* Channel/Other User Mentions Opacity/Alpha*/
+        --is-mention:  var(--pink);      /* Discord Default hsl(38, 96%, 54%); */
+        --is-mention-bg: var(--grape);    /* Discord Default hsl(38, 96%, 54%) */
+        --is-mention-alpha:0.08;                /* Discord Default 0.05 */
+
+        --unread: var(--light-grey)  ; /* Discord Default: #fff */
+        --guild-selected: var(--white) ; /* Discord Default: #fff | Only changed for users of BD*/
+
+        /* Channel / DM - Selected channel*/
+        --channel-selected: var(--selected) /* <-- delete this and replace 
+        with var(--background-modifier-selected) for default discord*/;
+
+    /* Misc Values - do NOT CHANGE (unless you know what they do)*/
+        --multiplier: (1.25);
+        --track-alpha: 0.45;
+        --floating-alpha: 1;
+    
+        --channeltextarea-background: hsla(calc(var(--hue) + var(--hue-addition)), calc(var(--saturation) + 6%), calc(var(--lightness) + calc(var(--multiplier) * var(--lightness-addition))), calc(var(--alpha)));
+        --server-blurple: var(--grape);        /*Background color of the Home Icon*/
+        --settings-selected:var(--channel-selected); /*Discord Default: --background-modifier-selected | Theme Default: --accent-color*/
+        --friend-selected:var(--background-modifier-selected);
+        --member-list-addition: 3.5%;
+        --background-floating: hsla(calc(var(--hue) + var(--hue-addition)), calc(var(--saturation) + var(--saturation-addition)), calc(var(--lightness) + var(--lightness-addition)), calc(var(--floating-alpha)));
+        --divider-alpha: 1;
+
+}
+
+.guilds-1SWlCJ { /*server list color*/
+    background-color: var(--magenta) !important;
+} 
+
+/* FONT */
+::placeholder, body, button, input, select, textarea {
+    font-family: 'Cabin', sans-serif ;
+    color: white;
+    /*font-size: 30px;*/
+}
+
+/* ICONS */
+svg { /* most icons */
+    color: var(--grape); 
+}
+
+svg.homeIcon-AaowEC { /* home icon */
+    color: var(--grape) !important;
+}
+svg.homeIcon-AaowEC:hover { /* home icon */
+    color: var(--magenta) !important;
+}
+.selected-bZ3Lue svg { /* home icon */
+    color: var(--magenta) !important;
+}
+
+svg.actionIcon-PgcMM2 { /* channel settings icons */
+    color: var(--light-red) !important;
+}
+
+svg.icon-22AiRD { /* toolbar icons */
+    color: var(--grape) !important;
+}
+
+.strikethrough-3Wiitd { /* strikethrough notifs */
+    color: var(--light-orange);
+}
+.strikethrough-1n4ekb { /* strikethrough mic & deafen */
+    color: var(--light-orange);
+}
+
+svg.icon-3cZ1F_ { /* search bar icon */
+    color: var(--grape);
+}
+
+svg.badge-1JXQev { /* video player icon */
+    color: var(--white)
+}
+
+div.icon-3Oovq9 { /* screen sharing icon */
+    background-color: var(--grape) !important;
+}
+
+.upperBadge-2XnnGB svg { /* voice call badge icon */
+    color: var(--yellow)
+}
+.upperBadge-2XnnGB div { /* voice call badge icon */
+    background-color: var(--blackpink) !important;
+}
+
+.buttons-3JBrkn { /* input buttons */
+    filter:grayscale(100%) !important;
+}
+
+#bd-pub-button:hover /* "Public" button */ {
+    background-color: var(--grape);
+    color: var(--magenta);
+}
+#bd-pub-button /* "Public" button */ {
+    color: var(--grape);
+}
+
+.bd-button { /* some buttons */
+    background-color: var(--brown);
+}
+.bd-button:hover { /* some buttons */
+    background-color: var(--grape);
+}
+
+.selected-3mFF3I { /* when hovering/selecting some buttons */
+    background-color: var(--grape) !important;
+}
+.selected-3mFF3I svg { /* svg when hovering/selecting some buttons */
+    color: var(--magenta) !important;
+}
+
+.iconBadge-qZ4Ksk { /* new pins icon */
+    background-color: var(--light-orange) !important;
+}
+
+.actionButtons-14eAc_ svg { /* voice call button icons */
+    color: var(--white)!important;
+}
+.button-1YfofB { /* voice call buttons */
+    background-color: var(--selected) !important;
+}
+.buttonActive-3FrkXp { /* voice call activated buttons */
+    background-color: var(--magenta) !important;
+}
+
+.live-vBWnV6 { /* LIVE indicator */
+    background-color: var(--red) !important;
+}
+
+.avatarSpeaking-2IGMRN { /* speaking icon */
+    box-shadow: 0 0 0 2px var(--yellow), inset 0 0 0 0.5px var(--yellow) !important;
+}
+
+.bd-switch-body { /* switch */
+    --switch-color: var(--magenta) !important;
+}
+.bd-switch-checked div {
+    background-color: var(--brown) !important;
+}
+
+.bd-view-button.selected {
+    background-color: var(--grape) !important;
+}
+
+.bd-button-danger { /* red button */
+    background-color: var(--red) !important;
+}
+
+.container-3auIfb { /* switch 2 */
+    background-color: var(--brown) !important;
+}
+
+.colorBrandNew-g5lmBU { /* branding */
+    background-color: var(--brown) !important;
+}
+.colorBrandNew-g5lmBU svg { /* white icon branding */
+    color: var(--white);
+}
+.colorRed-1TFJan { /* delete button */
+    background-color: var(--red) !important;
+}
+.colorGreen-29iAKY { /* accept button */
+    background-color: var(--grape) !important;
+}
+.container-2VW0UT { /* save changes / reset prompt */
+    background-color: var(--blackpink) !important;
+}
+
+svg.botTagVerified-1klIIt { /* bot verified checkmark */
+    color: var(--light-grey);
+}
+
+.barButtonIcon-3t4V3d { /* mark all as read */
+    color: var(--white);
+}
+
+
+/* TEXT */
+h1, h2, h3 { /*server name color and other headers*/
+    background-image: linear-gradient(to left, var(--pink), var(--grape), var(--blue), var(--opal), var(--yellow) , var(--orange), var(--red));   
+    -webkit-background-clip: text;
+    background-clip: text;
+    -moz-background-clip: text;
+    color: transparent !important;
+}
+
+h3 {
+    background-image: linear-gradient(to right, var(--pink), var(--grape), var(--orange), var(--light-red)) !important;
+}
+
+span time { /* timestamp */
+    color: grey;
+}
+
+.divider-3_HH5L { /* new messages divider */
+    --divider-color: var(--grape);
+    border-bottom-color: var(--divider-color);
+    border-left-color: var(--divider-color);
+    border-right-color: var(--divider-color);
+    border-top-color: var(--divider-color);
+    
+}
+.unreadPill-2HyYtt {
+    background-color: var(--divider-color);
+    color: var(--magenta);
+}
+.unreadPill-2HyYtt svg {
+    color: var(--pink);
+}
+
+.name-3l27Hl { /* category color */
+    color: var(--light-yellow) !important;
+}
+
+.public-DraftEditorPlaceholder-inner { /* search bar text */
+    color: var(--grape) !important;
+}
+
+.placeholder-37qJjk { /* placeholder input text */
+    color: var(--grey);
+}
+
+.slateTextArea-1Mkdgw span { /* input text */
+    color: var(--white);
+}
+
+/* .messageListItem-1-jvGY div { /* message color */
+    /* color: var(--white); */
+
+.colorDanger-2qLCe1 { /* most red colors */
+    color: var(--red);
+}
+
+.usernameSpeaking-RmltQx span { /* speaking username */
+    color: var(--yellow) !important;
+}
+
+.modeSelected-346R90 div { /* active text channel */
+    color: var(--pink);
+}
+
+.modeConnected-3IsKId div { /* active voice channel */
+    color: var(--yellow) !important;
+}
+
+.content-1o0f9g { /* date separator */
+    background-color: transparent;
+}
+
+.numberBadge-2s8kKX { /* notification badge */
+    color: var(--white) !important;
+    background-color: var(--red) !important;
+}
+
+.reactionCount-2mvXRV { /* reaction count text */
+    color: var(--light-grey) !important;
+}
+
+
+/* reaction border */
+.reaction-1hd86g.reactionMe-wv5HKu {
+    border: 1px solid transparent;
+}
+
+.reaction-1hd86g {
+    border-radius: 0.30rem;
+}
+
+
+/* MINIFIED MEMBER LIST */
+.content-yTz4x3 .membersWrap-2h-GB4 {
+	min-width: unset;
+	width: 50px;
+	z-index: 1000;
+	justify-content: right;
+	flex-basis: unset;
+}
+.membersWrap-2h-GB4 .members-1998pB {
+	transition: transform var(--hover-animation-speed);
+}
+.membersWrap-2h-GB4:hover .members-1998pB {
+	transform: translateX(-190px);
+}
+.membersWrap-2h-GB4 .membersGroup-v9BXpm::after {
+	content:"";
+	width: 30px;
+	height: 2px;
+	border-radius: 50px;
+	background: unset;
+	/* background-color: var(--pink); */
+	position: absolute;
+	left: -36px;
+	top: 29px;
+	margin-left: 0px;
+
+    background-image: linear-gradient(to left, var(--light-orange), var(--red));
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    color: transparent;
+}
+.membersWrap-2h-GB4 .members-1998pB .member-3-YXUe {
+	background-color: unset;
+	margin-left: 0px;
+	transition: margin-left var(--hover-animation-speed);
+}
+.membersWrap-2h-GB4:hover .members-1998pB .member-3-YXUe {
+	margin-left: 8px;
+}
+.membersWrap-2h-GB4:hover .membersGroup-v9BXpm {
+	transform: translateX(-6px);
+}
+.membersWrap-2h-GB4 .membersGroup-v9BXpm {
+	cursor: default;
+	transform: translateX(45px);
+	transition: transform var(--hover-animation-speed);
+	overflow: visible;
+}
+
+
+

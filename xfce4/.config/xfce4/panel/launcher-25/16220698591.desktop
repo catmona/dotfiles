@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Value=1.0
+Type=Application
+Name=Pathfinder: Kingmaker
+GenericName=Pathfinder: Kingmaker
+Comment=Pathfinder: Kingmaker
+Icon=/home/cat/Pictures/misc/pathfinder.png
+Exec="/home/cat/Games/Pathfinder Kingmaker/start.sh" ""
+Categories=Game;
+Path=/home/cat/Games/Pathfinder Kingmaker
+X-XFCE-Source=file:///usr/share/applications/gog_com-Pathfinder_Kingmaker_1.desktop
+Terminal=false
+StartupNotify=false
