@@ -308,6 +308,10 @@ svg.botTagVerified-1klIIt { /* bot verified checkmark */
     color: var(--white);
 }
 
+.red-33-Lnk { /* moar red buttons */
+    background-color: var(--red) !important;
+}
+
 
 /* TEXT */
 h1, h2, h3 { /*server name color and other headers*/
