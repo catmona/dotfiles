@@ -366,7 +366,7 @@ bindings.globalkeys = gears.table.join(
     -- =========================================
 
     -- Focus screen by index (cycle through screens)
-    awful.key({modkey}, "s",
+    awful.key({modkey}, "o",
         function()
             awful.screen.focus_relative(1)
         end,
