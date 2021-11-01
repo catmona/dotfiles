@@ -182,6 +182,14 @@ bindings.globalkeys = gears.table.join(
         {description = "open spotify", group = "launcher"}
     ),
 
+    -- launch file browser
+    awful.key({modkey}, "f",
+        function()
+            awful.spawn(globals.filebrowser)
+        end,
+        {description = "open spotify", group = "launcher"}
+    ),
+
 
     -- =========================================
     -- FUNCTION KEYS
@@ -267,11 +275,12 @@ bindings.globalkeys = gears.table.join(
     ),
 
     -- Quit Awesome
-    awful.key({modkey}, "Backspace",
-        function()
+    awful.key({modkey, "Shift"}, "q",
+        -- function()
             -- emit signal to show the exit screen
-            awesome.emit_signal("show_exit_screen")
-        end,
+            -- awesome.emit_signal("show_exit_screen")
+            awesome.quit,
+        -- end,
         {description = "toggle exit screen", group = "hotkeys"}
     ),
 
@@ -603,11 +612,19 @@ bindings.clientkeys = gears.table.join(
     -- =========================================
 
     -- toggle fullscreen
-    awful.key({modkey}, "f",
+    awful.key({modkey, "Control"}, "f",
         function(c)
             c.fullscreen = not c.fullscreen
         end,
         {description = "toggle fullscreen", group = "client"}
+    ),
+
+    -- toggle floating
+    awful.key({modkey, "Shift"}, "f",
+        function(c)
+            c.floating = not c.floating
+        end,
+        {description = "toggle floating", group = "client"}
     ),
 
     -- close client
