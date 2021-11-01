@@ -39,8 +39,8 @@ autostart.autorun()
 
 -- Start theme
 local beautiful = require("beautiful")
--- beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/" .. globals.theme)
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/" .. globals.theme)
+-- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 local dpi = require("beautiful.xresources").apply_dpi
 
 -- Import keybinds

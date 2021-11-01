@@ -25,6 +25,7 @@ require("awful.hotkeys_popup.keys")
 -- import user modules
 local globals = require("globals")
 local modkey = globals.modkey
+local altkey = globals.altkey
 
 -- define module table
 local bindings = {}

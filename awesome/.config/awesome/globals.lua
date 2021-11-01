@@ -6,11 +6,11 @@
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 
 local globals = {
-    theme = "default/theme.lua",
+    theme = "pastel.lua",
     terminal = "alacritty",
     editor = os.getenv("EDITOR") or "vim",
     modkey = "Mod4",
-    altkey = "mod1",
+    altkey = "Mod1",
     network_manager = "",
     power_manager = "",
     launcher = "rofi -show drun",
