@@ -16,7 +16,7 @@ local globals = {
     launcher = "rofi -show drun",
     filebrowser = "thunar",
     lock = "",
-    screenshot = ""
+    screenshot = "flameshot gui"
 }
 
 return globals

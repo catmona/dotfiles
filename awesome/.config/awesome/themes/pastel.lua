@@ -52,7 +52,7 @@ theme.border_width = dpi(2)
 theme.border_normal = theme.bg_normal
 theme.border_focus = "#d87389"
 theme.border_marked = theme.fg_urgent
-theme.rounded_corners = true
+theme.rounded_corners = false
 
 -- Taglist
 theme.taglist_bg_empty = theme.bg_normal

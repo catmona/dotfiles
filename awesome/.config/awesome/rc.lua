@@ -104,7 +104,7 @@ client.connect_signal("manage", function (c)
 if beautiful.rounded_corners then
     client.connect_signal("manage", function (c)
         c.shape = function(cr,w,h)
-            gears.shape.rounded_rect(cr,w,h,5)
+            gears.shape.rounded_rect(cr,w,h,20)
         end
     end)
 end
