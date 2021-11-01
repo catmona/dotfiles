@@ -81,6 +81,12 @@ awful.layout.layouts = {
 --     end
 -- end)
 
+
+-- ===================================================================
+-- Signals
+-- ===================================================================
+
+
 -- Signal function to execute when a new client appears
 client.connect_signal("manage", function (c)
     -- Set the window as a slave (put it at the end of others instead of setting it as master)
@@ -94,6 +100,44 @@ client.connect_signal("manage", function (c)
     end
  end)
 
+-- Signal for rounded corners globally
+if beautiful.rounded_corners then
+    client.connect_signal("manage", function (c)
+        c.shape = function(cr,w,h)
+            gears.shape.rounded_rect(cr,w,h,5)
+        end
+    end)
+end
+
+-- Signal for showing titlebars if floating client
+client.connect_signal("property::floating", function(c)
+    if c.floating then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end)
+
+-- Signal for spawning clients when in floating mode titlebar show/hide
+client.connect_signal("manage", function(c)
+    if c.floating or c.first_tag.layout.name == "floating" then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end)
+
+-- Signal for changing between floating/tiled layouts titlebar show/hide
+tag.connect_signal("property::layout", function(t)
+    local clients = t:clients()
+    for k,c in pairs(clients) do
+        if c.floating or c.first_tag.layout.name == "floating" then
+            awful.titlebar.show(c)
+        else
+            awful.titlebar.hide(c)
+        end
+    end
+end)
 
 -- ===================================================================
 -- Client Focusing
@@ -166,37 +210,6 @@ collectgarbage("setstepmul", 1000)
 
  local wibox = require("wibox")
  local menubar = require("menubar")
-
--- {{{ Menu
--- Create a launcher widget and a main menu
--- myawesomemenu = {
---    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
---    { "manual", globals.terminal .. " -e man awesome" },
---    { "edit config", globals.editor .. " " .. awesome.conffile },
---    { "restart", awesome.restart },
---    { "quit", function() awesome.quit() end },
--- }
-
--- local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
--- local menu_terminal = { "open terminal", terminal }
-
--- if has_fdo then
---     mymainmenu = freedesktop.menu.build({
---         before = { menu_awesome },
---         after =  { menu_terminal }
---     })
--- else
---     mymainmenu = awful.menu({
---         items = {
---                   menu_awesome,
---                   menu_terminal,
---                 }
---     })
--- end
-
-
--- mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
---                                      menu = mymainmenu })
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it

@@ -312,6 +312,10 @@ svg.botTagVerified-1klIIt { /* bot verified checkmark */
     background-color: var(--red) !important;
 }
 
+.unread-1xRYoj { /* unread bar in channel list */
+    background-color: var(--blackpink);
+}
+
 
 /* TEXT */
 h1, h2, h3 { /*server name color and other headers*/
