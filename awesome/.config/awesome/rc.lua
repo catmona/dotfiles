@@ -63,6 +63,10 @@ awful.layout.layouts = {
 local signals = require("signals")
 signals.create()
 
+-- Import tabs
+local tags = require("tags")
+tags.create()
+
 --import bar
 local bar = require("bar")
 bar.create()

@@ -14,6 +14,8 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 
+local tags = require("tags")
+
 -- define screen height and width
 local screen_height = awful.screen.focused().geometry.height
 local screen_width = awful.screen.focused().geometry.width
