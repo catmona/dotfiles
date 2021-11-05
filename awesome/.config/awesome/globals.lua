@@ -14,7 +14,7 @@ local globals = {
     network_manager = "",
     power_manager = "",
     launcher = "rofi -show drun",
-    filebrowser = "thunar",
+    filebrowser = "pcmanfm",
     lock = "",
     screenshot = "flameshot gui"
 }

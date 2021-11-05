@@ -190,6 +190,22 @@ bindings.globalkeys = gears.table.join(
         {description = "open spotify", group = "launcher"}
     ),
 
+    -- launch vscode
+    awful.key({modkey}, "c",
+        function()
+            awful.spawn("code")
+        end,
+        {description = "open vscode", group = "launcher"}
+    ),
+
+    -- launch steam
+    awful.key({modkey}, "g",
+        function()
+            awful.spawn("steam")
+        end,
+        {description = "open steam", group = "launcher"}
+    ),
+
 
     -- =========================================
     -- FUNCTION KEYS
@@ -250,7 +266,7 @@ bindings.globalkeys = gears.table.join(
         {description = "play/pause music", group = "hotkeys"}
     ),
 
-    -- Screenshot on prtscn using scrot
+    -- Screenshot
     awful.key({modkey, "Shift"}, "s",
         function()
             awful.util.spawn(globals.screenshot, false)
