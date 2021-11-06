@@ -6,8 +6,8 @@
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 
 local globals = {
-    theme = "pastel.lua",
-    terminal = "alacritty",
+    theme = "kitty.lua",
+    terminal = "kitty",
     editor = os.getenv("EDITOR") or "vim",
     modkey = "Mod4",
     altkey = "Mod1",

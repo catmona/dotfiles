@@ -26,6 +26,7 @@ require("awful.hotkeys_popup.keys")
 local globals = require("globals")
 local modkey = globals.modkey
 local altkey = globals.altkey
+
 local tags = require("tags")
 local sharedtags = require("sharedtags")
 
@@ -679,10 +680,21 @@ bindings.clientkeys = gears.table.join(
 
 for i = 1, 9 do
     bindings.globalkeys = gears.table.join(bindings.globalkeys,
-        -- Switch to tag
+        -- Switch to tag on screen 1
         awful.key({modkey}, "#" .. i + 9,
             function()
-                local screen = awful.screen.focused()
+                local screen = screen[1]
+                local tag = tags.tags[i]
+                if tag then
+                    sharedtags.viewonly(tag, screen)
+                end
+            end,
+            {description = "view tag #"..i, group = "tag"}
+        ),
+        -- Switch to tag on screen 2
+        awful.key({modkey, "Control"}, "#" .. i + 9,
+            function()
+                local screen = screen[2]
                 local tag = tags.tags[i]
                 if tag then
                     sharedtags.viewonly(tag, screen)

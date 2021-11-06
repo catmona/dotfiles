@@ -22,16 +22,17 @@ local theme = {}
 -- ===================================================================
 
 
-theme.name = "pastel"
+theme.name = "kitty"
 
 -- Font
-theme.font = "SF Pro Text 9"
-theme.title_font = "SF Pro Display Medium 10"
+theme.font = "MesloLGS NF 9"
+theme.title_font = "MesloLGS NF Bold 10"
 
 -- Background
 theme.bg_normal = "#1f2430"
 theme.bg_dark = "#000000"
 theme.bg_focus = "#151821"
+theme.bg_occupied = "#ffffff1a"
 theme.bg_urgent = "#ed8274"
 theme.bg_minimize = "#444444"
 
@@ -56,7 +57,7 @@ theme.rounded_corners = false
 
 -- Taglist
 theme.taglist_bg_empty = theme.bg_normal
-theme.taglist_bg_occupied = "#ffffff1a"
+theme.taglist_bg_occupied = theme.bg_occupied
 theme.taglist_bg_urgent = "#e91e6399"
 theme.taglist_bg_focus = theme.bg_focus
 
