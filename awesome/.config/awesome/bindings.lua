@@ -161,6 +161,22 @@ bindings.globalkeys = gears.table.join(
         {description = "application launcher", group = "launcher"}
     ),
 
+    -- launch file search
+    awful.key({modkey}, "i",
+        function()
+            awful.spawn("rofi-finder")
+        end,
+        {description = "file opener", group = "launcher"}
+    ),
+
+    -- launch config search
+    awful.key({modkey, "Shift"}, "i",
+        function()
+            awful.spawn("rofi-finder dotfiles")
+        end,
+        {description = "config opener", group = "launcher"}
+    ),
+
     -- launch firefox
     awful.key({modkey}, "w",
         function()

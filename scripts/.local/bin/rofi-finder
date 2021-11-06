@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+
+import subprocess
+import sys
+import re
+
+if __name__ == '__main__':
+    args = sys.argv
+    
+    command = ['fd', '-H', '-E', 'icons', '-E', '[cC]ache', '-E', '\.themes', '-E', '\.git', '-E', 'drive_c']
+
+    if len(args) == 2:
+        dir = args[1]
+        command.append('.')
+        command.append(dir)
+
+    files = subprocess.run(command, encoding='utf-8',
+                           capture_output=True).stdout.split('\n')
+
+    r = re.compile("(\B|\W)\.(?!config)")
+    filtered = [i for i in files if not r.match(i)]
+
+    title = 'find'
+    rofi_command = 'rofi -dmenu -i -p {}'.format(title)
+    rofi_input = '\n'.join(file for file in filtered)
+    cp = subprocess.run(rofi_command.split(), input=rofi_input,
+                        encoding='utf-8', capture_output=True)
+
+    if cp.returncode == 0:
+        file = cp.stdout.strip()
+        xdg_command = ['xdg-open', file]
+        subprocess.run(xdg_command,
+                       encoding='utf-8', capture_output=True)
