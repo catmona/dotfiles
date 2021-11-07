@@ -47,6 +47,17 @@ function signals.create()
         end)
     end
 
+    -- Signal to fix fullscreen thing idk
+    client.connect_signal("property::fullscreen", function(c)
+        if c.fullscreen then
+          gears.timer.delayed_call(function()
+            if c.valid then
+              c:geometry(c.screen.geometry)
+            end
+          end)
+        end
+      end)
+
 
     -- ===================================================================
     -- Titlebar
