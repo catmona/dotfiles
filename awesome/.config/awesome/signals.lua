@@ -50,13 +50,13 @@ function signals.create()
     -- Signal to fix fullscreen thing idk
     client.connect_signal("property::fullscreen", function(c)
         if c.fullscreen then
-          gears.timer.delayed_call(function()
-            if c.valid then
-              c:geometry(c.screen.geometry)
-            end
-          end)
+            gears.timer.delayed_call(function()
+                if c.valid then
+                    c:geometry(c.screen.geometry)
+                end
+            end)
         end
-      end)
+    end)
 
 
     -- ===================================================================
@@ -66,7 +66,7 @@ function signals.create()
 
     -- Signal for showing titlebars if floating client
     client.connect_signal("property::floating", function(c)
-        if c.floating then
+        if c.floating and not c.maximized then
             awful.titlebar.show(c)
         else
             awful.titlebar.hide(c)
@@ -167,6 +167,15 @@ function signals.create()
     -- signals for showing active windows
     client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
     client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+    -- Signal for hiding titlebars if maximized client
+    client.connect_signal("property::maximized", function(c)
+        if c.maximized then
+            c.border_width = 0
+        else
+            c.border_width = beautiful.border_width
+        end
+    end)
 
 
     -- ===================================================================
