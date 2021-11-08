@@ -26,14 +26,14 @@ local tags = {}
 
 
 tags.tags = sharedtags({
-    { name = "1", screen = 1, layout = awful.layout.suit.tile },
-    { name = "2", screen = 1, layout = awful.layout.suit.tile },
-    { name = "3", screen = 1, layout = awful.layout.suit.tile },
-    { name = "4", screen = 1, layout = awful.layout.suit.tile },
-    { name = "5", screen = 2, layout = awful.layout.suit.tile },
-    { name = "6", screen = 2, layout = awful.layout.suit.tile },
-    { name = "7", screen = 2, layout = awful.layout.suit.tile },
-    { name = "8", screen = 2, layout = awful.layout.suit.tile },
+    { name = "[1]", screen = 1, layout = awful.layout.suit.tile },
+    { name = "[2]", screen = 1, layout = awful.layout.suit.tile },
+    { name = "[3]", screen = 1, layout = awful.layout.suit.tile },
+    { name = "[4]", screen = 1, layout = awful.layout.suit.tile },
+    { name = "[5]", screen = 2, layout = awful.layout.suit.tile },
+    { name = "[6]", screen = 2, layout = awful.layout.suit.tile },
+    { name = "[7]", screen = 2, layout = awful.layout.suit.tile },
+    { name = "[8]", screen = 2, layout = awful.layout.suit.tile },
 
 })
 

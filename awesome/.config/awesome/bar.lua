@@ -81,11 +81,13 @@ function bar.create()
         -- Create an imagebox widget which will contain an icon indicating which layout we're using.
         -- We need one layoutbox per screen.
         s.mylayoutbox = awful.widget.layoutbox(s)
+
         s.mylayoutbox:buttons(gears.table.join(
                             awful.button({ }, 1, function () awful.layout.inc( 1) end),
                             awful.button({ }, 3, function () awful.layout.inc(-1) end),
                             awful.button({ }, 4, function () awful.layout.inc( 1) end),
                             awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+
         -- Create a taglist widget
         s.mytaglist = awful.widget.taglist {
             screen  = s,
@@ -109,7 +111,9 @@ function bar.create()
             layout = wibox.layout.align.horizontal,
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
-                s.mytaglist
+                wibox.layout.margin(s.mytaglist, 2, 2, 0, 0),
+                valign = "center",
+                halign = "center",
             },
             { -- Center widgets
                 layout = wibox.layout.fixed.horizontal,
@@ -120,8 +124,8 @@ function bar.create()
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
                 -- TODO find a different systray that lets me hide some icons bc this is ugly
-                wibox.layout.margin(wibox.widget.systray(), 3, 3, 3, 3),
-                s.mylayoutbox,
+                --wibox.layout.margin(wibox.widget.systray(), 3, 3, 3, 3),
+                wibox.layout.margin(s.mylayoutbox, 2, 2, 2, 2),
             }
         }
     end)

@@ -13,8 +13,8 @@ local autostart = {}
 autostart.autorun = true
 
 autostart.autorunApps = {
-    "compton",
-    "nitrogen --restore"
+    "picom -b",
+    "nitrogen --restore &"
 }
 
 function autostart.autorun()
