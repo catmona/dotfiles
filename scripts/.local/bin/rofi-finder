@@ -7,7 +7,7 @@ import re
 if __name__ == '__main__':
     args = sys.argv
     
-    command = ['fd', '-H', '-E', 'icons', '-E', '[cC]ache', '-E', '\.themes', '-E', '\.git', '-E', 'drive_c', '-E', '\.github', '-E', '\.mojosetup']
+    command = ['fd', '-H', '-E', 'icons', '-E', '[cC]ache', '-E', '\.themes', '-E', '\.git', '-E', 'drive_c', '-E', '\.github', '-E', '\.mojosetup', '-E', 'plugins']
 
     if len(args) == 2:
         dir = args[1]
