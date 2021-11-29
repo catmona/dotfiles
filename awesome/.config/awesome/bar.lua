@@ -92,7 +92,73 @@ function bar.create()
         s.mytaglist = awful.widget.taglist {
             screen  = s,
             filter  = awful.widget.taglist.filter.all,
-            buttons = taglist_buttons
+            buttons = taglist_buttons,
+            widget_template = {
+                {
+                    {
+                        layout = wibox.layout.fixed.vertical,
+                        {
+                            {
+                                id = 'text_role',
+                                widget = wibox.widget.textbox
+                            },
+                            left = 6.5,
+                            right = 6.5,
+                            top = 4,
+                            bottom = 3,
+                            widget = wibox.container.margin
+                        },
+                        {
+                            {
+                                left = 7,
+                                right = 7,
+                                top = 1.6,
+                                widget = wibox.container.margin
+                            },
+                            id = 'overline',
+                            bg = '#ffffff',
+                            shape = gears.shape.rectangle,
+                            widget = wibox.container.background
+                        },
+                    },
+                    left = 1,
+                    right = 1,
+                    widget = wibox.container.margin
+                },
+                id = 'background_role',
+                widget = wibox.container.background,
+                shape = gears.shape.rectangle,
+                create_callback = function(self, c3, index, objects)
+                    local focused = false
+
+
+                    for _, x in pairs(awful.screen.focused().selected_tags) do
+                        if x.index == index then
+                            focused = true
+                            break
+                        end
+                    end
+                    if focused then
+                        self:get_children_by_id("overline")[1].bg = beautiful.fg_focus
+                    else 
+                        self:get_children_by_id("overline")[1].bg = beautiful.bg_normal
+                    end
+                end,
+                update_callback = function(self, c3, index, objects)
+                    local focused = false
+                    for _, x in pairs(awful.screen.focused().selected_tags) do
+                        if x.index == index then
+                            focused = true
+                            break
+                        end
+                    end
+                    if focused then
+                        self:get_children_by_id("overline")[1].bg = beautiful.fg_focus
+                    else 
+                        self:get_children_by_id("overline")[1].bg = beautiful.bg_normal
+                    end
+                end
+            },
         }
 
         -- -- Create a tasklist widget
@@ -111,7 +177,7 @@ function bar.create()
             layout = wibox.layout.align.horizontal,
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
-                wibox.layout.margin(s.mytaglist, 2, 2, 0, 0),
+                s.mytaglist,
                 valign = "center",
                 halign = "center",
             },

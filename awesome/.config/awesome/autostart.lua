@@ -7,6 +7,7 @@
 
 
 local awful = require("awful")
+local tags = require("tags")
 
 local autostart = {}
 
@@ -23,6 +24,8 @@ function autostart.autorun()
             awful.spawn.single_instance(autostart.autorunApps[app])
         end
     end
+
+    awful.spawn.single_instance("firefox", {tag = tags.tags[3]})
 end
 
 return autostart

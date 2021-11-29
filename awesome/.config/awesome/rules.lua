@@ -92,10 +92,23 @@ function rules.create(clientkeys, clientbuttons)
       {
          rule_any = {
             class = {
-               "Firefox"
+               --"Firefox",
+               "Steam",
             },
          }, properties = {switchtotag = true}
       },
+
+      --Set steam to the games tag
+      { rule = {class = "Steam" }, 
+         properties = { tag = tags.tags[5] } },
+      
+      --Set discord & spotify to the chat & music tag
+      { rule = {class = "Discord", "Spotify" }, 
+         properties = { tag = tags.tags[6] } },
+      
+      -- --Set console to the development tags
+      -- { rule = {class = "Code" }, 
+      --    properties = { tag = tags.tags[1] } },
 
       -- Visualizer
       {

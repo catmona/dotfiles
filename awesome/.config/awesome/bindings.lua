@@ -206,7 +206,7 @@ bindings.globalkeys = gears.table.join(
         function()
             awful.spawn(globals.filebrowser)
         end,
-        {description = "open spotify", group = "launcher"}
+        {description = "open filebrowser", group = "launcher"}
     ),
 
     -- launch vscode
@@ -224,6 +224,15 @@ bindings.globalkeys = gears.table.join(
         end,
         {description = "open steam", group = "launcher"}
     ),
+
+    -- launch rofi todo-list
+    awful.key({modkey}, "t",
+        function()
+            awful.spawn("rofi -show TODO -modi TODO:~/rofi-menus/rofi-todo.sh")
+        end,
+        {description = "open todo-list", group = "launcher"}
+    ),
+
 
 
     -- =========================================
