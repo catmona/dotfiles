@@ -55,27 +55,28 @@ function bar.create()
         awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
     )
 
-    -- local tasklist_buttons = gears.table.join(
-    --                     awful.button({ }, 1, function (c)
-    --                                             if c == client.focus then
-    --                                                 c.minimized = true
-    --                                             else
-    --                                                 c:emit_signal(
-    --                                                     "request::activate",
-    --                                                     "tasklist",
-    --                                                     {raise = true}
-    --                                                 )
-    --                                             end
-    --                                         end),
-    --                     awful.button({ }, 3, function()
-    --                                             awful.menu.client_list({ theme = { width = 250 } })
-    --                                         end),
-    --                     awful.button({ }, 4, function ()
-    --                                             awful.client.focus.byidx(1)
-    --                                         end),
-    --                     awful.button({ }, 5, function ()
-    --                                             awful.client.focus.byidx(-1)
-    --                                         end))
+    local tasklist_buttons = gears.table.join(
+        awful.button({ }, 1, function (c)
+            if c == client.focus then
+                c.minimized = true
+            else
+                c:emit_signal(
+                    "request::activate",
+                    "tasklist",
+                    {raise = true}
+                )
+            end
+        end),
+        awful.button({ }, 3, function()
+            awful.menu.client_list({ theme = { width = 250 } })
+        end),
+        awful.button({ }, 4, function ()
+            awful.client.focus.byidx(1)
+        end),
+        awful.button({ }, 5, function ()
+            awful.client.focus.byidx(-1)
+        end)
+    )
 
     awful.screen.connect_for_each_screen(function(s)
         -- Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -161,12 +162,12 @@ function bar.create()
             },
         }
 
-        -- -- Create a tasklist widget
-        -- s.mytasklist = awful.widget.tasklist {
-        --     screen  = s,
-        --     filter  = awful.widget.tasklist.filter.currenttags,
-        --     buttons = tasklist_buttons
-        -- }
+        -- Create a tasklist widget
+        s.mytasklist = awful.widget.tasklist {
+            screen  = s,
+            filter  = awful.widget.tasklist.filter.minimizedcurrenttags,
+            buttons = tasklist_buttons,
+        }
 
         -- Create the wibox
         s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -190,8 +191,11 @@ function bar.create()
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
                 -- TODO find a different systray that lets me hide some icons bc this is ugly
+                wibox.layout.margin(s.mytasklist, 3, 3, 3, 3),
                 --wibox.layout.margin(wibox.widget.systray(), 3, 3, 3, 3),
-                wibox.layout.margin(s.mylayoutbox, 2, 2, 2, 2),
+                --wibox.layout.margin(s.mylayoutbox, 2, 2, 2, 2),         
+                valign = "center",
+                halign = "center",
             }
         }
     end)

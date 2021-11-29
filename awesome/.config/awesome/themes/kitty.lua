@@ -82,12 +82,16 @@ theme.taglist_fg_occupied = theme.fg_occupied
 theme.tasklist_font = theme.font
 
 theme.tasklist_bg_normal = theme.bg_normal
-theme.tasklist_bg_focus = theme.bg_focus
+theme.tasklist_bg_focus = theme.bg_normal
+theme.tasklist_bg_minimize = theme.bg_normal
 theme.tasklist_bg_urgent = theme.bg_urgent
 
 theme.tasklist_fg_focus = theme.fg_focus
 theme.tasklist_fg_urgent = theme.fg_urgent
 theme.tasklist_fg_normal = theme.fg_normal
+
+theme.tasklist_disable_task_name = true
+theme.tasklist_align = "center"
 
 -- Panel Sizing
 theme.left_panel_width = dpi(55)

@@ -15,7 +15,8 @@ autostart.autorun = true
 
 autostart.autorunApps = {
     "picom -b",
-    "nitrogen --restore &"
+    "nitrogen --restore &",
+    "nvidia-settings -a \"[gpu:0]/GpuPowerMizerMode=1\"",
 }
 
 function autostart.autorun()
@@ -25,7 +26,7 @@ function autostart.autorun()
         end
     end
 
-    awful.spawn.single_instance("firefox", {tag = tags.tags[3]})
+    --awful.spawn.once("redshift", {tag = tags.tags[6]})
 end
 
 return autostart

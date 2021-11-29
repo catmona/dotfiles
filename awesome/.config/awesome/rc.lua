@@ -55,8 +55,8 @@ awful.rules.rules = create_rules(bindings.clientkeys, bindings.clientbuttons)
 -- Define layouts
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.floating,
-    awful.layout.suit.max
+    --awful.layout.suit.floating,
+    --awful.layout.suit.max
 }
 
 -- Import signals

@@ -30,9 +30,9 @@ tags.tags = sharedtags({
     { name = "\u{f120}", screen = 1, layout = awful.layout.suit.tile }, -- dev 2
     { name = "\u{f269}", screen = 1, layout = awful.layout.suit.tile }, -- web (normal)
     { name = "\u{EAB7}", screen = 1, layout = awful.layout.suit.tile }, -- misc
-    { name = "\u{f6e2}", screen = 1, layout = awful.layout.suit.max  }, -- games
+    { name = "\u{f6e2}", screen = 1, layout = awful.layout.suit.tile }, -- games
     { name = "\u{EA53}", screen = 2, layout = awful.layout.suit.tile }, -- chat & spotify
-    { name = "\u{EC16}", screen = 2, layout = awful.layout.suit.max  }, -- web (documentation)
+    { name = "\u{EC16}", screen = 2, layout = awful.layout.suit.tile }, -- web (documentation)
     --{ name = "\u{EB2C}", screen = 2, layout = awful.layout.suit.tile }, -- home (widgets) (ECE4) (F007)/(F2C0)
 
 })
