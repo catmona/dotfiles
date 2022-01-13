@@ -42,7 +42,7 @@ function rules.create(clientkeys, clientbuttons)
          properties = {
             --titlebars_enabled = beautiful.titlebars_enabled,
             border_width = beautiful.border_width,
-            border_color = beautiful.border_normal,
+            border_color = beautiful.border_focus,
             focus = awful.client.focus.filter,
             raise = true,
             keys = clientkeys,
@@ -105,8 +105,20 @@ function rules.create(clientkeys, clientbuttons)
          properties = { tag = tags.tags[5] } },
       
       --Set discord & spotify to the chat & music tag
-      { rule = {class = "Discord", "Spotify" }, 
-         properties = { tag = tags.tags[6] } },
+      { 
+         rule_any = {
+            class = { 
+               "discord", 
+               "Spotify",
+               "spotify"
+            },
+            name = {
+               "Discord",
+               "Discord Updater",
+               "Spotify"
+            }
+         }, properties = { tag = tags.tags[6] }
+      },
       
       -- --Set console to the development tags
       -- { rule = {class = "Code" }, 

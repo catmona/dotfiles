@@ -119,7 +119,7 @@ Change the values below >> NOT the ones contained within /*...*/
     
   /* Image / Transparency */
 /* Change the below url to a direct image link(right click image on browser > copy image address) [insert your link between '()' in 'url()' ]*/
-        --image: url('https://cdn.discordapp.com/attachments/902739961537769492/903798669965418506/5923908.jpg');
+        /* --image: url('https://cdn.discordapp.com/attachments/902739961537769492/903798669965418506/5923908.jpg'); */
          /* Only Affects transparency option*/
         --titlebar-alpha: 0; /* Top Title Bar */
         --blur: 1px; /* 0px for no blur | Blur on image not desktop */
