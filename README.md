@@ -16,7 +16,7 @@ Use [Stow](https://www.gnu.org/software/stow/#navigation) to manage dotfiles
 * [Zsh Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 * [Zsh Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 * [PCManFM](https://github.com/lxde/pcmanfm)
-* [fd-find](https://github.com/sharkdp/fd)
+* [Fd-find](https://github.com/sharkdp/fd)
 * [Rofi todo](https://github.com/claudiodangelis/rofi-todo)
 * [Picom](https://github.com/yshui/picom)
 * [Nitrogen](https://github.com/l3ib/nitrogen)
@@ -33,6 +33,7 @@ Use [Stow](https://www.gnu.org/software/stow/#navigation) to manage dotfiles
 
 * [TLP](https://linrunner.de/tlp/)
 * [PowerTop](https://github.com/fenrus75/powertop)
+* [Linux-Surface Kernel](https://github.com/linux-surface/linux-surface)
 
 ### .xprofile content:
 ```
