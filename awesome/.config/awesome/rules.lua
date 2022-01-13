@@ -52,6 +52,7 @@ function rules.create(clientkeys, clientbuttons)
             maximized_horizontal = false,
             maximized_vertical = false,
             maximized = false,
+            tag = mouse.screen.selected_tag,
          },
       },
       -- Floating clients.
@@ -118,6 +119,15 @@ function rules.create(clientkeys, clientbuttons)
                "Spotify"
             }
          }, properties = { tag = tags.tags[6] }
+      },
+      
+      {
+         rule_any = {
+            class = {"Firefox"},
+         },
+         properties = {
+            tag = mouse.screen.selected_tag
+         }
       },
       
       -- --Set console to the development tags

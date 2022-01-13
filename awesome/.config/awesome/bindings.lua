@@ -33,6 +33,13 @@ local sharedtags = require("sharedtags")
 -- define module table
 local bindings = {}
 
+-- forces client to current tag
+local function spawn_here(cmd)
+    awful.spawn(cmd, {
+        tag = mouse.screen.selected_tag,
+    })
+end
+
 
 -- ===================================================================
 -- Movement Functions 
@@ -180,7 +187,7 @@ bindings.globalkeys = gears.table.join(
     -- launch firefox
     awful.key({modkey}, "w",
         function()
-            awful.spawn("firefox")
+            spawn_here("firefox")
         end,
         {description = "open firefox", group = "launcher"}
     ),
@@ -212,7 +219,7 @@ bindings.globalkeys = gears.table.join(
     -- launch vscode
     awful.key({modkey}, "c",
         function()
-            awful.spawn("code")
+            spawn_here("code")
         end,
         {description = "open vscode", group = "launcher"}
     ),
