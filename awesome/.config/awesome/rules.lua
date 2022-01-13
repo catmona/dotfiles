@@ -83,6 +83,8 @@ function rules.create(clientkeys, clientbuttons)
          rule_any = {
             class = {
                "Terraria.bin.x86",
+               "arcolinux-logout.py",
+               "i3lock"
             },
          }, properties = {fullscreen = true}
       },

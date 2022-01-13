@@ -27,7 +27,7 @@ theme.name = "kitty"
 -- Font
 theme.font = "MesloLGS NF 9"
 theme.title_font = "MesloLGS NF Bold 10"
-theme.taglist_font = "Font Awesome 5 Free-Solid-900 11 "
+theme.taglist_font = "FontAwesome 12"
 --theme.taglist_font = "fghrthsj 11 "
 
 -- Background

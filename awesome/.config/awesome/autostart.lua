@@ -8,22 +8,41 @@
 
 local awful = require("awful")
 local tags = require("tags")
+local gears = require("gears")
 
 local autostart = {}
 
 autostart.autorun = true
 
 autostart.autorunApps = {
-    "picom -b",
+    --"picom -b",
     "nitrogen --restore &",
-    "nvidia-settings -a \"[gpu:0]/GpuPowerMizerMode=1\"",
+    --"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
+    --"volumeicon",
+    "blueberry-tray",
+    "nm-applet",
+    "pamac-tray",
+    "xfce4-power-manager",
 }
 
 function autostart.autorun()
     if autostart.autorun then
-        for app = 1, #autostart.autorunApps do
+        local app = 1
+        gears.timer.start_new(0.5, function()
             awful.spawn.single_instance(autostart.autorunApps[app])
-        end
+            app = app+1
+            if(app > #autostart.autorunApps)
+            then 
+                return false
+            else
+                return true
+            end
+        end)
+        
+        -- for app = 1, #autostart.autorunApps do
+        --     awful.spawn.single_instance(autostart.autorunApps[app])
+            
+        -- end
     end
 
     --awful.spawn.once("redshift", {tag = tags.tags[6]})

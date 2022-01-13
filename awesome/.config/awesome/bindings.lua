@@ -320,20 +320,19 @@ bindings.globalkeys = gears.table.join(
 
     -- Quit Awesome
     awful.key({modkey, "Shift"}, "q",
-        -- function()
+        function()
             -- emit signal to show the exit screen
             -- awesome.emit_signal("show_exit_screen")
-            awesome.quit,
-        -- end,
+            awful.spawn.single_instance("arcolinux-logout &")
+        end,
         {description = "toggle exit screen", group = "hotkeys"}
     ),
 
     awful.key({}, "XF86PowerOff",
         function()
-            -- emit signal to show the exit screen
-            awesome.emit_signal("show_exit_screen")
+            awful.spawn.single_instance("betterlockscreen --lock &")
         end,
-        {description = "toggle exit screen", group = "hotkeys"}
+        {description = "lock screen", group = "hotkeys"}
     ),
 
     awful.key({ modkey, "Shift"   }, "t", function ()

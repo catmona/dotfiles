@@ -2,7 +2,7 @@
  * @name BDFDB
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 1.9.9
+ * @version 2.0.4
  * @description Required Library for DevilBro's Plugins
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -19,7 +19,7 @@ module.exports = (_ => {
 		"info": {
 			"name": "BDFDB",
 			"author": "DevilBro",
-			"version": "1.9.9",
+			"version": "2.0.4",
 			"description": "Required Library for DevilBro's Plugins"
 		},
 		"rawUrl": `https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js`
@@ -621,9 +621,9 @@ module.exports = (_ => {
 				if (typeof plugin.setLabelsByLanguage == "function") plugin.labels = plugin.setLabelsByLanguage();
 				if (typeof plugin.changeLanguageStrings == "function") plugin.changeLanguageStrings();
 			};
-			if (LibraryModules.LanguageStore.chosenLocale || LibraryModules.LanguageStore._chosenLocale || LibraryModules.SettingsStore.locale) translate();
+			if (LibraryModules.LanguageStore.chosenLocale || LibraryModules.LanguageStore._chosenLocale || BDFDB.DicordUtils.getSettings("locale")) translate();
 			else BDFDB.TimeUtils.interval(interval => {
-				if (LibraryModules.LanguageStore.chosenLocale || LibraryModules.LanguageStore._chosenLocale || LibraryModules.SettingsStore.locale) {
+				if (LibraryModules.LanguageStore.chosenLocale || LibraryModules.LanguageStore._chosenLocale || BDFDB.DicordUtils.getSettings("locale")) {
 					BDFDB.TimeUtils.clear(interval);
 					translate();
 				}
@@ -3114,10 +3114,10 @@ module.exports = (_ => {
 			if (!user) return window.location.origin + "/assets/1f0bfc0865d324c2587920a7d80c609b.png";
 			else return ((user.avatar ? "" : window.location.origin) + LibraryModules.IconUtils.getUserAvatarURL(user)).split("?")[0];
 		};
-		BDFDB.UserUtils.getBanner = function (id = BDFDB.UserUtils.me.id) {
+		BDFDB.UserUtils.getBanner = function (id = BDFDB.UserUtils.me.id, canAnimate = false) {
 			let user = LibraryModules.UserStore.getUser(id);
 			if (!user || !user.banner) return "";
-			return LibraryModules.IconUtils.getUserBannerURL(user).split("?")[0];
+			return LibraryModules.IconUtils.getUserBannerURL(Object.assign({}, user, {canAnimate})).split("?")[0];
 		};
 		BDFDB.UserUtils.can = function (permission, id = BDFDB.UserUtils.me.id, channelId = LibraryModules.LastChannelStore.getChannelId()) {
 			if (!BDFDB.DiscordConstants.Permissions[permission]) BDFDB.LogUtils.warn([permission, "not found in Permissions"]);
@@ -4283,7 +4283,7 @@ module.exports = (_ => {
 			}
 		};
 		BDFDB.DiscordUtils.isDevModeEnabled = function () {
-			return LibraryModules.SettingsStore.developerMode;
+			return BDFDB.DiscordUtils.getSettings("developerMode");
 		};
 		BDFDB.DiscordUtils.getExperiment = function (id) {
 			if (!id) return null;
@@ -4291,10 +4291,23 @@ module.exports = (_ => {
 			return module && (module.getCurrentConfig({}) || {})[id];
 		};
 		BDFDB.DiscordUtils.getTheme = function () {
-			return LibraryModules.SettingsStore.theme != "dark" ? BDFDB.disCN.themelight : BDFDB.disCN.themedark;
+			return BDFDB.DiscordUtils.getSettings("theme") != "dark" ? BDFDB.disCN.themelight : BDFDB.disCN.themedark;
 		};
 		BDFDB.DiscordUtils.getMode = function () {
-			return LibraryModules.SettingsStore.messageDisplayCompact ? "compact" : "cozy";
+			return BDFDB.DiscordUtils.getSettings("messageDisplayCompact") ? "compact" : "cozy";
+		};
+		BDFDB.DiscordUtils.getSettings = function (key) {
+			if (!key) return null;
+			else if (LibraryModules.SettingsUtils && (LibraryModules.SettingsUtils[key] || LibraryModules.SettingsUtils[key + "DoNotUseYet"])) return (LibraryModules.SettingsUtils[key] || LibraryModules.SettingsUtils[key + "DoNotUseYet"]).getSetting();
+			else {
+				const value = BDFDB.LibraryModules.SettingsStore.getAllSettings()[key.slice(0, 1).toLowerCase() + key.slice(1)];
+				return value != undefined ? value: null;
+			}
+		};
+		BDFDB.DiscordUtils.setSettings = function (key, value) {
+			if (!key) return;
+			else if (LibraryModules.SettingsUtils && (LibraryModules.SettingsUtils[key] || LibraryModules.SettingsUtils[key + "DoNotUseYet"])) (LibraryModules.SettingsUtils[key] || LibraryModules.SettingsUtils[key + "DoNotUseYet"]).updateSetting(value);
+			else BDFDB.LibraryModules.SettingsUtilsOld.updateRemoteSettings({[key.slice(0, 1).toLowerCase() + key.slice(1)]: value});
 		};
 		BDFDB.DiscordUtils.getZoomFactor = function () {
 			let aRects = BDFDB.DOMUtils.getRects(document.querySelector(BDFDB.dotCN.appmount));
@@ -4497,7 +4510,7 @@ module.exports = (_ => {
 		BDFDB.LanguageUtils = {};
 		BDFDB.LanguageUtils.languages = Object.assign({}, InternalData.Languages);
 		BDFDB.LanguageUtils.getLanguage = function () {
-			let lang = LibraryModules.LanguageStore.chosenLocale || LibraryModules.LanguageStore._chosenLocale || LibraryModules.SettingsStore.locale || "en";
+			let lang = LibraryModules.LanguageStore.chosenLocale || LibraryModules.LanguageStore._chosenLocale || BDFDB.DiscordUtils.getSettings("locale") || "en";
 			if (lang == "en-GB" || lang == "en-US") lang = "en";
 			let langIds = lang.split("-");
 			let langId = langIds[0];
@@ -4601,7 +4614,7 @@ module.exports = (_ => {
 			return "";
 		};
 		BDFDB.TimeUtils.interval(interval => {
-			if (LibraryModules.LanguageStore.chosenLocale || LibraryModules.LanguageStore._chosenLocale || LibraryModules.SettingsStore.locale) {
+			if (LibraryModules.LanguageStore.chosenLocale || LibraryModules.LanguageStore._chosenLocale || BDFDB.DiscordUtils.getSettings("locale")) {
 				BDFDB.TimeUtils.clear(interval);
 				let language = BDFDB.LanguageUtils.getLanguage();
 				if (language) BDFDB.LanguageUtils.languages.$discord = Object.assign({}, language, {name: `Discord (${language.name})`});
@@ -4997,6 +5010,7 @@ module.exports = (_ => {
 					else string = input.value || input.textContent || "";
 				}
 				else string = input.value || input.textContent || "";
+				if (this.props.max && this.props.showPercentage && (string.length/this.props.max) * 100 < this.props.showPercentage) return "";
 				let start = input.selectionStart || 0, end = input.selectionEnd || 0, selectlength = end - start, selection = BDFDB.DOMUtils.getSelection();
 				let select = !selectlength && !selection ? 0 : (selectlength || selection.length);
 				select = !select ? 0 : (select > string.length ? (end || start ? string.length - (string.length - end - start) : string.length) : select);
@@ -5079,11 +5093,11 @@ module.exports = (_ => {
 			}
 			render() {
 				let string = this.getCounterString();
-				BDFDB.TimeUtils.timeout(_ => {if (string != this.getCounterString()) BDFDB.ReactUtils.forceUpdate(this);});
+				BDFDB.TimeUtils.timeout(_ => string != this.getCounterString() && BDFDB.ReactUtils.forceUpdate(this));
 				return BDFDB.ReactUtils.createElement("div", BDFDB.ObjectUtils.exclude(Object.assign({}, this.props, {
 					className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN.charcounter, this.props.className),
 					children: string
-				}), "parsing", "max", "refClass", "renderPrefix", "renderSuffix"));
+				}), "parsing", "max", "refClass", "renderPrefix", "renderSuffix", "showPercentage"));
 			}
 		};
 		
@@ -7279,7 +7293,7 @@ module.exports = (_ => {
 				}), "digits", "edges", "max", "min", "markerAmount"));
 			}
 		};
-		InternalBDFDB.setDefaultProps(InternalComponents.LibraryComponents.Slider, {hideBubble: false});
+		InternalBDFDB.setDefaultProps(InternalComponents.LibraryComponents.Slider, {hideBubble: false, digits: 3});
 		
 		InternalComponents.LibraryComponents.SvgIcon = reactInitialized && class BDFDB_Icon extends LibraryModules.React.Component {
 			render() {
@@ -8138,15 +8152,15 @@ module.exports = (_ => {
 			if (!e.returnValue.props.children) LibraryModules.ContextMenuUtils.closeContextMenu();
 		}}, {priority: 10});
 		
-		let languageChangeTimeout, translateAllNew = e => {
+		let languageChangeTimeout;
+		if (LibraryModules.SettingsUtilsOld) BDFDB.PatchUtils.patch(BDFDB, LibraryModules.SettingsUtilsOld, ["updateRemoteSettings", "updateLocalSettings"], {after: e => {
 			if (e.methodArguments[0] && e.methodArguments[0].locale) {
 				BDFDB.TimeUtils.clear(languageChangeTimeout);
 				languageChangeTimeout = BDFDB.TimeUtils.timeout(_ => {
 					for (let pluginName in PluginStores.loaded) if (PluginStores.loaded[pluginName].started) BDFDB.PluginUtils.translate(PluginStores.loaded[pluginName]);
 				}, 10000);
 			}
-		};
-		if (LibraryModules.SettingsUtils) BDFDB.PatchUtils.patch(BDFDB, LibraryModules.SettingsUtils, "updateLocalSettings", {after: translateAllNew});
+		}});
 		
 		InternalBDFDB.onSettingsClosed = function () {
 			if (InternalBDFDB.SettingsUpdated) {
@@ -8285,7 +8299,7 @@ module.exports = (_ => {
 			return e.methodArguments[0].id == InternalData.myId ? e.methodArguments[0].banner : e.callOriginalMethod();
 		}});
 		
-		BDFDB.PatchUtils.patch(this, LibraryModules.BannerUtils, "getUserBannerURLForContext", {instead: e => {
+		BDFDB.PatchUtils.patch(BDFDB, LibraryModules.BannerUtils, "getUserBannerURLForContext", {instead: e => {
 			return e.methodArguments[0].user && e.methodArguments[0].user.id == InternalData.myId ? e.methodArguments[0].user.banner : e.callOriginalMethod();
 		}});
 		
