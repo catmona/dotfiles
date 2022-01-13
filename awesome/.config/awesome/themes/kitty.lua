@@ -25,7 +25,7 @@ local theme = {}
 theme.name = "kitty"
 
 -- Font
-theme.font = "MesloLGS NF 9"
+theme.font = "Bitstream Vera Sans Mono 9"
 theme.title_font = "MesloLGS NF Bold 10"
 theme.taglist_font = "FontAwesome 12"
 --theme.taglist_font = "fghrthsj 11 "
