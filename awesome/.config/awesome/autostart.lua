@@ -17,12 +17,12 @@ autostart.autorun = true
 autostart.autorunApps = {
     --"picom -b",
     "nitrogen --restore &",
+    "pamac-tray",
+    "nm-applet",
+    "blueberry-tray",
+    "volumeicon"
     --"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
     --"volumeicon",
-    "blueberry-tray",
-    "nm-applet",
-    "pamac-tray",
-    "xfce4-power-manager",
 }
 
 function autostart.autorun()

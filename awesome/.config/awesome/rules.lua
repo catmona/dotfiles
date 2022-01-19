@@ -52,7 +52,6 @@ function rules.create(clientkeys, clientbuttons)
             maximized_horizontal = false,
             maximized_vertical = false,
             maximized = false,
-            tag = mouse.screen.selected_tag,
          },
       },
       -- Floating clients.

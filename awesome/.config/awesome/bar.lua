@@ -192,7 +192,7 @@ function bar.create()
                 layout = wibox.layout.fixed.horizontal,
                 -- TODO find a different systray that lets me hide some icons bc this is ugly
                 wibox.layout.margin(s.mytasklist, 3, 3, 3, 3),
-                wibox.layout.margin(wibox.widget.systray(), 3, 3, 3, 3),
+                wibox.layout.margin(wibox.widget.systray(true), 3, 3, 3, 3),
                 --wibox.layout.margin(s.mylayoutbox, 2, 2, 2, 2),         
                 valign = "center",
                 halign = "center",

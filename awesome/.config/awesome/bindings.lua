@@ -171,7 +171,7 @@ bindings.globalkeys = gears.table.join(
     -- launch file search
     awful.key({modkey}, "i",
         function()
-            awful.spawn("rofi-finder")
+            awful.spawn("./bin/rofi-finder")
         end,
         {description = "file opener", group = "launcher"}
     ),
@@ -179,7 +179,7 @@ bindings.globalkeys = gears.table.join(
     -- launch config search
     awful.key({modkey, "Shift"}, "i",
         function()
-            awful.spawn("rofi-finder dotfiles")
+            awful.spawn("./bin/rofi-finder dotfiles")
         end,
         {description = "config opener", group = "launcher"}
     ),
@@ -235,7 +235,7 @@ bindings.globalkeys = gears.table.join(
     -- launch rofi todo-list
     awful.key({modkey}, "t",
         function()
-            awful.spawn("rofi -show TODO -modi TODO:~/rofi-menus/rofi-todo.sh")
+            awful.spawn("rofi -show TODO -modi TODO:~/bin/rofi-todo.sh")
         end,
         {description = "open todo-list", group = "launcher"}
     ),
