@@ -337,6 +337,10 @@ bindings.globalkeys = gears.table.join(
 
     awful.key({}, "XF86PowerOff",
         function()
+            naughty.notify({
+                title = "Test Title",
+                text = "test body",
+            })
             awful.spawn.single_instance("betterlockscreen --lock &")
         end,
         {description = "lock screen", group = "hotkeys"}

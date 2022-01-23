@@ -44,8 +44,6 @@ function autostart.autorun()
             
         -- end
     end
-
-    --awful.spawn.once("redshift", {tag = tags.tags[6]})
 end
 
 return autostart
