@@ -102,7 +102,7 @@ function rules.create(clientkeys, clientbuttons)
 
       --Set steam to the games tag
       { rule = {class = "Steam" }, 
-         properties = { tag = tags.tags[5] } },
+         properties = { tag = tags.tags[4] } },
       
       --Set discord & spotify to the chat & music tag
       { 
@@ -117,7 +117,7 @@ function rules.create(clientkeys, clientbuttons)
                "Discord Updater",
                "Spotify"
             }
-         }, properties = { tag = tags.tags[6] }
+         }, properties = { tag = tags.tags[3] }
       },
       
       {

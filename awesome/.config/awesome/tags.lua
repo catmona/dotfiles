@@ -26,13 +26,13 @@ local tags = {}
 
 
 tags.tags = sharedtags({
-    { name = "\u{F121}", screen = 1, layout = awful.layout.suit.tile }, -- dev 1
-    { name = "\u{f120}", screen = 1, layout = awful.layout.suit.tile }, -- dev 2
-    { name = "\u{f269}", screen = 1, layout = awful.layout.suit.tile }, -- web (normal)
-    { name = "\u{F0F4}", screen = 1, layout = awful.layout.suit.tile }, -- misc
-    { name = "\u{F1B7}", screen = 1, layout = awful.layout.suit.tile }, -- games
-    { name = "\u{F075}", screen = 2, layout = awful.layout.suit.tile }, -- chat & spotify
-    { name = "\u{F02D}", screen = 2, layout = awful.layout.suit.tile }, -- web (documentation)
+    { name = "dev", screen = 1, layout = awful.layout.suit.tile }, 
+    { name = "web", screen = 1, layout = awful.layout.suit.tile }, 
+    { name = "media", screen = 2, layout = awful.layout.suit.tile }, 
+    { name = "[+]", screen = 1, layout = awful.layout.suit.tile }, 
+    -- { name = "\u{f10c}", screen = 1, layout = awful.layout.suit.tile }, -- games
+    -- { name = "\u{f10c}", screen = 2, layout = awful.layout.suit.tile }, -- chat & spotify
+    -- { name = "\u{f10c}", screen = 2, layout = awful.layout.suit.tile }, -- web (documentation)
     --{ name = "\u{EB2C}", screen = 2, layout = awful.layout.suit.tile }, -- home (widgets) (ECE4) (F007)/(F2C0)
 
 })

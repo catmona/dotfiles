@@ -50,12 +50,25 @@ xrandr --output eDP1 --mode 1368x912_60.00
 #power management
 tlp start &
 
+#touchpad disable when typing
+syndaemon -i 0.5 -t -K -R -d
+
 #appearance
 picom -b
+#nitrogen --restore &
 redshift &
 
 #systray
-volumeicon &
+#`volumeicon &
+#sleep 0.5
+#nm-applet &
+# sleep 0.5
+#blueberry-tray &
+# sleep 0.5
+# sleep 0.5
+xfce4-power-manager &
+# sleep 0.5
+# pamac-tray &
 ```
 
 
