@@ -198,7 +198,7 @@ function signals.create()
     -- Screen Change Signals (ie multi monitor)
     -- ===================================================================
 
-
+    
     -- Reload config when screen geometry changes
     screen.connect_signal("property::geometry", awesome.restart)
 

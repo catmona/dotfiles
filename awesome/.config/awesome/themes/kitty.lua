@@ -38,6 +38,7 @@ theme.bg_occupied = theme.bg_normal
 theme.bg_urgent = "#3b3741"
 theme.bg_minimize = "#444444"
 
+
 -- Foreground
 theme.fg_normal = "#ffffff"
 theme.fg_focus = "#f8c2e2"
@@ -76,7 +77,16 @@ theme.taglist_bg_occupied = theme.bg_occupied
 theme.taglist_bg_urgent = theme.bg_urgent
 theme.taglist_bg_focus = theme.bg_focus
 
-theme.taglist_fg_occupied = theme.fg_occupied
+theme.taglist_fg_occupied = theme.fg_normal
+theme.taglist_fg_focus = theme.fg_focus
+theme.taglist_fg_empty = "#808080"
+
+theme.workspace_colors = {
+    "#fc6399",
+    "#00f8fb",
+    "#ffd700",
+    "#98fb98",
+}
 
 -- Tasklist
 theme.tasklist_font = theme.font

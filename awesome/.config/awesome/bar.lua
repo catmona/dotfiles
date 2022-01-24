@@ -54,7 +54,8 @@ function bar.create()
         awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
         awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
     )
-
+    
+    -- Tasklist
     local tasklist_buttons = gears.table.join(
         awful.button({ }, 1, function (c)
             if c == client.focus then
@@ -89,7 +90,7 @@ function bar.create()
                             awful.button({ }, 4, function () awful.layout.inc( 1) end),
                             awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
-        -- Create a taglist widget
+        -- Taglist
         s.mytaglist = awful.widget.taglist {
             screen  = s,
             filter  = awful.widget.taglist.filter.all,
@@ -101,19 +102,17 @@ function bar.create()
                         {
                             {
                                 id = 'text_role',
-                                widget = wibox.widget.textbox
+                                widget = wibox.widget.textbox,
                             },
                             left = 6.5,
                             right = 6.5,
-                            top = 4,
-                            bottom = 3,
+                            top = 1.5,
+                            bottom = 0.9,
                             widget = wibox.container.margin
                         },
                         {
                             {
-                                left = 7,
-                                right = 7,
-                                top = 1.6,
+                                top = 2, -- size of underline
                                 widget = wibox.container.margin
                             },
                             id = 'overline',
@@ -129,22 +128,24 @@ function bar.create()
                 id = 'background_role',
                 widget = wibox.container.background,
                 shape = gears.shape.rectangle,
+                
                 create_callback = function(self, c3, index, objects)
                     local focused = false
-
-
                     for _, x in pairs(awful.screen.focused().selected_tags) do
                         if x.index == index then
                             focused = true
                             break
                         end
                     end
+                    
                     if focused then
-                        self:get_children_by_id("overline")[1].bg = beautiful.fg_focus
+                        beautiful.taglist_fg_focus = beautiful.workspace_colors[index]
+                        self:get_children_by_id("overline")[1].bg = beautiful.taglist_fg_focus
                     else 
                         self:get_children_by_id("overline")[1].bg = beautiful.bg_normal
                     end
                 end,
+                
                 update_callback = function(self, c3, index, objects)
                     local focused = false
                     for _, x in pairs(awful.screen.focused().selected_tags) do
@@ -153,8 +154,10 @@ function bar.create()
                             break
                         end
                     end
+                    
                     if focused then
-                        self:get_children_by_id("overline")[1].bg = beautiful.fg_focus
+                        beautiful.taglist_fg_focus = beautiful.workspace_colors[index]
+                        self:get_children_by_id("overline")[1].bg = beautiful.taglist_fg_focus
                     else 
                         self:get_children_by_id("overline")[1].bg = beautiful.bg_normal
                     end
