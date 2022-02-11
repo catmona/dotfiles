@@ -2,7 +2,7 @@
  * @name EditUsers
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 4.4.5
+ * @version 4.4.8
  * @description Allows you to locally edit Users
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -17,20 +17,17 @@ module.exports = (_ => {
 		"info": {
 			"name": "EditUsers",
 			"author": "DevilBro",
-			"version": "4.4.5",
+			"version": "4.4.8",
 			"description": "Allows you to locally edit Users"
+		},
+		"changeLog": {
+			"improved": {
+				"Colored Text": "If you are using BetterRoleColors to color messages as the same color as the role and set a custom color with EditUsers, the message color will use the custom color again, like it used to with Colored Text in BD"
+			}
 		}
 	};
 
-	return (window.Lightcord && !Node.prototype.isPrototypeOf(window.Lightcord) || window.LightCord && !Node.prototype.isPrototypeOf(window.LightCord) || window.Astra && !Node.prototype.isPrototypeOf(window.Astra)) ? class {
-		getName () {return config.info.name;}
-		getAuthor () {return config.info.author;}
-		getVersion () {return config.info.version;}
-		getDescription () {return "Do not use LightCord!";}
-		load () {BdApi.alert("Attention!", "By using LightCord you are risking your Discord Account, due to using a 3rd Party Client. Switch to an official Discord Client (https://discord.com/) with the proper BD Injection (https://betterdiscord.app/)");}
-		start() {}
-		stop() {}
-	} : !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
 		getName () {return config.info.name;}
 		getAuthor () {return config.info.author;}
 		getVersion () {return config.info.version;}
@@ -420,7 +417,7 @@ module.exports = (_ => {
 			}
 			
 			processChannelEditorContainer (e) {
-				if (!e.instance.props.disabled && e.instance.props.channel && e.instance.props.channel.isDM() && e.instance.props.type == BDFDB.DiscordConstants.TextareaTypes.NORMAL && this.settings.places.chatTextarea) {
+				if (!e.instance.props.disabled && e.instance.props.channel && e.instance.props.channel.isDM() && e.instance.props.type == BDFDB.LibraryComponents.ChannelTextAreaTypes.NORMAL && this.settings.places.chatTextarea) {
 					let user = BDFDB.LibraryModules.UserStore.getUser(e.instance.props.channel.recipients[0]);
 					if (user) e.instance.props.placeholder = BDFDB.LanguageUtils.LanguageStringsFormat("TEXTAREA_PLACEHOLDER", `@${changedUsers[user.id] && changedUsers[user.id].name || user.username}`);
 				}
@@ -441,7 +438,7 @@ module.exports = (_ => {
 								let userName = BDFDB.ReactUtils.findChild(children, {name: "AutocompleteRowHeading"});
 								if (userName) this.changeUserColor(userName, e.instance.props.user.id);
 								return children;
-							}, "", this);
+							}, "Error in Children Render of AutocompleteUserResult!", this);
 						}
 					}
 				}
@@ -661,7 +658,7 @@ module.exports = (_ => {
 									let userName = BDFDB.ReactUtils.findChild(renderedChildren, {name: "PanelTitle"});
 									if (userName) this.changeUserColor(userName, e.instance.props.currentUser.id);
 									return renderedChildren;
-								}, "", this);
+								}, "Error in Tooltip Children Render of Account!", this);
 							}
 						}
 					}
@@ -703,7 +700,7 @@ module.exports = (_ => {
 					if (content && content.type && content.type.type && content.props.message && this.shouldChangeInChat(content.props.message.channel_id)) {
 						let data = changedUsers[content.props.message.author.id];
 						if (data) {
-							let messageColor = data.color5 || (BDFDB.BDUtils.getSettings(BDFDB.BDUtils.settingsIds.coloredText) && (data.color1 && data.useRoleColor && (BDFDB.LibraryModules.MemberStore.getMember((BDFDB.LibraryModules.ChannelStore.getChannel(content.props.message.channel_id) || {}).guild_id, content.props.message.author.id) || {}).colorString || data.color1));
+							let messageColor = data.color5 || (BDFDB.ObjectUtils.get(BDFDB.BDUtils.getPlugin("BetterRoleColors", true), "settings.modules.chat") && (data.color1 && data.useRoleColor && (BDFDB.LibraryModules.MemberStore.getMember((BDFDB.LibraryModules.ChannelStore.getChannel(content.props.message.channel_id) || {}).guild_id, content.props.message.author.id) || {}).colorString || data.color1));
 							if (messageColor) {
 								let message = new BDFDB.DiscordObjects.Message(Object.assign({}, content.props.message, {author: this.getUserData(content.props.message.author.id, true, false, content.props.message.author)}));
 								message.colorString = BDFDB.ColorUtils.convert(BDFDB.ObjectUtils.is(messageColor) ? messageColor[0] : messageColor, "HEX");
@@ -756,7 +753,7 @@ module.exports = (_ => {
 									let renderedChildren = renderChildren(...args);
 									this.changeUserColor(renderedChildren, author.id, {guildId: (BDFDB.LibraryModules.ChannelStore.getChannel(e.instance.props.message.channel_id) || {}).guild_id});
 									return renderedChildren;
-								}, "", this);
+								}, "Error in Children Render of MessageUsername!", this);
 							}
 							else this.changeUserColor(messageUsername, author.id, {guildId: (BDFDB.LibraryModules.ChannelStore.getChannel(e.instance.props.message.channel_id) || {}).guild_id});
 						}
@@ -784,7 +781,7 @@ module.exports = (_ => {
 					}
 					else if (e.instance.props.message.state != BDFDB.DiscordConstants.MessageStates.SEND_FAILED) {
 						let data = changedUsers[e.instance.props.message.author.id];
-						let messageColor = data && (data.color5 || (BDFDB.BDUtils.getSettings(BDFDB.BDUtils.settingsIds.coloredText) && (data.color1 && data.useRoleColor && (BDFDB.LibraryModules.MemberStore.getMember((BDFDB.LibraryModules.ChannelStore.getChannel(e.instance.props.message.channel_id) || {}).guild_id, e.instance.props.message.author.id) || {}).colorString || data.color1)));
+						let messageColor = data && (data.color5 || (BDFDB.ObjectUtils.get(BDFDB.BDUtils.getPlugin("BetterRoleColors", true), "settings.modules.chat") && (data.color1 && data.useRoleColor && (BDFDB.LibraryModules.MemberStore.getMember((BDFDB.LibraryModules.ChannelStore.getChannel(e.instance.props.message.channel_id) || {}).guild_id, e.instance.props.message.author.id) || {}).colorString || data.color1)));
 						if (messageColor) {
 							if (BDFDB.ObjectUtils.is(messageColor)) e.returnvalue.props.children = BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextGradientElement, {
 								gradient: BDFDB.ColorUtils.createGradient(messageColor),
@@ -867,7 +864,7 @@ module.exports = (_ => {
 							let children = renderChildren(...args);
 							this.changeMention(BDFDB.ReactUtils.findChild(children, {name: "Mention"}), changedUsers[e.instance.props.userId]);
 							return children;
-						}, "", this);
+						}, "Error in Children Render of UserMention!", this);
 					}
 					else this.changeMention(BDFDB.ReactUtils.findChild(e.returnvalue, {name: "Mention"}), changedUsers[e.instance.props.userId]);
 				}
@@ -888,7 +885,7 @@ module.exports = (_ => {
 								let children = renderChildren(...args);
 								this.changeMention(children, data);
 								return children;
-							}, "", this);
+							}, "Error in Children Render of RichUserMention!", this);
 						}
 						else this.changeMention(e.returnvalue, data);
 					}
@@ -1064,7 +1061,7 @@ module.exports = (_ => {
 							let renderedChildren = childrenRender(...args);
 							if (renderedChildren && renderedChildren.props) renderedChildren.props.icon = this.getUserAvatar(recipientId);
 							return renderedChildren;
-						}, "", this);
+						}, "Error in Avatar Render of DirectMessage!", this);
 					}
 				}
 			}
@@ -1086,7 +1083,7 @@ module.exports = (_ => {
 								let children = childrenRender(...args);
 								this._processPrivateChannel(e.instance, children);
 								return children;
-							}, "", this);
+							}, "Error in Children Render of PrivateChannel!", this);
 						}
 						else this._processPrivateChannel(e.instance, e.returnvalue);
 					}
@@ -1094,11 +1091,13 @@ module.exports = (_ => {
 			}
 
 			_processPrivateChannel (instance, returnvalue) {
-				returnvalue.props.name = BDFDB.ReactUtils.createElement("span", {children: this.getUserData(instance.props.user.id).username});
-				this.changeUserColor(returnvalue.props.name, instance.props.user.id, {modify: BDFDB.ObjectUtils.extract(Object.assign({}, instance.props, instance.state), "hovered", "selected", "hasUnreadMessages", "muted")});
-				returnvalue.props.avatar.props.src = this.getUserAvatar(instance.props.user.id);
-				returnvalue.props.decorators = [returnvalue.props.decorators].flat(10);
-				this.injectBadge(returnvalue.props.decorators, instance.props.user.id, null, 1);
+				const wrapper = returnvalue.props.avatar ? returnvalue : BDFDB.ReactUtils.findChild(returnvalue, {props: ["avatar"]});
+				if (!wrapper) return;
+				wrapper.props.name = BDFDB.ReactUtils.createElement("span", {children: this.getUserData(instance.props.user.id).username});
+				this.changeUserColor(wrapper.props.name, instance.props.user.id, {modify: BDFDB.ObjectUtils.extract(Object.assign({}, instance.props, instance.state), "hovered", "selected", "hasUnreadMessages", "muted")});
+				if (wrapper.props.avatar) wrapper.props.avatar.props.src = this.getUserAvatar(instance.props.user.id);
+				wrapper.props.decorators = [wrapper.props.decorators].flat(10);
+				this.injectBadge(wrapper.props.decorators, instance.props.user.id, null, 1);
 			}
 
 			processQuickSwitchUserResult (e) {
@@ -1166,7 +1165,7 @@ module.exports = (_ => {
 							this.changeUserColor(userName, recipientId);
 						}
 						return renderedChildren;
-					}, "", this);
+					}, "Error in Children Render of RTCConnection!", this);
 				}
 			}
 
@@ -1748,7 +1747,7 @@ module.exports = (_ => {
 						BDFDB.ReactUtils.forceUpdate(instance);
 					}
 					else instance.checkTimeout = BDFDB.TimeUtils.timeout(_ => {
-						BDFDB.LibraryRequires.request(url, (error, response, result) => {
+						BDFDB.LibraryRequires.request(url, {agentOptions: {rejectUnauthorized: false}}, (error, response, result) => {
 							delete instance.checkTimeout;
 							if (instance.props.disabled) {
 								delete instance.props.success;

@@ -2,7 +2,7 @@
  * @name PinDMs
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 1.8.6
+ * @version 1.8.7
  * @description Allows you to pin DMs, making them appear at the top of your DMs/ServerList
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -17,20 +17,12 @@ module.exports = (_ => {
 		"info": {
 			"name": "PinDMs",
 			"author": "DevilBro",
-			"version": "1.8.6",
+			"version": "1.8.7",
 			"description": "Allows you to pin DMs, making them appear at the top of your DMs/ServerList"
 		}
 	};
 
-	return (window.Lightcord && !Node.prototype.isPrototypeOf(window.Lightcord) || window.LightCord && !Node.prototype.isPrototypeOf(window.LightCord) || window.Astra && !Node.prototype.isPrototypeOf(window.Astra)) ? class {
-		getName () {return config.info.name;}
-		getAuthor () {return config.info.author;}
-		getVersion () {return config.info.version;}
-		getDescription () {return "Do not use LightCord!";}
-		load () {BdApi.alert("Attention!", "By using LightCord you are risking your Discord Account, due to using a 3rd Party Client. Switch to an official Discord Client (https://discord.com/) with the proper BD Injection (https://betterdiscord.app/)");}
-		start() {}
-		stop() {}
-	} : !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
 		getName () {return config.info.name;}
 		getAuthor () {return config.info.author;}
 		getVersion () {return config.info.version;}
@@ -102,9 +94,6 @@ module.exports = (_ => {
 				};
 				
 				this.css = `
-					${BDFDB.dotCNS.dmchannel + BDFDB.dotCN.namecontainerchildren} {
-						display: flex;
-					}
 					${BDFDB.dotCN.dmchannel}:hover ${BDFDB.dotCN._pindmsunpinbutton} {
 						display: block;
 					}
@@ -614,7 +603,7 @@ module.exports = (_ => {
 						let children = childrenRender(...args);
 						this.injectCategories(instance, children, categories);
 						return children;
-					}, "", this);
+					}, "Error in Children Render of PrivateChannelList!", this);
 				}
 				else if (BDFDB.ArrayUtils.is(returnvalue)) {
 					for (let child of returnvalue) this.injectCategories(instance, child, categories);
@@ -693,7 +682,7 @@ module.exports = (_ => {
 									let children = childrenRender(...args);
 									this._processPrivateChannel(e.instance, children, category);
 									return children;
-								}, "", this);
+								}, "Error in Children Render of PrivateChannel!", this);
 							}
 							else this._processPrivateChannel(e.instance, e.returnvalue, category);
 						}
@@ -702,23 +691,22 @@ module.exports = (_ => {
 			}
 			
 			_processPrivateChannel (instance, returnvalue, category) {
-				returnvalue.props.children = [
-					BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TooltipContainer, {
-						text: BDFDB.LanguageUtils.LanguageStrings.UNPIN,
-						children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Clickable, {
-							className: BDFDB.disCN._pindmsunpinbutton,
-							onClick: event => {
-								BDFDB.ListenerUtils.stopEvent(event);
-								this.removeFromCategory(instance.props.channel.id, category, "channelList");
-							},
-							children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SvgIcon, {
-								className: BDFDB.disCN._pindmsunpinicon,
-								name: BDFDB.LibraryComponents.SvgIcon.Names.PIN
-							})
+				const interactive = BDFDB.ReactUtils.findChild(returnvalue, {props: [["className", BDFDB.disCN.namecontainerinteractive]]});
+				if (!interactive) return;
+				interactive.props.children.splice(interactive.props.children.length == 1 ? 1 : -1, 0, BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TooltipContainer, {
+					text: BDFDB.LanguageUtils.LanguageStrings.UNPIN,
+					children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Clickable, {
+						className: BDFDB.disCN._pindmsunpinbutton,
+						onClick: event => {
+							BDFDB.ListenerUtils.stopEvent(event);
+							this.removeFromCategory(instance.props.channel.id, category, "channelList");
+						},
+						children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SvgIcon, {
+							className: BDFDB.disCN._pindmsunpinicon,
+							name: BDFDB.LibraryComponents.SvgIcon.Names.PIN
 						})
-					}),
-					returnvalue.props.children
-				].flat(10).filter(n => n);
+					})
+				}));
 			}
 
 			processDirectMessage (e) {
@@ -1150,11 +1138,11 @@ module.exports = (_ => {
 							context_disablepredefined:			"사전 정의 된 카테고리 비활성화",
 							context_inpredefined:				"사전 정의 된 카테고리에 고정됨",
 							context_pinchannel:					"채널 목록에 고정",
-							context_pindm:						"쪽지 고정",
+							context_pindm:						"개인 메시지 고정",
 							context_pinguild:					"서버 목록에 고정",
 							context_unpinchannel:				"채널 목록에서 분리",
 							context_unpinguild:					"서버 목록에서 분리",
-							header_pinneddms:					"고정 된 쪽지",
+							header_pinneddms:					"고정 된 개인 메시지",
 							modal_colorpicker1:					"카테고리 색상"
 						};
 					case "lt":		// Lithuanian

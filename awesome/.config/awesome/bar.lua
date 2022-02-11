@@ -185,7 +185,7 @@ function bar.create()
             {
                 widget = wibox.container.background,
                 bg = beautiful.bg_normal,
-                shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h, 10) end,
+                shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h, 9) end,
                 {
                     expand = "none",
                     layout = wibox.layout.align.horizontal,
@@ -204,8 +204,9 @@ function bar.create()
                     { -- Right widgets
                         layout = wibox.layout.fixed.horizontal,
                         -- TODO find a different systray that lets me hide some icons bc this is ugly
-                        wibox.layout.margin(s.mytasklist, 3, 3, 3, 3),
-                        wibox.layout.margin(wibox.widget.systray(true), 3, 5, 3, 3),
+                        wibox.layout.margin(s.mytasklist, 4, 4, 4, 4),
+                        spacing = 5,
+                        wibox.layout.margin(wibox.widget.systray(true), 3, 8, 3, 3),
                         --wibox.layout.margin(s.mylayoutbox, 2, 2, 2, 2),         
                         valign = "center",
                         halign = "center",
