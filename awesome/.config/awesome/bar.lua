@@ -106,13 +106,13 @@ function bar.create()
                             },
                             left = 6.5,
                             right = 6.5,
-                            top = 1.5,
-                            bottom = 0.9,
+                            top = 5,
+                            bottom = 1,
                             widget = wibox.container.margin
                         },
                         {
                             {
-                                top = 2, -- size of underline
+                                top = 2.5, -- size of underline
                                 widget = wibox.container.margin
                             },
                             id = 'overline',
@@ -173,33 +173,45 @@ function bar.create()
         }
 
         -- Create the wibox
-        s.mywibox = awful.wibar({ position = "top", screen = s })
+        s.mywibox = awful.wibar({ position = "top", screen = s, bg = "#ffffff00"})
 
         -- Add widgets to the wibox
         s.mywibox:setup {
-            expand = "none",
-            layout = wibox.layout.align.horizontal,
-            { -- Left widgets
-                layout = wibox.layout.fixed.horizontal,
-                s.mytaglist,
-                valign = "center",
-                halign = "center",
+            top = 10,
+            left = 10,
+            right = 10,
+            color = "#ff00ff00",
+            widget = wibox.container.margin,
+            {
+                widget = wibox.container.background,
+                bg = beautiful.bg_normal,
+                shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h, 10) end,
+                {
+                    expand = "none",
+                    layout = wibox.layout.align.horizontal,
+                    { -- Left widgets
+                        layout = wibox.layout.fixed.horizontal,
+                        wibox.layout.margin(s.mytaglist, 8, 0, 0, 0),
+                        valign = "center",
+                        halign = "center",
+                    },
+                    { -- Center widgets
+                        layout = wibox.layout.fixed.horizontal,
+                        mytextclock,
+                        valign = "center",
+                        halign = "center",
+                    },
+                    { -- Right widgets
+                        layout = wibox.layout.fixed.horizontal,
+                        -- TODO find a different systray that lets me hide some icons bc this is ugly
+                        wibox.layout.margin(s.mytasklist, 3, 3, 3, 3),
+                        wibox.layout.margin(wibox.widget.systray(true), 3, 5, 3, 3),
+                        --wibox.layout.margin(s.mylayoutbox, 2, 2, 2, 2),         
+                        valign = "center",
+                        halign = "center",
+                    },
+                },
             },
-            { -- Center widgets
-                layout = wibox.layout.fixed.horizontal,
-                mytextclock,
-                valign = "center",
-                halign = "center",
-            },
-            { -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
-                -- TODO find a different systray that lets me hide some icons bc this is ugly
-                wibox.layout.margin(s.mytasklist, 3, 3, 3, 3),
-                wibox.layout.margin(wibox.widget.systray(true), 3, 3, 3, 3),
-                --wibox.layout.margin(s.mylayoutbox, 2, 2, 2, 2),         
-                valign = "center",
-                halign = "center",
-            }
         }
     end)
 end

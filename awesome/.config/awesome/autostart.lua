@@ -20,6 +20,7 @@ autostart.autorunApps = {
     "pamac-tray",
     "nm-applet",
     "blueberry-tray",
+    "pkill volumeicon",
     "volumeicon"
     --"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
     --"volumeicon",

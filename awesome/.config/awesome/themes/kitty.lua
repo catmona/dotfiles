@@ -107,6 +107,8 @@ theme.tasklist_align = "center"
 theme.left_panel_width = dpi(55)
 theme.top_panel_height = dpi(26)
 
+theme.wibar_height = dpi(38)
+
 -- Notifications
 theme.notification_bg = theme.bg_normal
 theme.notification_fg = theme.fg_normal
