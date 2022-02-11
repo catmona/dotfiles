@@ -5,11 +5,11 @@ Use [Stow](https://www.gnu.org/software/stow/#navigation) to manage dotfiles
 
 ## Dependencies
 
+* Bitstream Vera Sans Mono
 * [Awesome](https://github.com/awesomeWM/awesome)
 * [Kitty](https://github.com/kovidgoyal/kitty)
 * [Rofi](https://github.com/davatorium/rofi)
 * [FontAwesome](https://github.com/FortAwesome/Font-Awesome)
-* Bitstream Vera Sans Mono
 * [Zsh](https://www.zsh.org/)
 * [OhMyZsh](https://github.com/ohmyzsh/ohmyzsh)
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k) (install meslo fonts too)
@@ -18,7 +18,7 @@ Use [Stow](https://www.gnu.org/software/stow/#navigation) to manage dotfiles
 * [PCManFM](https://github.com/lxde/pcmanfm)
 * [Fd-find](https://github.com/sharkdp/fd)
 * [Rofi todo](https://github.com/claudiodangelis/rofi-todo)
-* [Picom](https://github.com/yshui/picom)
+* [Picom-jonaburg-fix](https://aur.archlinux.org/packages/picom-jonaburg-fix)
 * [Nitrogen](https://github.com/l3ib/nitrogen)
 * [BetterDiscord](https://betterdiscord.app/)
 * [Flameshot](https://github.com/flameshot-org/flameshot)
@@ -34,41 +34,4 @@ Use [Stow](https://www.gnu.org/software/stow/#navigation) to manage dotfiles
 * [TLP](https://linrunner.de/tlp/)
 * [PowerTop](https://github.com/fenrus75/powertop)
 * [Linux-Surface Kernel](https://github.com/linux-surface/linux-surface)
-
-### .xprofile content:
-```
-#!/bin/sh
-
-#Resolution
-xrandr --newmode "1368x912_60.00"  103.00  1368 1448 1592 1816  912 915 925 947 -hsync +vsync
-xrandr --addmode eDP1 1368x912_60.00
-xrandr --output eDP1 --mode 1368x912_60.00
-
-#polkit
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
-#power management
-tlp start &
-
-#touchpad disable when typing
-syndaemon -i 0.5 -t -K -R -d
-
-#appearance
-picom -b
-#nitrogen --restore &
-redshift &
-
-#systray
-#`volumeicon &
-#sleep 0.5
-#nm-applet &
-# sleep 0.5
-#blueberry-tray &
-# sleep 0.5
-# sleep 0.5
-xfce4-power-manager &
-# sleep 0.5
-# pamac-tray &
-```
-
 

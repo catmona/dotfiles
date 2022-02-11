@@ -1,0 +1,32 @@
+#!/bin/sh
+
+#Resolution
+xrandr --newmode "1368x912_60.00"  103.00  1368 1448 1592 1816  912 915 925 947 -hsync +vsync
+xrandr --addmode eDP1 1368x912_60.00
+xrandr --output eDP1 --mode 1368x912_60.00
+
+#polkit
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+#power management
+tlp start &
+
+#touchpad disable when typing
+syndaemon -i 0.5 -t -K -R -d
+
+#appearance
+picom --experimental-backend -b
+#nitrogen --restore &
+redshift &
+
+#systray
+#`volumeicon &
+#sleep 0.5
+#nm-applet &
+# sleep 0.5
+#blueberry-tray &
+# sleep 0.5
+# sleep 0.5
+xfce4-power-manager &
+# sleep 0.5
+# pamac-tray &

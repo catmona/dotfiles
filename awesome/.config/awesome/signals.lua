@@ -42,7 +42,7 @@ function signals.create()
     if beautiful.rounded_corners then
         client.connect_signal("manage", function (c)
             c.shape = function(cr,w,h)
-                gears.shape.rounded_rect(cr,w,h,20)
+                gears.shape.rounded_rect(cr,w,h,10)
             end
         end)
     end
