@@ -191,6 +191,14 @@ bindings.globalkeys = gears.table.join(
         end,
         {description = "open firefox", group = "launcher"}
     ),
+    
+    -- search bookmarks
+    awful.key({modkey, "Shift"}, "w",
+        function()
+            awful.spawn("rofi -show firefox_bookmarks -modi firefox_bookmarks:~/bin/rofi-firefox-bookmarks.sh")
+        end,
+        {description = "browse bookmarks", group = "launcher"}
+    ),
 
     -- launch discord
     awful.key({modkey}, "d",
