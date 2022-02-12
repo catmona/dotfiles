@@ -1,0 +1,72 @@
+/* order of these files is important and should not be changed */
+
+@import 'icons/extension-icons.css';
+/* @import "userChrome-static.css"; */
+
+:root { 
+  --dark-0: #29252D;
+  --dark-base: #2f2a33;
+  --dark-1: #3E3743;
+  --dark-2: #48404F;
+  --dark-3: #5D5365;
+  --dark-4: #675C70;
+  --light-0: #CFB9CF;
+  --light-base: #f1f1f1;
+  --light-1: #f1f1f1;
+  --light-2: #A57DA6;
+  --light-3: #9C709E;
+  --light-4: #936595;
+  --accent: #f8c2e2;
+  --yellow: #fcc891;
+  --green: #8fda8f;
+  --red: #DA627D;
+  --extension-icon-mask: grayscale(85%) invert(32%) sepia(18%) saturate(443%) hue-rotate(230deg) brightness(92%) contrast(84%);
+    
+  /* expanded width of the sidebar. 
+    used for userChrome-static, and hover */
+  --sidebar-width: 250px; 
+  /* initial width of the sidebar. 
+    advised not to change since tst css relies on this value*/
+  --sidebar-collapsed-width: 60px;
+
+  --dividers: 2px;
+    
+  --tl-animation-duration: 200ms;
+  /*--tl-tab-background-gradient: */
+  /* uncomment and add gradient value for selected tab gradient*/
+  
+  /******WINDOW CONTROL PLACEMENT VARS******/
+  /* larger value moves window controls down,*/
+  /* can be negative(moves controls up) */
+  /* 55px if tabline visible, -25px if tabline hidden */
+  --wc-vertical-shift: 15px;
+  --wc-left-space: 10px; /* add space to the left of window controls*/
+  --wc-right-space: 15px; /* add space to the right of window controls*/
+  /* left-space shifts window-controls */
+  /* if you want to shift them to the left: positive value */
+  /* and if you want to shift them to the right: smaller or negative value */
+  /* right-space shifts rest of the navbar (forward,backward,urlbar,etc.) to the right */
+  /* if you want to increase/decrease space between window-controls and navbars: */
+  /* set positive/negative value for right-space*/
+    
+}
+
+:root[privatebrowsingmode="temporary"]{ 
+  --dark-0: #28252C;
+  --dark-base: #2D2A32;
+  --dark-1: #3C3843;
+  --dark-2: #46414E;
+  --dark-3: #5A5464;
+  --dark-4: #645D6F;
+  --light-0: #CFB9CF;
+  --light-base: #B594B6;
+  --light-1: #AD89AE;
+  --light-2: #A57DA6;
+  --light-3: #9C709E;
+  --light-4: #936595;
+  --accent: #f8c2e2;
+  --yellow: #fcc891;
+  --green: #8fda8f;
+  --red: #DA627D;
+  --extension-icon-mask: grayscale(85%) invert(32%) sepia(17%) saturate(373%) hue-rotate(221deg) brightness(95%) contrast(89%); 
+}
