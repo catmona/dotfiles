@@ -1,6 +1,6 @@
 {
 	"changeLogs": {
-		"BDFDB": "2.1.3",
+		"BDFDB": "2.1.7",
 		"EditUsers": "4.4.3",
 		"JoinedAtDate": "1.3.3",
 		"OpenSteamLinksInApp": "1.1.4",
@@ -19,7 +19,7 @@
 		"useChromium": false
 	},
 	"hashes": {
-		"0BDFDB.data.json": "9bb8cc01e640a900d7c2e3ea6c85da87fa0ec7d6",
+		"0BDFDB.data.json": "cab08f2440ee72443d092007ebf3a56b31266733",
 		"0BDFDB.raw.css": "a1036e10077b9457f3903795204f7dbd91d7646d"
 	}
 }
