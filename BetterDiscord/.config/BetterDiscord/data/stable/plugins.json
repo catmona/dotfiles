@@ -14,5 +14,9 @@
     "SplitLargeMessages": false,
     "StaffTag": false,
     "ThemeRepo": false,
-    "ThemeSettings": false
+    "ThemeSettings": false,
+    "CallTimeCounter": false,
+    "ChatAliases": false,
+    "DisableStickerSuggestions": false,
+    "DiscordActivities": false
 }

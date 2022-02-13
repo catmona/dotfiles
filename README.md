@@ -25,8 +25,13 @@ Use [Stow](https://www.gnu.org/software/stow/#navigation) to manage dotfiles
 * [Redshift](https://github.com/jonls/redshift)
 
 
+## Firefox
+ * copy `/chrome` & `user.js` to `~/.mozilla/firefox/$profile/`
+ * hntp settings [todo]
+ * tab center reborn settings [todo]
+
 ## VSCode
- Use [Settings Sync](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync)
+ * Use [Settings Sync](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync)
 
 
 ## For Surface
