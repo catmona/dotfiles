@@ -24,8 +24,16 @@
         --input-text: rgb(251,251,254);
         --input-text-focus: rgb(251,251,254);
         --identity-color-toolbar: rgb(251,251,254);
-        --tablist-separator: #333333;
+        --tablist-separator: #3b3741;
     }
+}
+
+.tab-title-wrapper, #newtab {
+    color: #f8c2e2 !important;
+}
+
+.tab.active {
+    background-color: #3b3741 !important;
 }
 
 /* Move topmenu to bottom */
@@ -63,9 +71,10 @@
 #tablist-wrapper::after {
     content: "";
     max-width: 34px;
-    margin: 2px 0;
+    margin: 8px 0 0 0;
     border: 1px solid var(--tablist-separator);
     transition: all var(--ttime) ease var(--tdelay);
+    
 }
 
 #tablist-wrapper .tab-title-wrapper {

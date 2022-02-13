@@ -1,5 +1,10 @@
 :root {
     --tdelay: 0.05s;
+    --autocomplete-popup-highlight-background: #3b3741 !important;
+    --focus-outline-color: #B594B6 !important;
+    --urlbar-popup-url-color: #B594B6 !important;
+    --lwt-toolbarbutton-icon-fill-attention: #f8c2e2 !important;
+    --sidebar-border-color: #B594B6 !important;
 }
 
 /* #region tab center reborn */
@@ -215,4 +220,10 @@
         display: none !important;
     }
 } 
+/* #endregion */
+
+/* #region my customization */
+
+
+
 /* #endregion */
