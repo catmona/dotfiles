@@ -179,7 +179,7 @@ bindings.globalkeys = gears.table.join(
     -- launch config search
     awful.key({modkey, "Shift"}, "i",
         function()
-            awful.spawn("./bin/rofi-finder dotfiles")
+            awful.spawn("./bin/rofi-finder dotfiles code")
         end,
         {description = "config opener", group = "launcher"}
     ),
@@ -358,17 +358,8 @@ bindings.globalkeys = gears.table.join(
         --[[ local notif_icon = gears.surface.load_uncached(
                            gears.filesystem.get_configuration_dir() .. "path/to/icon") ]]
         naughty.notify({
-            -- screen = 1,
-            -- timeout = 0,-- in seconds
-            -- ignore_suspend = true,-- if true notif shows even if notifs are suspended via naughty.suspend
-            -- fg = "#ff0",
-            -- bg = "#ff0000",
             title = "Test Title",
             text = "Test Notificationnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
-            -- icon = gears.color.recolor_image(notif_icon, "#ff0"),
-            -- icon_size = 24,-- in px
-            --border_color = "#ffff00",
-            --border_width = 2,
         })
         end,
         {description = "send test notification", group = "awesome"}

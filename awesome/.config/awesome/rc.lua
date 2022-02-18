@@ -10,7 +10,6 @@
 local gears = require("gears")
 local awful = require("awful")
 
-
 -- ===================================================================
 -- User Configuration
 -- ===================================================================
@@ -31,7 +30,8 @@ network_interfaces = {
 
 
 -- Start notifications
-local naughty = require("naughty")
+local notifications = require("notifications")
+notifications.setup()
 
 -- Autostart apps
 local autostart = require("autostart")

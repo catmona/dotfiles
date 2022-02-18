@@ -1,4 +1,12 @@
 {
-    "version": "1.5.1",
-    "emoteVersion": "v1.5.1"
+    "version": "1.5.2",
+    "emoteVersion": "v1.5.1",
+    "drawerStates": {
+        "settings": {
+            "editor": true,
+            "window": true,
+            "customcss": true,
+            "addons": false
+        }
+    }
 }

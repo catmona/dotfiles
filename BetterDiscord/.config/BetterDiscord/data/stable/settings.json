@@ -1,8 +1,8 @@
 {
     "general": {
-        "emotes": true,
+        "emotes": false,
         "publicServers": true,
-        "voiceDisconnect": false,
+        "voiceDisconnect": true,
         "showToasts": true,
         "mediaKeys": false
     },
@@ -26,7 +26,7 @@
     },
     "window": {
         "transparency": false,
-        "removeMinimumSize": false,
+        "removeMinimumSize": true,
         "frame": false
     },
     "developer": {

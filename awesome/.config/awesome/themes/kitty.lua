@@ -12,6 +12,7 @@
 
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
+local gears = require("gears")
 
 -- define module table
 local theme = {}
@@ -116,6 +117,9 @@ theme.notification_max_width = dpi(350)
 theme.notification_max_height = dpi(125)
 theme.notification_icon_size = dpi(115)
 theme.notification_opacity = 0.94
+theme.notification_shape = gears.shape.rounded_rect
+theme.notification_border_color = theme.fg_occupied
+theme.notification_spacing = 8
 
 -- System Tray
 theme.bg_systray = theme.bg_normal

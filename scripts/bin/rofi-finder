@@ -9,7 +9,7 @@ if __name__ == '__main__':
     
     command = ['fd', '-H', '-E', 'icons', '-E', '[cC]ache', '-E', '\.themes', '-E', '\.git', '-E', 'drive_c', '-E', '\.github', '-E', '\.mojosetup', '-E', 'plugins']
 
-    if len(args) == 2:
+    if len(args) >= 2:
         dir = args[1]
         command.append('.')
         command.append(dir)
@@ -29,5 +29,10 @@ if __name__ == '__main__':
     if cp.returncode == 0:
         file = cp.stdout.strip()
         xdg_command = ['xdg-open', file]
-        subprocess.run(xdg_command,
+        if len(args) >= 3:
+            opener = [args[2], file]
+        else:
+            opener = xdg_command
+        
+        subprocess.run(opener,
                        encoding='utf-8', capture_output=True)
