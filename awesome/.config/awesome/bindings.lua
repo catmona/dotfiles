@@ -338,7 +338,7 @@ bindings.globalkeys = gears.table.join(
         function()
             -- emit signal to show the exit screen
             -- awesome.emit_signal("show_exit_screen")
-            awful.spawn.single_instance("arcolinux-logout &")
+            awful.spawn.single_instance(globals.quit_menu)
         end,
         {description = "toggle exit screen", group = "hotkeys"}
     ),
@@ -349,7 +349,7 @@ bindings.globalkeys = gears.table.join(
                 title = "Test Title",
                 text = "test body",
             })
-            awful.spawn.single_instance("betterlockscreen --lock &")
+            awful.spawn.single_instance(globals.lock)
         end,
         {description = "lock screen", group = "hotkeys"}
     ),

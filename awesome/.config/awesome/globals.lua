@@ -8,14 +8,15 @@
 local globals = {
     theme = "kitty.lua",
     terminal = "kitty",
-    editor = os.getenv("EDITOR") or "vim",
+    editor = os.getenv("EDITOR") or "nano",
     modkey = "Mod4",
     altkey = "Mod1",
     network_manager = "",
     power_manager = "",
     launcher = "rofi -show drun",
     filebrowser = "pcmanfm",
-    lock = "",
+    lock = "betterlockscreen --lock &",
+    quit_menu = "arcolinux-logout &",
     screenshot = "flameshot gui"
 }
 
