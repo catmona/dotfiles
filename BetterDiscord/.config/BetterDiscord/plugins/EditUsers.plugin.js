@@ -2,7 +2,7 @@
  * @name EditUsers
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 4.4.9
+ * @version 4.5.3
  * @description Allows you to locally edit Users
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -17,7 +17,7 @@ module.exports = (_ => {
 		"info": {
 			"name": "EditUsers",
 			"author": "DevilBro",
-			"version": "4.4.9",
+			"version": "4.5.3",
 			"description": "Allows you to locally edit Users"
 		}
 	};
@@ -357,62 +357,92 @@ module.exports = (_ => {
 		
 			forceUpdateAll () {
 				changedUsers = BDFDB.DataUtils.load(this, "users");
-					
+				
 				this.changeAppTitle();
 				BDFDB.PatchUtils.forceAllUpdates(this);
 				BDFDB.MessageUtils.rerenderAll();
 			}
 		
 			onDMContextMenu (e) {
-				this.onUserContextMenu(e);
-			}
-		
-			onUserContextMenu (e) {
 				if (e.instance.props.user) {
-					let userName = this.getUserData(e.instance.props.user.id).username;
-					if (userName != e.instance.props.user.username && this.settings.places.contextMenu) {
-						let [kickChilden, kickIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "kick"});
-						if (kickIndex > -1) kickChilden[kickIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("KICK_USER", userName);
-						let [banChilden, banIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "ban"});
-						if (banIndex > -1) banChilden[banIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("BAN_USER", userName);
-						let [muteChilden, muteIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "mute-channel"});
-						if (muteIndex > -1) muteChilden[muteIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("MUTE_CHANNEL", `@${userName}`);
-						let [unmuteChilden, unmuteIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "unmute-channel"});
-						if (unmuteIndex > -1) unmuteChilden[unmuteIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("UNMUTE_CHANNEL", `@${userName}`);
+					if (this.settings.places.contextMenu) {
+						let userName = this.getUserData(e.instance.props.user.id).username;
+						if (userName != e.instance.props.user.username) {
+							let [muteChildren, muteIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "mute-channel"});
+							if (muteIndex > -1) muteChildren[muteIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("MUTE_CHANNEL", `@${userName}`);
+							let [unmuteChildren, unmuteIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "unmute-channel"});
+							if (unmuteIndex > -1) unmuteChildren[unmuteIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("UNMUTE_CHANNEL", `@${userName}`);
+						}
 					}
 					let [children, index] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "devmode-copy-id", group: true});
 					children.splice(index > -1 ? index : children.length, 0, BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuGroup, {
-						children: BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-							label: this.labels.context_localusersettings,
-							id: BDFDB.ContextMenuUtils.createItemId(this.name, "settings-submenu"),
-							children: BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuGroup, {
-								children: [
-									BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-										label: this.labels.submenu_usersettings,
-										id: BDFDB.ContextMenuUtils.createItemId(this.name, "settings-change"),
-										action: _ => {
-											this.openUserSettingsModal(e.instance.props.user);
-										}
-									}),
-									BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-										label: this.labels.submenu_resetsettings,
-										id: BDFDB.ContextMenuUtils.createItemId(this.name, "settings-reset"),
-										color: BDFDB.LibraryComponents.MenuItems.Colors.DANGER,
-										disabled: !changedUsers[e.instance.props.user.id],
-										action: event => {
-											let remove = _ => {
-												BDFDB.DataUtils.remove(this, "users", e.instance.props.user.id);
-												this.forceUpdateAll(true);
-											};
-											if (event.shiftKey) remove();
-											else BDFDB.ModalUtils.confirm(this, this.labels.confirm_reset, remove);
-										}
-									})
-								]
-							})
-						})
+						children: this.createContextMenuEntry(e.instance.props.user)
 					}));
 				}
+			}
+		
+			onUserContextMenu (e) {
+				if (e.instance.props.channel && e.instance.props.channel.isDM()) {
+					const user = BDFDB.LibraryModules.UserStore.getUser(e.instance.props.channel.getRecipientId());
+					if (user && this.settings.places.contextMenu && e.subType == "useMuteChannelItem") {
+						let userName = this.getUserData(user.id).username;
+						if (userName != user.username) {
+							let [muteChildren, muteIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "mute-channel"});
+							if (muteIndex > -1) muteChildren[muteIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("MUTE_CHANNEL", `@${userName}`);
+							let [unmuteChildren, unmuteIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "unmute-channel"});
+							if (unmuteIndex > -1) unmuteChildren[unmuteIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("UNMUTE_CHANNEL", `@${userName}`);
+						}
+					}
+				}
+				if (e.instance.props.user) {
+					if (this.settings.places.contextMenu && e.subType == "useUserManagementItems") {
+						let userName = this.getUserData(e.instance.props.user.id).username;
+						if (userName != e.instance.props.user.username) {
+							let [timeoutChildren, timeoutIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "timeout"});
+							if (timeoutIndex > -1) timeoutChildren[timeoutIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("DISABLE_GUILD_COMMUNICATION_FOR_USER", userName);
+							let [removeTimeoutChildren, removeTimeoutIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "removetimeout"});
+							if (removeTimeoutIndex > -1) removeTimeoutChildren[removeTimeoutIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("ENABLE_GUILD_COMMUNICATION_FOR_USER", userName);
+							let [kickChildren, kickIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "kick"});
+							if (kickIndex > -1) kickChildren[kickIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("KICK_USER", userName);
+							let [banChildren, banIndex] = BDFDB.ContextMenuUtils.findItem(e.returnvalue, {id: "ban"});
+							if (banIndex > -1) banChildren[banIndex].props.label = BDFDB.LanguageUtils.LanguageStringsFormat("BAN_USER", userName);
+						}
+					}
+					if (e.subType == "useBlockUserItem") {
+						if (e.returnvalue.length) e.returnvalue.push(BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuSeparator, {}));
+						e.returnvalue.push(this.createContextMenuEntry(e.instance.props.user));
+					}
+				}
+			}
+			
+			createContextMenuEntry (user) {
+				return BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+					label: this.labels.context_localusersettings,
+					id: BDFDB.ContextMenuUtils.createItemId(this.name, "settings-submenu"),
+					children: BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuGroup, {
+						children: [
+							BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+								label: this.labels.submenu_usersettings,
+								id: BDFDB.ContextMenuUtils.createItemId(this.name, "settings-change"),
+								action: _ => this.openUserSettingsModal(user)
+							}),
+							BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+								label: this.labels.submenu_resetsettings,
+								id: BDFDB.ContextMenuUtils.createItemId(this.name, "settings-reset"),
+								color: BDFDB.LibraryComponents.MenuItems.Colors.DANGER,
+								disabled: !changedUsers[user.id],
+								action: event => {
+									let remove = _ => {
+										BDFDB.DataUtils.remove(this, "users", user.id);
+										this.forceUpdateAll(true);
+									};
+									if (event.shiftKey) remove();
+									else BDFDB.ModalUtils.confirm(this, this.labels.confirm_reset, remove);
+								}
+							})
+						]
+					})
+				});
 			}
 			
 			processChannelEditorContainer (e) {
@@ -956,7 +986,7 @@ module.exports = (_ => {
 			}
 
 			processAuditLogs (e) {
-				if (e.instance.props.logs && this.settings.places.guildSettings) { 
+				if (e.instance.props.logs && this.settings.places.guildSettings) {
 					if (!BDFDB.PatchUtils.isPatched(this, e.instance, "renderUserQuickSelectItem")) BDFDB.PatchUtils.patch(this, e.instance, "renderUserQuickSelectItem", {after: e2 => {if (e2.methodArguments[0] && e2.methodArguments[0].user && changedUsers[e2.methodArguments[0].user.id]) {
 						let userName = BDFDB.ReactUtils.findChild(e2.returnValue, {props: [["children", e2.methodArguments[0].label]]});
 						if (userName) {
@@ -1051,8 +1081,7 @@ module.exports = (_ => {
 				if (e.instance.props.channel && e.instance.props.channel.isDM() && this.settings.places.recentDms) {
 					let recipientId = e.instance.props.channel.getRecipientId();
 					if (!recipientId || !changedUsers[recipientId]) return;
-					let tooltip = BDFDB.ReactUtils.findChild(e.returnvalue, {name: "ListItemTooltip"});
-					if (tooltip) tooltip.props.text = this.getUserData(recipientId).username;
+					e.instance.props.channelName = this.getUserData(recipientId).username;
 					let avatar = BDFDB.ReactUtils.findChild(e.returnvalue, {filter: c => c && c.props && !isNaN(parseInt(c.props.id))});
 					if (avatar && typeof avatar.props.children == "function") {
 						let childrenRender = avatar.props.children;
@@ -1076,15 +1105,16 @@ module.exports = (_ => {
 						}
 					}
 					else {
-						if (typeof e.returnvalue.props.children == "function") {
-							let childrenRender = e.returnvalue.props.children;
-							e.returnvalue.props.children = BDFDB.TimeUtils.suppress((...args) => {
+						let wrapper = e.returnvalue && e.returnvalue.props.children && e.returnvalue.props.children.props && typeof e.returnvalue.props.children.props.children == "function" ? e.returnvalue.props.children : e.returnvalue;
+						if (typeof wrapper.props.children == "function") {
+							let childrenRender = wrapper.props.children;
+							wrapper.props.children = BDFDB.TimeUtils.suppress((...args) => {
 								let children = childrenRender(...args);
 								this._processPrivateChannel(e.instance, children);
 								return children;
 							}, "Error in Children Render of PrivateChannel!", this);
 						}
-						else this._processPrivateChannel(e.instance, e.returnvalue);
+						else this._processPrivateChannel(e.instance, wrapper);
 					}
 				}
 			}
