@@ -16,7 +16,7 @@ local globals = {
     launcher = "rofi -show drun",
     filebrowser = "pcmanfm",
     lock = "betterlockscreen --lock &",
-    quit_menu = "arcolinux-logout &",
+    quit_menu = "archlinux-logout &",
     screenshot = "flameshot gui"
 }
 
