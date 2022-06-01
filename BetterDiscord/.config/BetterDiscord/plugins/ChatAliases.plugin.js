@@ -2,7 +2,7 @@
  * @name ChatAliases
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 2.3.3
+ * @version 2.3.9
  * @description Allows you to configure your own Aliases/Commands
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -17,25 +17,12 @@ module.exports = (_ => {
 		"info": {
 			"name": "ChatAliases",
 			"author": "DevilBro",
-			"version": "2.3.3",
+			"version": "2.3.9",
 			"description": "Allows you to configure your own Aliases/Commands"
-		},
-		"changeLog": {
-			"improved": {
-				"Threads": "Works flawlessly with Threads now"
-			}
 		}
 	};
 
-	return (window.Lightcord && !Node.prototype.isPrototypeOf(window.Lightcord) || window.LightCord && !Node.prototype.isPrototypeOf(window.LightCord) || window.Astra && !Node.prototype.isPrototypeOf(window.Astra)) ? class {
-		getName () {return config.info.name;}
-		getAuthor () {return config.info.author;}
-		getVersion () {return config.info.version;}
-		getDescription () {return "Do not use LightCord!";}
-		load () {BdApi.alert("Attention!", "By using LightCord you are risking your Discord Account, due to using a 3rd Party Client. Switch to an official Discord Client (https://discord.com/) with the proper BD Injection (https://betterdiscord.app/)");}
-		start() {}
-		stop() {}
-	} : !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
 		getName () {return config.info.name;}
 		getAuthor () {return config.info.author;}
 		getVersion () {return config.info.version;}
@@ -105,8 +92,7 @@ module.exports = (_ => {
 				this.patchedModules = {
 					before: {
 						ChannelTextAreaForm: "render",
-						MessageEditor: "render",
-						Upload: "render"
+						MessageEditor: "render"
 					},
 					after: {
 						Autocomplete: "render"
@@ -131,63 +117,63 @@ module.exports = (_ => {
 				if (BDFDB.LibraryModules.AutocompleteOptions && BDFDB.LibraryModules.AutocompleteOptions.AUTOCOMPLETE_OPTIONS) {
 					BDFDB.LibraryModules.AutocompleteOptions.AUTOCOMPLETE_OPTIONS[AUTOCOMPLETE_ALIAS_OPTION] = {
 						autoSelect: true,
-						matches: (channel, guild, currentWord, _, config) => {
-							if (currentWord.length >= this.settings.amounts.minAliasLength) for (let word in aliases) {
+						matches: (channel, guild, query, _, editor) => {
+							if (query.length >= this.settings.amounts.minAliasLength) for (let word in aliases) {
 								let aliasData = aliases[word];
 								if (!aliasData.regex && aliasData.autoc) {
 									if (aliasData.exact) {
-										if (aliasData.case && word.indexOf(currentWord) == 0) return true;
-										else if (!aliasData.case && word.toLowerCase().indexOf(currentWord.toLowerCase()) == 0) return true;
+										if (aliasData.case && word.indexOf(query) == 0) return true;
+										else if (!aliasData.case && word.toLowerCase().indexOf(query.toLowerCase()) == 0) return true;
 									}
 									else {
-										if (aliasData.case && word.indexOf(currentWord) > -1) return true;
-										else if (!aliasData.case && word.toLowerCase().indexOf(currentWord.toLowerCase()) > -1) return true;
+										if (aliasData.case && word.indexOf(query) > -1) return true;
+										else if (!aliasData.case && word.toLowerCase().indexOf(query.toLowerCase()) > -1) return true;
 									}
 								}
 							}
 							return false;
 						},
-						queryResults: (channel, guild, currentWord, config) => {
-							if (currentWord == commandSentinel) return;
+						queryResults: (channel, guild, query, editor) => {
+							if (query == commandSentinel) return;
 							let matches = [];
 							for (let word in aliases) {
 								let aliasData = Object.assign({word}, aliases[word]);
 								if (!aliasData.regex && aliasData.autoc) {
 									if (aliasData.exact) {
-										if (aliasData.case && word.indexOf(currentWord) == 0) matches.push(aliasData);
-										else if (!aliasData.case && word.toLowerCase().indexOf(currentWord.toLowerCase()) == 0) matches.push(aliasData);
+										if (aliasData.case && word.indexOf(query) == 0) matches.push(aliasData);
+										else if (!aliasData.case && word.toLowerCase().indexOf(query.toLowerCase()) == 0) matches.push(aliasData);
 									}
 									else {
-										if (aliasData.case && word.indexOf(currentWord) > -1) matches.push(aliasData);
-										else if (!aliasData.case && word.toLowerCase().indexOf(currentWord.toLowerCase()) > -1) matches.push(aliasData);
+										if (aliasData.case && word.indexOf(query) > -1) matches.push(aliasData);
+										else if (!aliasData.case && word.toLowerCase().indexOf(query.toLowerCase()) > -1) matches.push(aliasData);
 									}
 								}
 							}
 							if (matches.length) return {results: {aliases: matches}};
 						},
-						renderResults: (results, currentSelected, channel, guild, currenWord, config, setSelected, chooseSelected) => {
-							return results && results.aliases && [
+						renderResults: data => {
+							return data && data.results && data.results.aliases && [
 								BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.AutocompleteItems.Title, {
 									title: [
 										"Aliases: ",
 										BDFDB.ReactUtils.createElement("strong", {
-											children: currenWord
+											children: data.query
 										})
 									]
 								}),
-								results.aliases.map((aliasData, i) => BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.AutocompleteItems.Generic, {
-									onClick: chooseSelected,
-									onHover: setSelected,
+								data.results.aliases.map((aliasData, i) => BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.AutocompleteItems.Generic, {
+									onClick: data.onClick,
+									onHover: data.onHover,
 									index: i,
-									selected: currentSelected === i,
+									selected: data.selectedIndex === i,
 									alias: aliasData,
 									text: aliasData.word,
 									description: BDFDB.StringUtils.insertNRST(aliasData.replace)
 								}))
 							].flat(10).filter(n => n);
 						},
-						onSelect: (results, index, _, config) => {
-							config.insertText(results.aliases[index].file ? results.aliases[index].word : BDFDB.StringUtils.insertNRST(results.aliases[index].replace));
+						onSelect: data => {
+							data.options.insertText(data.results.aliases[data.index].file ? data.results.aliases[data.index].word : BDFDB.StringUtils.insertNRST(data.results.aliases[data.index].replace));
 							return {};
 						}
 					};
@@ -391,40 +377,33 @@ module.exports = (_ => {
 			
 			processChannelTextAreaForm (e) {
 				BDFDB.PatchUtils.patch(this, e.instance, "handleSendMessage", {before: e2 => {
-					if (this.settings.places.normal) this.handleSubmit(e, e2, 0);
+					if (this.settings.places.normal) this.handleSubmit(e, e2);
 				}}, {force: true, noCache: true});
 			}
 			
 			processMessageEditor (e) {
 				BDFDB.PatchUtils.patch(this, e.instance, "onSubmit", {before: e2 => {
-					if (this.settings.places.edit) this.handleSubmit(e, e2, 0);
+					if (this.settings.places.edit) this.handleSubmit(e, e2);
 				}}, {force: true, noCache: true});
 			}
 			
-			processUpload (e) {
-				BDFDB.PatchUtils.patch(this, e.instance, "submitUpload", {before: e2 => {
-					if (this.settings.places.upload) this.handleSubmit(e, e2, 1);
-				}}, {force: true, noCache: true});
-			}
-			
-			handleSubmit (e, e2, textIndex) {
+			handleSubmit (e, e2) {
 				if (!this.settings.general.replaceBeforeSend || BDFDB.LibraryModules.SlowmodeUtils.getSlowmodeCooldownGuess(e.instance.props.channel.id) > 0) return;
-				let messageData = this.formatText(e2.methodArguments[textIndex]);
+				let messageData = this.formatText(e2.methodArguments[0].value);
 				if (messageData) {
-					if (messageData.text != null && e2.methodArguments[textIndex] != messageData.text) {
-						e2.methodArguments[textIndex] = messageData.text;
+					if (messageData.files.length > 0 && (BDFDB.DMUtils.isDMChannel(e.instance.props.channel.id) || BDFDB.UserUtils.can("ATTACH_FILES", BDFDB.UserUtils.me.id, e.instance.props.channel.id))) {
+						e2.methodArguments[0].uploads = [].concat(e2.methodArguments[0].uploads);
+						for (let file of messageData.files) e2.methodArguments[0].uploads.push(new BDFDB.DiscordObjects.Upload({file: file, platform: 1}));
+					}
+					if (messageData.text != null && e2.methodArguments[0].value != messageData.text) {
+						e2.methodArguments[0].value = messageData.text;
 						e.instance.props.textValue = "";
-						if (e.instance.props.richValue) e.instance.props.richValue = BDFDB.SlateUtils.copyRichValue("", e.instance.props.richValue);
+						if (e.instance.props.richValue) e.instance.props.richValue = BDFDB.SlateUtils.toRichValue("");
 						if (e.instance.state) {
 							e.instance.state.textValue = "";
-							if (e.instance.state.richValue) e.instance.state.richValue = BDFDB.SlateUtils.copyRichValue("", e.instance.state.richValue);
+							if (e.instance.state.richValue) e.instance.state.richValue = BDFDB.SlateUtils.toRichValue("");
 						}
 						BDFDB.ReactUtils.forceUpdate(e.instance);
-					}
-					if (messageData.files.length > 0 && (BDFDB.DMUtils.isDMChannel(e.instance.props.channel.id) || BDFDB.UserUtils.can("ATTACH_FILES"))) {
-						let reply = BDFDB.LibraryModules.MessageReplyStore.getPendingReply(e.instance.props.channel.id);
-						if (reply && !messageData.text) BDFDB.LibraryModules.UploadUtils.upload(e.instance.props.channel.id, messageData.files.shift(), "", false);
-						BDFDB.LibraryModules.UploadUtils.instantBatchUpload(e.instance.props.channel.id, messageData.files);
 					}
 				}
 			}
