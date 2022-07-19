@@ -316,6 +316,13 @@ svg.botTagVerified-1klIIt { /* bot verified checkmark */
     background-color: var(--blackpink);
 }
 
+.mentioned-Tre-dv {
+    /* background-color: #b594b6cb; */
+    /* opacity: var(--is-mention-alpha); */
+    /* var(#f8c2e2); */
+    
+}
+
 
 /* TEXT */
 h1, h2, h3 { /*server name color and other headers*/
