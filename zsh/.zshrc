@@ -116,13 +116,6 @@ source $ZSH/oh-my-zsh.sh
 
 # ARCOLINUX ALIASES
 
-#Leftwm aliases
-alias lti="leftwm-theme install"
-alias ltu="leftwm-theme uninstall"
-alias lta="leftwm-theme apply"
-alias ltupd="leftwm-theme update"
-alias ltupg="leftwm-theme upgrade"
-
 #arcolinux applications
 alias att="arcolinux-tweak-tool"
 alias adt="arcolinux-desktop-trasher"
@@ -166,19 +159,11 @@ alias fgrep='fgrep --color=auto'
 #readable output
 alias df='df -h'
 
-#keyboard
-alias give-me-azerty-be="sudo localectl set-x11-keymap be"
-alias give-me-qwerty-us="sudo localectl set-x11-keymap us"
-
 #pacman unlock
-alias unlock="sudo rm /var/lib/pacman/db.lck"
-alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
+alias pacunlock="sudo rm /var/lib/pacman/db.lck"
 
 #arcolinux logout unlock
 alias rmlogoutlock="sudo rm /tmp/arcologout.lock"
-
-#which graphical card is working
-alias whichvga="/usr/local/bin/arcolinux-which-vga"
 
 #free
 alias free="free -mt"
@@ -209,7 +194,7 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 #add new fonts
-alias update-fc='sudo fc-cache -fv'
+alias update-fonts='sudo fc-cache -fv'
 
 #copy/paste all content of /etc/skel over to home folder - backup of config created - beware
 alias skel='[ -d ~/.config ] || mkdir ~/.config && cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S) && cp -rf /etc/skel/* ~'
@@ -232,12 +217,6 @@ alias toly="sudo pacman -S ly --noconfirm --needed ; sudo systemctl enable ly.se
 alias togdm="sudo pacman -S gdm --noconfirm --needed ; sudo systemctl enable gdm.service -f ; echo 'Gdm is active - reboot now'"
 alias tolxdm="sudo pacman -S lxdm --noconfirm --needed ; sudo systemctl enable lxdm.service -f ; echo 'Lxdm is active - reboot now'"
 
-# kill commands
-# quickly kill conkies
-alias kc='killall conky'
-# quickly kill polybar
-alias kp='killall polybar'
-
 #hardware info --short
 alias hw="hwinfo --short"
 
@@ -259,34 +238,6 @@ alias mirrorx="sudo reflector --age 6 --latest 20  --fastest 20 --threads 5 --so
 alias mirrorxx="sudo reflector --age 6 --latest 20  --fastest 20 --threads 20 --sort rate --protocol https --save /etc/pacman.d/mirrorlist"
 alias ram='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
 
-#mounting the folder Public for exchange between host and guest on virtualbox
-alias vbm="sudo /usr/local/bin/arcolinux-vbox-share"
-
-#enabling vmware services
-alias start-vmware="sudo systemctl enable --now vmtoolsd.service"
-
-#shopt
-#shopt -s autocd # change to named directory
-#shopt -s cdspell # autocorrects cd misspellings
-#shopt -s cmdhist # save multi-line commands in history as single line
-#shopt -s dotglob
-#shopt -s histappend # do not overwrite history
-#shopt -s expand_aliases # expand aliases
-
-#youtube download
-alias yta-aac="yt-dlp --extract-audio --audio-format aac "
-alias yta-best="yt-dlp --extract-audio --audio-format best "
-alias yta-flac="yt-dlp --extract-audio --audio-format flac "
-alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
-alias ytv-best="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
-
-#Recent Installed Packages
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
-
-#iso and version used to install ArcoLinux
-alias iso="cat /etc/dev-rel | awk -F '=' '/ISO/ {print $2}'"
-
 #Cleanup orphaned packages
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 
@@ -294,7 +245,7 @@ alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 alias rg="rg --sort path"
 
 #get the error messages from journalctl
-alias jctl="journalctl -p 3 -xb"
+alias jerrors="journalctl -p 3 -xb"
 
 #nano for important configuration files
 #know what you do in these files
@@ -327,13 +278,8 @@ alias fix-keyserver="[ -d ~/.gnupg ] || mkdir ~/.gnupg ; cp /etc/pacman.d/gnupg/
 
 #fixes
 alias fix-permissions="sudo chown -R $USER:$USER ~/.config ~/.local"
-alias keyfix="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
-alias key-fix="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
-alias keys-fix="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
-alias fixkey="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
-alias fixkeys="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
-alias fix-key="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
-alias fix-keys="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
+alias keyfix="~/bin/fix-pacman-databases-and-keys"
+alias fixkeys="~/bin/fix-pacman-databases-and-keys"
 alias fix-sddm-config="/usr/local/bin/arcolinux-fix-sddm-config"
 alias fix-pacman-conf="/usr/local/bin/arcolinux-fix-pacman-conf"
 alias fix-pacman-keyserver="/usr/local/bin/arcolinux-fix-pacman-gpg-conf"
