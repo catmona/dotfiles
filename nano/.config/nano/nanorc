@@ -299,3 +299,9 @@ include "/usr/share/nano/*.nanorc"
 #bind ^U undo main
 #bind ^E redo main
 #set multibuffer
+
+## custom stuff
+#set smooth
+#set autoindent
+#set nowrap
+
