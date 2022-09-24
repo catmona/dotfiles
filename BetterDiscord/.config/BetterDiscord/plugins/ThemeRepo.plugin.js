@@ -2,7 +2,7 @@
  * @name ThemeRepo
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 2.2.9
+ * @version 2.3.9
  * @description Allows you to download all Themes from BD's Website within Discord
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -13,20 +13,16 @@
  */
 
 module.exports = (_ => {
-	const config = {
-		"info": {
-			"name": "ThemeRepo",
-			"author": "DevilBro",
-			"version": "2.2.9",
-			"description": "Allows you to download all Themes from BD's Website within Discord"
-		}
+	const changeLog = {
+		
 	};
 
 	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
-		getName () {return config.info.name;}
-		getAuthor () {return config.info.author;}
-		getVersion () {return config.info.version;}
-		getDescription () {return `The Library Plugin needed for ${config.info.name} is missing. Open the Plugin Settings to download it. \n\n${config.info.description}`;}
+		constructor (meta) {for (let key in meta) this[key] = meta[key];}
+		getName () {return this.name;}
+		getAuthor () {return this.author;}
+		getVersion () {return this.version;}
+		getDescription () {return `The Library Plugin needed for ${this.name} is missing. Open the Plugin Settings to download it. \n\n${this.description}`;}
 		
 		downloadLibrary () {
 			require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
@@ -39,7 +35,7 @@ module.exports = (_ => {
 			if (!window.BDFDB_Global || !Array.isArray(window.BDFDB_Global.pluginQueue)) window.BDFDB_Global = Object.assign({}, window.BDFDB_Global, {pluginQueue: []});
 			if (!window.BDFDB_Global.downloadModal) {
 				window.BDFDB_Global.downloadModal = true;
-				BdApi.showConfirmationModal("Library Missing", `The Library Plugin needed for ${config.info.name} is missing. Please click "Download Now" to install it.`, {
+				BdApi.showConfirmationModal("Library Missing", `The Library Plugin needed for ${this.name} is missing. Please click "Download Now" to install it.`, {
 					confirmText: "Download Now",
 					cancelText: "Cancel",
 					onCancel: _ => {delete window.BDFDB_Global.downloadModal;},
@@ -49,20 +45,20 @@ module.exports = (_ => {
 					}
 				});
 			}
-			if (!window.BDFDB_Global.pluginQueue.includes(config.info.name)) window.BDFDB_Global.pluginQueue.push(config.info.name);
+			if (!window.BDFDB_Global.pluginQueue.includes(this.name)) window.BDFDB_Global.pluginQueue.push(this.name);
 		}
 		start () {this.load();}
 		stop () {}
 		getSettingsPanel () {
 			let template = document.createElement("template");
-			template.innerHTML = `<div style="color: var(--header-primary); font-size: 16px; font-weight: 300; white-space: pre; line-height: 22px;">The Library Plugin needed for ${config.info.name} is missing.\nPlease click <a style="font-weight: 500;">Download Now</a> to install it.</div>`;
+			template.innerHTML = `<div style="color: var(--header-primary); font-size: 16px; font-weight: 300; white-space: pre; line-height: 22px;">The Library Plugin needed for ${this.name} is missing.\nPlease click <a style="font-weight: 500;">Download Now</a> to install it.</div>`;
 			template.content.firstElementChild.querySelector("a").addEventListener("click", this.downloadLibrary);
 			return template.content.firstElementChild;
 		}
 	} : (([Plugin, BDFDB]) => {
 		var _this;
 		
-		var list, header, preview;
+		var list, header;
 		
 		var loading, cachedThemes, grabbedThemes, generatorThemes, updateInterval;
 		var searchString, searchTimeout, forcedSort, forcedOrder, showOnlyOutdated;
@@ -124,12 +120,11 @@ module.exports = (_ => {
 			}
 			componentWillUnmount() {
 				list = null;
-				this.closePreview();
 			}
 			filterThemes() {
 				let themes = grabbedThemes.map(theme => {
 					const installedTheme = _this.getInstalledTheme(theme);
-					const state = installedTheme ? (theme.version && BDFDB.NumberUtils.compareVersions(theme.version, _this.getString(installedTheme.version)) ? themeStates.OUTDATED : themeStates.INSTALLED) : themeStates.DOWNLOADABLE;
+					const state = installedTheme ? (theme.version && _this.compareVersions(theme.version, _this.getString(installedTheme.version)) ? themeStates.OUTDATED : themeStates.INSTALLED) : themeStates.DOWNLOADABLE;
 					return Object.assign(theme, {
 						search: [theme.name, theme.version, theme.authorname, theme.description, theme.tags].flat(10).filter(n => typeof n == "string").join(" ").toUpperCase(),
 						description: theme.description || "No Description found",
@@ -152,197 +147,15 @@ module.exports = (_ => {
 				if (reverseSorts.includes(this.props.sortKey)) themes.reverse();
 				return themes;
 			}
-			openPreview() {
-				preview = BDFDB.DOMUtils.create(`<div class="${BDFDB.disCN._themerepopreview}">
-					<div class="${BDFDB.disCN._themerepomovebar}"></div>
-					<div class="${BDFDB.disCN._themerepodraginterface}">
-						<div class="${BDFDB.disCN._themerepodragbar}" id="top" vertical="top"></div>
-						<div class="${BDFDB.disCN._themerepodragbar}" id="right" horizontal="right"></div>
-						<div class="${BDFDB.disCN._themerepodragbar}" id="bottom" vertical="bottom"></div>
-						<div class="${BDFDB.disCN._themerepodragbar}" id="left" horizontal="left"></div>
-						<div class="${BDFDB.disCN._themerepodragcorner}" id="top-left" vertical="top" horizontal="left"></div>
-						<div class="${BDFDB.disCN._themerepodragcorner}" id="top-right" vertical="top" horizontal="right"></div>
-						<div class="${BDFDB.disCN._themerepodragcorner}" id="bottom-right" vertical="bottom" horizontal="right"></div>
-						<div class="${BDFDB.disCN._themerepodragcorner}" id="bottom-left" vertical="bottom" horizontal="left"></div>
-					</div>
-				</div>`);
-				preview.frame = document.createElement("iframe");
-				preview.frame.src = "https://mwittrien.github.io/BetterDiscordAddons/Plugins/_res/DiscordPreview.html";
-				preview.querySelector(BDFDB.dotCN._themerepomovebar).addEventListener("mousedown", e => {
-					let moving = false;
-					let rects = BDFDB.DOMUtils.getRects(preview).toJSON();
-					let oldX = e.pageX, oldY = e.pageY;
-					let mouseUp = _ => {
-						BDFDB.DOMUtils.removeClass(preview, BDFDB.disCN._themerepopreviewmoving);
-						document.removeEventListener("mouseup", mouseUp);
-						document.removeEventListener("mousemove", mouseMove);
-					};
-					let mouseMove = e2 => {
-						if (moving || Math.sqrt((e.pageX - e2.pageX)**2) > 20 || Math.sqrt((e.pageY - e2.pageY)**2) > 20) {
-							if (!moving) BDFDB.DOMUtils.addClass(preview, BDFDB.disCN._themerepopreviewmoving);
-							moving = true;
-							BDFDB.ListenerUtils.stopEvent(e);
-							rects.top = rects.top - (oldY - e2.pageY);
-							rects.left = rects.left - (oldX - e2.pageX);
-							oldX = e2.pageX, oldY = e2.pageY;
-							preview.style.setProperty("top", `${rects.top}px`);
-							preview.style.setProperty("left", `${rects.left}px`);
-						}
-					};
-					document.addEventListener("mouseup", mouseUp);
-					document.addEventListener("mousemove", mouseMove);
-				});
-				for (let ele of preview.querySelectorAll(BDFDB.dotCNC._themerepodragbar + BDFDB.dotCN._themerepodragcorner)) ele.addEventListener("mousedown", e => {
-					let moving = false;
-					let rects = BDFDB.DOMUtils.getRects(preview).toJSON();
-					let oldX = e.pageX, oldY = e.pageY;
-					let mouseUp = _ => {
-						BDFDB.DOMUtils.removeClass(preview, BDFDB.disCN._themerepopreviewmoving);
-						document.removeEventListener("mouseup", mouseUp);
-						document.removeEventListener("mousemove", mouseMove);
-					};
-					let vertical = ele.getAttribute("vertical");
-					let horizontal = ele.getAttribute("horizontal");
-					let mouseMove = e2 => {
-						if (moving || Math.sqrt((e.pageX - e2.pageX)**2) > 20 || Math.sqrt((e.pageY - e2.pageY)**2) > 20) {
-							if (!moving) BDFDB.DOMUtils.addClass(preview, BDFDB.disCN._themerepopreviewmoving);
-							moving = true;
-							BDFDB.ListenerUtils.stopEvent(e);
-							if (vertical) switch (vertical) {
-								case "top":
-									rects.top = rects.top - (oldY - e2.pageY);
-									if (rects.bottom - rects.top > 25) {
-										preview.style.setProperty("top", `${rects.top}px`);
-										preview.style.setProperty("height", `${rects.bottom - rects.top}px`);
-									}
-									break;
-								case "bottom":
-									rects.bottom = rects.bottom - (oldY - e2.pageY);
-									if (rects.bottom - rects.top > 25) preview.style.setProperty("height", `${rects.bottom - rects.top}px`);
-									break;
-							}
-							if (horizontal) switch (horizontal) {
-								case "right":
-									rects.right = rects.right - (oldX - e2.pageX);
-									if (rects.right - rects.left > 200) preview.style.setProperty("width", `${rects.right - rects.left}px`);
-									break;
-								case "left":
-									rects.left = rects.left - (oldX - e2.pageX);
-									if (rects.right - rects.left > 200) {
-										preview.style.setProperty("left", `${rects.left}px`);
-										preview.style.setProperty("width", `${rects.right - rects.left}px`);
-									}
-									break;
-							}
-							oldX = e2.pageX, oldY = e2.pageY;
-						}
-					};
-					document.addEventListener("mouseup", mouseUp);
-					document.addEventListener("mousemove", mouseMove);
-				});
-				preview.frame.addEventListener("load", _ => {
-					let titleBar = document.querySelector(BDFDB.dotCN.titlebar);
-					this.runInPreview({
-						reason: "OnLoad",
-						username: BDFDB.UserUtils.me.username,
-						id: BDFDB.UserUtils.me.id,
-						discriminator: BDFDB.UserUtils.me.discriminator,
-						avatar: BDFDB.UserUtils.getAvatar(),
-						classes: JSON.stringify(BDFDB.DiscordClasses),
-						classModules: JSON.stringify(BDFDB.DiscordClassModules),
-						nativeCSS: (nativeCSS || "").replace(/\/assets\//g, document.location.origin + "/assets/").replace(/[\t\r\n]/g, ""),
-						bdCSS: (document.querySelector("#bd-stylesheet") || {}).innerText || "",
-						htmlClassName: document.documentElement.className,
-						titleBar: titleBar && titleBar.outerHTML || ""
-					});
-					if (this.props.currentTheme) this.runInPreview({
-						reason: "NewTheme",
-						checked: true,
-						css: this.props.currentTheme.css
-					});
-					if (this.props.currentGenerator) this.runInPreview({
-						reason: "NewTheme",
-						checked: true,
-						css: (generatorThemes.find(t => t.id == this.props.currentGenerator) || {}).fullCSS
-					});
-					if (this.props.useLightMode) this.runInPreview({
-						reason: "DarkLight",
-						checked: true
-					});
-					if (this.props.useCustomCSS) this.runInPreview({
-						reason: "CustomCSS",
-						checked: true
-					});
-					if (this.props.useThemeFixer) this.runInPreview({
-						reason: "ThemeFixer",
-						checked: true
-					});
-				});
-				preview.appendChild(preview.frame);
-				document.body.appendChild(preview);
-				let outerRects = BDFDB.DOMUtils.getRects(document.body);
-				preview.style.setProperty("top", `${outerRects.width/4}px`);
-				preview.style.setProperty("left", `${outerRects.height/4}px`);
-				preview.style.setProperty("width", `${outerRects.width/2}px`);
-				preview.style.setProperty("height", `${outerRects.height/2}px`);
-				window.removeEventListener("message", list.onPreviewMessage);
-				window.addEventListener("message", list.onPreviewMessage);
-			}
-			closePreview() {
-				if (list) window.removeEventListener("message", list.onPreviewMessage);
-				if (preview) preview.remove();
-				preview = null;
-			}
-			runInPreview(data) {
-				if (preview && preview.frame) preview.frame.contentWindow.postMessage(Object.assign({origin: "ThemeRepo"}, data), "*");
-			}
-			onPreviewMessage(e) {
-				let rects, outerRects;
-				if (preview && e.data && e.data.origin == "DiscordPreview") switch (e.data.reason) {
-					case "close":
-						list.closePreview();
-						break;
-					case "minimize":
-						outerRects = BDFDB.DOMUtils.getRects(document.body);
-						preview.style.setProperty("top", `${outerRects.height - 25}px`);
-						preview.style.setProperty("left", "0px");
-						preview.style.setProperty("width", "520px");
-						preview.style.setProperty("height", "25px");
-						break;
-					case "maximize":
-						rects = BDFDB.DOMUtils.getRects(preview), outerRects = BDFDB.DOMUtils.getRects(document.body);
-						if (!(rects.x == 0 && rects.y == 0 && outerRects.width - rects.width == 0 && outerRects.height - rects.height == 0)) {
-							preview.rects = rects;
-							BDFDB.DOMUtils.addClass(preview, BDFDB.disCN._themerepopreviewfullscreen);
-							preview.style.setProperty("top", "0px");
-							preview.style.setProperty("left", "0px");
-							preview.style.setProperty("width", `${outerRects.width}px`);
-							preview.style.setProperty("height", `${outerRects.height}px`);
-						}
-						else {
-							BDFDB.DOMUtils.removeClass(preview, BDFDB.disCN._themerepopreviewfullscreen);
-							if (!preview.rects || (outerRects.width - preview.rects.width == 0 && outerRects.height - preview.rects.height == 0)) {
-								preview.style.setProperty("top", `${outerRects.width/4}px`);
-								preview.style.setProperty("left", `${outerRects.height/4}px`);
-								preview.style.setProperty("width", `${outerRects.width/2}px`);
-								preview.style.setProperty("height", `${outerRects.height/2}px`);
-							}
-							else {
-								preview.style.setProperty("top", `${preview.rects.x}px`);
-								preview.style.setProperty("left", `${preview.rects.y}px`);
-								preview.style.setProperty("width", `${preview.rects.width}px`);
-								preview.style.setProperty("height", `${preview.rects.height}px`);
-							}
-						}
-						break;
-				}
-			}
-			createThemeFile(name, filename, body) {
+			createThemeFile(name, filename, body, autoloadKey) {
 				return new Promise(callback => BDFDB.LibraryRequires.fs.writeFile(BDFDB.LibraryRequires.path.join(BDFDB.BDUtils.getThemesFolder(), filename), body, error => {
-					if (error) BDFDB.NotificationUtils.toast(BDFDB.LanguageUtils.LibraryStringsFormat("save_fail", `Theme "${name}"`), {type: "danger"});
+					if (error) {
+						callback(true);
+						BDFDB.NotificationUtils.toast(BDFDB.LanguageUtils.LibraryStringsFormat("save_fail", `Theme "${name}"`), {type: "danger"});
+					}
 					else {
 						BDFDB.NotificationUtils.toast(BDFDB.LanguageUtils.LibraryStringsFormat("save_success", `Theme "${name}"`), {type: "success"});
-						if (_this.settings.general.rnmStart) BDFDB.TimeUtils.timeout(_ => {
+						if (_this.settings.general[autoloadKey]) BDFDB.TimeUtils.timeout(_ => {
 							if (BDFDB.BDUtils.isThemeEnabled(name) == false) {
 								BDFDB.BDUtils.enableTheme(name, false);
 								BDFDB.LogUtils.log(BDFDB.LanguageUtils.LibraryStringsFormat("toast_plugin_started", name), _this);
@@ -367,7 +180,6 @@ module.exports = (_ => {
 				return newCSS.replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace(/\\r/g, "\r");
 			}
 			render() {
-				let automaticLoading = BDFDB.BDUtils.getSettings(BDFDB.BDUtils.settingsIds.automaticLoading);
 				if (!this.props.tab) this.props.tab = "Themes";
 				
 				this.props.entries = (!loading.is && grabbedThemes.length ? this.filterThemes() : []).map(theme => BDFDB.ReactUtils.createElement(RepoCardComponent, {
@@ -436,12 +248,6 @@ module.exports = (_ => {
 										delete this.props.generatorValues;
 									}
 									delete this.props.currentTheme;
-									if (preview) this.runInPreview({
-										reason: "NewTheme",
-										checked: true,
-										css: (generatorTheme || {}).fullCSS
-									});
-									else this.openPreview();
 									BDFDB.ReactUtils.forceUpdate(this);
 								}
 							}),
@@ -460,11 +266,11 @@ module.exports = (_ => {
 									children: "Download",
 									onClick: _ => {
 										if (this.props.currentGeneratorIsNative) {
-											this.createThemeFile("Discord", "Discord.theme.css", `/**\n * @name Discord\n * @description Allow you to easily customize Discord's native Look  \n * @author DevilBro\n * @version 1.0.0\n * @authorId 278543574059057154\n * @invite Jx3TjNS\n * @donate https://www.paypal.me/MircoWittrien\n * @patreon https://www.patreon.com/MircoWittrien\n */\n\n` + this.generateTheme(nativeCSSvars));
+											this.createThemeFile("Discord", "Discord.theme.css", `/**\n * @name Discord\n * @description Allow you to easily customize Discord's native Look  \n * @author DevilBro\n * @version 1.0.0\n * @authorId 278543574059057154\n * @invite Jx3TjNS\n * @donate https://www.paypal.me/MircoWittrien\n * @patreon https://www.patreon.com/MircoWittrien\n */\n\n` + this.generateTheme(nativeCSSvars), "startDownloaded");
 										}
 										else {
 											let generatorTheme = generatorThemes.find(t => t.id == this.props.currentGenerator);
-											if (generatorTheme) this.createThemeFile(generatorTheme.name, generatorTheme.name + ".theme.css", this.generateTheme(generatorTheme.fullCSS));
+											if (generatorTheme) this.createThemeFile(generatorTheme.name, generatorTheme.rawSourceUrl.split("/").pop(), this.generateTheme(generatorTheme.fullCSS), "startDownloaded");
 										}
 									}
 								}),
@@ -520,14 +326,7 @@ module.exports = (_ => {
 												placeholder: oldValue,
 												onChange: value => {
 													BDFDB.TimeUtils.clear(updateGeneratorTimeout);
-													updateGeneratorTimeout = BDFDB.TimeUtils.timeout(_ => {
-														this.props.generatorValues[varName] = {value, oldValue};
-														if (preview) this.runInPreview({
-															reason: "NewTheme",
-															checked: true,
-															css: this.generateTheme(this.props.currentGeneratorIsNative ? nativeCSSvars : (generatorTheme || {}).fullCSS)
-														});
-													}, 1000);
+													updateGeneratorTimeout = BDFDB.TimeUtils.timeout(_ => this.props.generatorValues[varName] = {value, oldValue}, 1000);
 												}
 											}));
 										}
@@ -561,79 +360,12 @@ module.exports = (_ => {
 								plugin: _this,
 								keys: ["general", key],
 								label: _this.defaults.general[key].description,
-								note: key == "rnmStart" && !automaticLoading && "Automatic Loading has to be enabled",
-								disabled: key == "rnmStart" && !automaticLoading,
 								value: _this.settings.general[key],
 								onChange: value => {
 									_this.settings.general[key] = value;
 									BDFDB.ReactUtils.forceUpdate(this);
 								}
-							})),
-							BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsPanelList, {
-								title: "Preview Settings",
-								children: [
-									BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsItem, {
-										type: "Switch",
-										label: "Use Light Mode",
-										value: this.props.useLightMode,
-										onChange: value => {
-											this.props.useLightMode = value;
-											if (preview) this.runInPreview({
-												reason: "DarkLight",
-												checked: this.props.useLightMode
-											});
-										}
-									}),
-									BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsItem, {
-										type: "Switch",
-										label: "Include Custom CSS",
-										value: this.props.useCustomCSS,
-										onChange: value => {
-											this.props.useCustomCSS = value;
-											let customCSS = document.querySelector("style#customcss");
-											if (preview && customCSS && customCSS.innerText.length > 0) this.runInPreview({
-												reason: "CustomCSS",
-												checked: this.props.useCustomCSS,
-												css: customCSS.innerText
-											});
-										}
-									}),
-									BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsItem, {
-										type: "Switch",
-										margin: 20,
-										label: "Include ThemeFixer",
-										value: this.props.useThemeFixer,
-										onChange: value => {
-											this.props.useThemeFixer  = value;
-											BDFDB.LibraryRequires.request("https://mwittrien.github.io/BetterDiscordAddons/Plugins/ThemeRepo/_res/ThemeFixer.css", (error, response, body) => {
-												if (preview) this.runInPreview({
-													reason: "ThemeFixer",
-													checked: this.props.useThemeFixer,
-													css: this.createFixerCSS(body)
-												});
-											});
-										}
-									})
-								]
-							}),
-							BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsItem, {
-								type: "Button",
-								margin: 20,
-								label: "Download ThemeFixer",
-								children: "Download",
-								onClick: _ => {
-									BDFDB.LibraryRequires.request("https://mwittrien.github.io/BetterDiscordAddons/Plugins/ThemeRepo/_res/ThemeFixer.css", (error, response, body) => {
-										this.createThemeFile("ThemeFixer", "ThemeFixer.theme.css", `/**\n * @name ThemeFixer\n * @description ThemeFixerCSS for transparent themes\n * @author DevilBro\n * @version 1.0.3\n * @authorId 278543574059057154\n * @invite Jx3TjNS\n * @donate https://www.paypal.me/MircoWittrien\n * @patreon https://www.patreon.com/MircoWittrien\n */\n\n` + this.createFixerCSS(body));
-									});
-								}
-							}),
-							!automaticLoading && BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Flex, {
-								className: BDFDB.disCN.marginbottom20,
-								children: BDFDB.ReactUtils.createElement("div", {
-									className: BDFDB.disCNS.settingsrowtitle + BDFDB.disCNS.settingsrowtitledefault + BDFDB.disCN.cursordefault,
-									children: "To experience Theme Repo in the best way. I would recommend you to enable BD's intern Automatic-Loading Feature, that way all downloaded Files are loaded into Discord without the need to reload."
-								})
-							})
+							}))
 						].flat(10).filter(n => n)
 					})
 				];
@@ -645,7 +377,6 @@ module.exports = (_ => {
 				if (this.props.data.thumbnailUrl && !this.props.data.thumbnailChecked) {
 					if (!window.Buffer) this.props.data.thumbnailChecked = true;
 					else BDFDB.LibraryRequires.request(this.props.data.thumbnailUrl, {encoding: null}, (error, response, body) => {
-						this.props.data.thumbnailChecked = true;
 						if (response && response.headers["content-type"] && response.headers["content-type"] == "image/gif") {
 							const throwAwayImg = new Image(), instance = this;
 							throwAwayImg.onload = function() {
@@ -655,17 +386,24 @@ module.exports = (_ => {
 									const oldUrl = instance.props.data.thumbnailUrl;
 									instance.props.data.thumbnailUrl = canvas.toDataURL("image/png");
 									instance.props.data.thumbnailGifUrl = oldUrl;
+									instance.props.data.thumbnailChecked = true;
 									BDFDB.ReactUtils.forceUpdate(instance);
-								} catch(err) {
+								}
+								catch (err) {
+									instance.props.data.thumbnailChecked = true;
 									BDFDB.ReactUtils.forceUpdate(instance);
 								}
 							};
 							throwAwayImg.onerror = function() {
+								instance.props.data.thumbnailChecked = true;
 								BDFDB.ReactUtils.forceUpdate(instance);
 							};
 							throwAwayImg.src = "data:" + response.headers["content-type"] + ";base64," + (new Buffer(body).toString("base64"));
 						}
-						else BDFDB.ReactUtils.forceUpdate(this);
+						else {
+							this.props.data.thumbnailChecked = true;
+							BDFDB.ReactUtils.forceUpdate(this);
+						}
 					});
 				}
 				return BDFDB.ReactUtils.createElement("div", {
@@ -680,6 +418,7 @@ module.exports = (_ => {
 										this.props.data.thumbnailUrl && this.props.data.thumbnailChecked && BDFDB.ReactUtils.createElement("img", {
 											className: BDFDB.disCN.discoverycardcover,
 											src: this.props.data.thumbnailUrl,
+											loading: "lazy",
 											onMouseEnter: this.props.data.thumbnailGifUrl && (e => e.target.src = this.props.data.thumbnailGifUrl),
 											onMouseLeave: this.props.data.thumbnailGifUrl && (e => e.target.src = this.props.data.thumbnailUrl),
 											onClick: _ => {
@@ -726,6 +465,7 @@ module.exports = (_ => {
 											children: this.props.data.author && this.props.data.author.discord_avatar_hash && this.props.data.author.discord_snowflake && !this.props.data.author.discord_avatar_failed ? BDFDB.ReactUtils.createElement("img", {
 												className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN.discoverycardicon, !this.props.data.author.discord_avatar_loaded && BDFDB.disCN.discoverycardiconloading),
 												src: `https://cdn.discordapp.com/avatars/${this.props.data.author.discord_snowflake}/${this.props.data.author.discord_avatar_hash}.webp?size=128`,
+												loading: "lazy",
 												onLoad: _ => {
 													this.props.data.author.discord_avatar_loaded = true;
 													BDFDB.ReactUtils.forceUpdate(this);
@@ -755,34 +495,6 @@ module.exports = (_ => {
 										BDFDB.ReactUtils.createElement("div", {
 											className: BDFDB.disCN.discoverycardname,
 											children: this.props.data.name
-										}),
-										BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TooltipContainer, {
-											text: BDFDB.LanguageUtils.LanguageStrings.FORM_LABEL_VIDEO_PREVIEW,
-											children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Clickable, {
-												className: BDFDB.disCN.discoverycardtitlebutton,
-												children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SvgIcon, {
-													nativeClass: true,
-													width: 16,
-													height: 16,
-													name: BDFDB.LibraryComponents.SvgIcon.Names.EYE
-												})
-											}),
-											onClick: _ => {
-												if (!list) return;
-												
-												list.props.currentTheme = this.props.data;
-												delete list.props.currentGenerator;
-												delete list.props.generatorValues;
-												
-												if (preview) list.runInPreview({
-													reason: "NewTheme",
-													checked: value,
-													css: this.props.data.css
-												});
-												else list.openPreview();
-												
-												BDFDB.ReactUtils.forceUpdate(this);
-											}
 										}),
 										this.props.data.latestSourceUrl && 
 										BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TooltipContainer, {
@@ -862,16 +574,31 @@ module.exports = (_ => {
 													installed: this.props.data.state == themeStates.INSTALLED,
 													outdated: this.props.data.state == themeStates.OUTDATED,
 													onDownload: _ => {
-														list && BDFDB.LibraryRequires.request(this.props.data.rawSourceUrl, (error, response, body) => {
-															if (error) BDFDB.NotificationUtils.toast(BDFDB.LanguageUtils.LibraryStringsFormat("download_fail", `Theme "${this.props.data.name}"`), {type: "danger"});
-															else list.createThemeFile(this.props.data.name, this.props.data.rawSourceUrl.split("/").pop(), body).then(_ => {
-																this.props.data.state = themeStates.INSTALLED;
-																BDFDB.ReactUtils.forceUpdate(this);
+														if (!list || this.props.downloading) return;
+														this.props.downloading = true;
+														let loadingToast = BDFDB.NotificationUtils.toast(`${BDFDB.LanguageUtils.LibraryStringsFormat("loading", this.props.data.name)} - ${BDFDB.LanguageUtils.LibraryStrings.please_wait}`, {timeout: 0, ellipsis: true});
+														let autoloadKey = this.props.data.state == themeStates ? "startUpdated" : "startDownloaded";
+														BDFDB.LibraryRequires.request(this.props.data.rawSourceUrl, (error, response, body) => {
+															if (error) {
+																delete this.props.downloading;
+																loadingToast.close();
+																BDFDB.NotificationUtils.toast(BDFDB.LanguageUtils.LibraryStringsFormat("download_fail", `Theme "${this.props.data.name}"`), {type: "danger"});
+															}
+															else list.createThemeFile(this.props.data.name, this.props.data.rawSourceUrl.split("/").pop(), body, autoloadKey).then(error2 => {
+																delete this.props.downloading;
+																loadingToast.close();
+																if (!error2) {
+																	this.props.data.state = themeStates.INSTALLED;
+																	BDFDB.ReactUtils.forceUpdate(this);
+																}
 															});
 														});
 													},
 													onDelete: _ => {
+														if (this.props.deleting) return;
+														this.props.deleting = true;
 														BDFDB.LibraryRequires.fs.unlink(BDFDB.LibraryRequires.path.join(BDFDB.BDUtils.getThemesFolder(), this.props.data.rawSourceUrl.split("/").pop()), error => {
+															delete this.props.deleting;
 															if (error) BDFDB.NotificationUtils.toast(BDFDB.LanguageUtils.LibraryStringsFormat("delete_fail", `Theme "${this.props.data.name}"`), {type: "danger"});
 															else {
 																BDFDB.NotificationUtils.toast(BDFDB.LanguageUtils.LibraryStringsFormat("delete_success", `Theme "${this.props.data.name}"`));
@@ -909,7 +636,7 @@ module.exports = (_ => {
 					],
 					onClick: _ => {
 						if (this.props.doDelete) typeof this.props.onDelete == "function" && this.props.onDelete();
-						else typeof this.props.onDownload == "function" && this.props.onDownload();
+						else if (!this.props.installed) typeof this.props.onDownload == "function" && this.props.onDownload();
 					},
 					onMouseEnter: this.props.installed ? (_ => {
 						this.props.doDelete = true;
@@ -1052,9 +779,10 @@ module.exports = (_ => {
 
 				this.defaults = {
 					general: {
-						notifyOutdated:		{value: true, 	description: "Get a Notification when one of your Themes is outdated"},
-						notifyNewEntries:	{value: true, 	description: "Get a Notification when there are new Entries in the Repo"},
-						rnmStart:			{value: true, 	description: "Start Theme after Download"}
+						notifyOutdated:		{value: true, 	autoload: false,	description: "Get a Notification when one of your Themes is outdated"},
+						notifyNewEntries:	{value: true, 	autoload: false,	description: "Get a Notification when there are new Entries in the Repo"},
+						startDownloaded:	{value: false, 	autoload: true,		description: "Start new Themes after Download"},
+						startUpdated:		{value: false, 	autoload: true,		description: "Start updated Themes after Download"}
 					},
 					filters: {
 						updated: 			{value: true,	description: "Updated"},
@@ -1068,98 +796,9 @@ module.exports = (_ => {
 						SettingsView: ["render", "componentWillUnmount"]
 					},
 					after: {
-						StandardSidebarView: "render"
+						StandardSidebarView: "default"
 					}
 				};
-				
-				this.css = `
-					${BDFDB.dotCN._themerepopreview} {
-						border: 2px solid transparent;
-						box-shadow: var(--elevation-medium);
-						box-sizing: border-box;
-						position: absolute;
-						z-index: 10000000;
-					}
-					${BDFDB.dotCN._themerepopreviewfullscreen} {
-						border: none;
-					}
-					${BDFDB.dotCN._themerepomovebar} {
-						position: absolute;
-						height: 21px;
-						right: 100px;
-						left: 100px;
-						cursor: move;
-						z-index: 10000002;
-					}
-					${BDFDB.dotCN._themerepodragbar} {
-						position: absolute;
-						z-index: 10000002;
-					}
-					${BDFDB.dotCN._themerepodragcorner} {
-						position: absolute;
-						z-index: 10000003;
-					}
-					${BDFDB.dotCN._themerepodragbar}#top {
-						top: -2px;
-						width: 100%;
-						height: 2px;
-						cursor: n-resize;
-					}
-					${BDFDB.dotCN._themerepodragbar}#right {
-						right: -2px;
-						width: 2px;
-						height: 100%;
-						cursor: e-resize;
-					}
-					${BDFDB.dotCN._themerepodragbar}#bottom {
-						bottom: -2px;
-						width: 100%;
-						height: 2px;
-						cursor: s-resize;
-					}
-					${BDFDB.dotCN._themerepodragbar}#left {
-						left: -2px;
-						width: 2px;
-						height: 100%;
-						cursor: w-resize;
-					}
-					${BDFDB.dotCN._themerepodragcorner} {
-						width: 4px;
-						height: 4px;
-					}
-					${BDFDB.dotCN._themerepodragcorner}#top-left {
-						top: -2px;
-						left: -2px;
-						cursor: nw-resize;
-					}
-					${BDFDB.dotCN._themerepodragcorner}#top-right {
-						top: -2px;
-						right: -2px;
-						cursor: ne-resize;
-					}
-					${BDFDB.dotCN._themerepodragcorner}#bottom-right {
-						right: -2px;
-						bottom: -2px;
-						cursor: se-resize;
-					}
-					${BDFDB.dotCN._themerepodragcorner}#bottom-left {
-						bottom: -2px;
-						left: -2px;
-						cursor: sw-resize;
-					}
-					${BDFDB.dotCNS._themerepopreviewfullscreen + BDFDB.dotCN._themerepomovebar},
-					${BDFDB.dotCNS._themerepopreviewfullscreen + BDFDB.dotCN._themerepodraginterface} {
-						display: none;
-					}
-					${BDFDB.dotCN._themerepopreview} iframe {
-						width: 100%;
-						height: 100%;
-						z-index: 10000001;
-					}
-					${BDFDB.dotCN._themerepopreviewmoving} iframe {
-						pointer-events: none;
-					}
-				`;
 			}
 			
 			onStart () {
@@ -1215,6 +854,7 @@ module.exports = (_ => {
 							let index = e2.returnValue.indexOf(e2.returnValue.find(n => n.section == "pluginrepo") || e2.returnValue.find(n => n.section == "themes") || e2.returnValue.find(n => n.section == BDFDB.DiscordConstants.UserSettingsSections.DEVELOPER_OPTIONS) || e2.returnValue.find(n => n.section == BDFDB.DiscordConstants.UserSettingsSections.HYPESQUAD_ONLINE));
 							if (index > -1) {
 								e2.returnValue.splice(index + 1, 0, {
+									className: "themerepo-tab",
 									section: "themerepo",
 									label: "Theme Repo",
 									element: _ => {
@@ -1360,7 +1000,7 @@ module.exports = (_ => {
 								if (version) theme.version = version;
 								if (theme.version) {
 									const installedTheme = this.getInstalledTheme(theme);
-									if (installedTheme && BDFDB.NumberUtils.compareVersions(version, this.getString(installedTheme.version))) outdatedEntries++;
+									if (installedTheme && this.compareVersions(version, this.getString(installedTheme.version))) outdatedEntries++;
 								}
 								let text = body.trim();
 								let hasMETAline = text.replace(/\s/g, "").indexOf("//META{"), newMeta = "";
@@ -1444,6 +1084,10 @@ module.exports = (_ => {
 					else if (Array.isArray(obj.props.children)) for (let c of obj.props.children) string += typeof c == "string" ? c : this.getString(c);
 				}
 				return string;
+			}
+
+			compareVersions (v1, v2) {
+				return !(v1 == v2 || !BDFDB.NumberUtils.compareVersions(v1, v2));
 			}
 			
 			getInstalledTheme (theme) {
@@ -1662,5 +1306,5 @@ module.exports = (_ => {
 				}
 			}
 		};
-	})(window.BDFDB_Global.PluginUtils.buildPlugin(config));
+	})(window.BDFDB_Global.PluginUtils.buildPlugin(changeLog));
 })();
