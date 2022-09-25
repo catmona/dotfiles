@@ -109,7 +109,7 @@ Change the values below >> NOT the ones contained within /*...*/
         --hue: 263 ;                /* Value between [0,360] */
         --saturation: 9% ;          /* shade of grey(0%) to full color(100%) | Value is in (%) */
         --lightness: 18% ;          /* 0% is black \ 100% is white | Value is in (%) >>>>Note advised to NOT use high ligtness<<<*/
-        --alpha: 0.61 ;                /* 1 is for solid color | follow the readme to understand alpha for transparency */
+        --alpha: 1 ;                /* 1 is for solid color | follow the readme to understand alpha for transparency */
     
     /*  Change these values to 0%(not --hue-addition) if you want the one colour throughout Discord*/
         --hue-addition: 4 ;          
@@ -126,7 +126,7 @@ Change the values below >> NOT the ones contained within /*...*/
  
     /*  Accent Colors / Tooltips / Mentions                                                                        */
     
-        --accent-color:   var(--pink);
+        --accent-color:   var(--);
         --tooltip-background: var(--accent-color); /* Discord Default: #000 | Theme Default: var(--accent-color)*/
         --tooltip-text: white;              /* Discord Default: #dcddde*/
         --blurple:    var(--brown);         /* Discord Default: #7289DA | Theme Default var(--accent-color) */

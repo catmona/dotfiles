@@ -106,7 +106,7 @@ function bar.create()
                             },
                             left = 6.5,
                             right = 6.5,
-                            top = 5,
+                            top = 1,
                             bottom = 1,
                             widget = wibox.container.margin
                         },

@@ -171,7 +171,7 @@ bindings.globalkeys = gears.table.join(
     -- launch file search
     awful.key({modkey}, "i",
         function()
-            awful.spawn("./bin/rofi-finder")
+            awful.spawn("./bin/rofi-finder /")
         end,
         {description = "file opener", group = "launcher"}
     ),
