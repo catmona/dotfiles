@@ -16,11 +16,9 @@ autostart.autorun = true
 
 autostart.autorunApps = {
     --"picom -b",
-    "nitrogen --restore &",
-    "pamac-tray",
-    "nm-applet",
-    "blueberry-tray",
     "pkill volumeicon",
+    "nitrogen --restore &",
+    "nm-applet",
     "volumeicon"
     --"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
     --"volumeicon",

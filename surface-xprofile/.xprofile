@@ -14,19 +14,16 @@ tlp start &
 #touchpad disable when typing
 syndaemon -i 0.5 -t -K -R -d
 
+#enable drag lock
+synclient TapAndDragGesture=1 LockedDrags=1 LockedDragTimeout=500
+
+#enable palm detect
+synclient PalmDetect=1
+
 #appearance
 picom --experimental-backend -b
-#nitrogen --restore &
 redshift &
 
 #systray
-#`volumeicon &
-#sleep 0.5
-#nm-applet &
-# sleep 0.5
-#blueberry-tray &
-# sleep 0.5
-# sleep 0.5
 xfce4-power-manager &
-# sleep 0.5
-# pamac-tray &
+cbatticon -i standard -n &

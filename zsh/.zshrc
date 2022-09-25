@@ -119,18 +119,6 @@ source $ZSH/oh-my-zsh.sh
 
 # ARCOLINUX ALIASES
 
-#arcolinux applications
-alias att="arcolinux-tweak-tool"
-alias adt="arcolinux-desktop-trasher"
-alias abl="arcolinux-betterlockscreen"
-alias agm="arcolinux-get-mirrors"
-alias amr="arcolinux-mirrorlist-rank-info"
-alias aom="arcolinux-osbeck-as-mirror"
-alias ars="arcolinux-reflector-simple"
-alias atm="arcolinux-tellme"
-alias avs="arcolinux-vbox-share"
-alias awa="arcolinux-welcome-app"
-
 #remove
 alias rmgitcache="rm -r ~/.cache/git"
 
@@ -308,6 +296,9 @@ alias bls="betterlockscreen -u /usr/share/backgrounds/arcolinux/"
 
 #give the list of all installed desktops - xsessions desktops
 alias xd="ls /usr/share/xsessions"
+
+#check how much free space is remaining in btrfs filesystem
+alias bfree='/usr/sbin/btrfs fi usage / 2>/dev/null | grep "Free (estimated)"'
 
 # # ex = EXtractor for all kinds of archives
 # # usage: ex <file>
