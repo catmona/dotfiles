@@ -3,10 +3,11 @@
 * {
     font: "Jetbrains Mono 12";
     foreground: #f1f1f1;
-    foreground-active: #f8c2e2;
     background-color:  #2D2A32; //#282a36;
     active-background: #3b3741; //#6272a4;
     urgent-background: #ff5555;
+    urgent-foreground: @foreground;
+    foreground-active: #f8c2e2;
     selected-background: @active-background;
     selected-urgent-background: @urgent-background;
     selected-active-background: @active-background;
@@ -15,7 +16,7 @@
 }
 
 #window {
-    background-color: @background;
+    background-color: @background-color;
     border:           1;
     border-radius: 6;
     border-color: @bordercolor;
@@ -46,7 +47,7 @@
     padding: 1px ;
 }
 #element.normal.normal {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.normal.urgent {
@@ -55,11 +56,11 @@
 }
 #element.normal.active {
     background-color: @active-background;
-    text-color:       @foreground-active;
+    text-color:       @foreground;
 }
 #element.selected.normal {
     background-color: @selected-background;
-    text-color:       @foreground-active;
+    text-color:       @foreground;
 }
 #element.selected.urgent {
     background-color: @selected-urgent-background;
@@ -67,10 +68,10 @@
 }
 #element.selected.active {
     background-color: @selected-active-background;
-    text-color:       @foreground-active;
+    text-color:       @foreground;
 }
 #element.alternate.normal {
-    background-color: @background;
+    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.alternate.urgent {
@@ -79,7 +80,7 @@
 }
 #element.alternate.active {
     background-color: @active-background;
-    text-color:       @foreground-active;
+    text-color:       @foreground;
 }
 #scrollbar {
     width:        2px ;
@@ -93,7 +94,7 @@
 }
 #button.selected {
     background-color: @selected-background;
-    text-color:       @foreground-active;
+    text-color:       @foreground;
 }
 #inputbar {
     spacing:    0;
@@ -121,7 +122,7 @@
     margin:     0px 0.3em 0em 0em ;
     text-color: @foreground;
 }
-element-text {
+element-text, element-icon {
     background-color: inherit;
     text-color: inherit;
 }
