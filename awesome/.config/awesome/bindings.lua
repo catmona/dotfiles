@@ -187,7 +187,7 @@ bindings.globalkeys = gears.table.join(
     -- launch firefox
     awful.key({modkey}, "w",
         function()
-            spawn_here("firefox")
+            spawn_here("env MOZ_USE_XINPUT2=1 firefox")
         end,
         {description = "open firefox", group = "launcher"}
     ),

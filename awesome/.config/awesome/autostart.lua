@@ -19,7 +19,7 @@ autostart.autorunApps = {
     "pkill volumeicon",
     "nitrogen --restore &",
     "nm-applet",
-    "volumeicon"
+    "volumeicon &"
     --"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
     --"volumeicon",
 }
