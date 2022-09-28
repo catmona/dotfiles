@@ -19,6 +19,7 @@ synclient TapAndDragGesture=1 LockedDrags=1 LockedDragTimeout=500
 synclient PalmDetect=1
 
 #appearance
+nitrogen --restore &
 picom --experimental-backend -b
 redshift &
 
