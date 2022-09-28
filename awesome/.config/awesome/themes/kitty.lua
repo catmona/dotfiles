@@ -32,7 +32,7 @@ theme.taglist_font = "FontAwesome 12"
 --theme.taglist_font = "fghrthsj 11 "
 
 -- Background
-theme.bg_normal = "#2f2a33"
+theme.bg_normal = "#211d24"
 theme.bg_dark = "#000000"
 theme.bg_focus = "#1f1f1f"
 theme.bg_occupied = theme.bg_normal
