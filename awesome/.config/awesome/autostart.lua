@@ -17,7 +17,9 @@ autostart.autorun = true
 autostart.autorunApps = {
     --"picom -b",
     "pkill volumeicon",
+    "pkill volumeicon",
     "nm-applet",
+    "blueman-applet",
     "volumeicon &",
     "volumeicon &"
     --"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
@@ -26,7 +28,7 @@ autostart.autorunApps = {
 function autostart.autorun()
     if autostart.autorun then
         local app = 1
-        gears.timer.start_new(2, function()
+        gears.timer.start_new(1, function()
             awful.spawn.single_instance(autostart.autorunApps[app])
             app = app+1
             if(app > #autostart.autorunApps)
