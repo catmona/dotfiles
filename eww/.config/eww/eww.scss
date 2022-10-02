@@ -1,27 +1,28 @@
 $bg: #18191b;
 $section-bg: #242527;
 $fg: #2f3033;
-$text: white;
+$text: #f1f1f1;
 
-$button-hover: red;
-$toggle-on: yellow;
+$button-hover: #575252;
+$button-on-hover: #5c9da0;
+$toggle-on: #7bc9cc;
 
 $power: #fcc891;
-$memory: rgb(118, 199, 192);
-$storage: rgb(179, 201, 120);
+$memory: #AED0C9;
+$storage: #ff9296;
 
-$volume: rgb(224, 156, 156);
-$mic: rgb(99, 221, 106);
-$mic-muted: rgb(74, 88, 75);
-$brightness: rgb(110, 171, 211);
+$volume: #f8c2e2;
+$mic: #AED0C9;
+$mic-muted: #807a79;
+$brightness: #fcc891;
 
-$song: rgb(186, 199, 131);
-$artist: rgb(101, 209, 115);
+$song:  #f8c2e2;
+$artist: #fcc891;
 
-$folder1: rgb(79, 79, 148);
-$folder2: rgb(76, 164, 175);
-$folder3: rgb(185, 62, 148);
-$folder4: rgb(187, 189, 66);
+$folder1: #f8c2e2;
+$folder2: #CEFDFF;
+$folder3: #fcc891;
+$folder4: #ff9296;
 
 
 .background {
@@ -69,7 +70,7 @@ $folder4: rgb(187, 189, 66);
         margin-right: 10px;
     }
     :nth-child(2) { // text
-        
+        color: $text;
     }
 }
 
@@ -86,7 +87,7 @@ $folder4: rgb(187, 189, 66);
 .music-controls {
     font-size: 18px;
     padding: 2px;
-    margin-top: 10px;
+    margin-top: 12px;
     margin-left: 5px;
     margin-right: 5px;
     button {
@@ -113,22 +114,28 @@ $folder4: rgb(187, 189, 66);
     //margin-left: 7px;
     //margin-right: 7px;
     label {
-        font-size: 20px;
+        font-size: 21px;
     }
 }
 
-.toggle-button:hover {
-    background-color: $button-hover;
-}
-
 .toggle-on {
-    background-color: blue;
+    background-color: $toggle-on;
+    // label {
+    //     color: $section-bg;
+    // }
 }
 
 .toggle-off {
     background-color: $fg;
 }
 
+.toggle-off:hover {
+    background-color: $button-hover;
+}
+
+.toggle-on:hover {
+    background-color: $button-on-hover;
+}
 
 // --- folders ---
 
