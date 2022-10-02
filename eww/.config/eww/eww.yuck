@@ -114,6 +114,24 @@
 ; -- music --
 
 
+; (defvar playing false)
+; ; (defpoll artist 
+; ;     :interval "3s"
+; ;     :initial ""
+; ;     `./scripts/music-control.sh artist`
+; ; )
+; ; (defpoll title 
+; ;     :interval "3s"
+; ;     :initial ""
+; ;     `./scripts/music-control.sh title`
+; ; )
+; (defvar artist "")
+; (defvar title "")
+(deflisten playing "playerctl --follow status")
+(deflisten artist "playerctl --follow metadata --format '{{ lc(artist) }}'")
+(deflisten title "playerctl --follow metadata --format '{{ lc(title) }}'")
+
+
 (defwidget music-box []
     (box
         :class "music-box section"
@@ -123,14 +141,16 @@
         (box :orientation "horizontal"
             :class "song"
             :space-evenly false
+            :tooltip {title}
             (label :text "")
-            (label :text "song name")
+            (label :limit-width 10 :text {title})
         )
         (box :orientation "horizontal"
             :class "artist"
             :space-evenly false
+            :tooltip {artist}
             (label :text "")
-            (label :text "artist name")
+            (label :limit-width 10 :text {artist})
         )
         (music-controls)
     )
@@ -144,17 +164,20 @@
         (button 
             :width {size-music-controls}
             :height {size-music-controls}
-            (label :text "")
+            :onclick "./scripts/music-control.sh prev"
+            (label :text "")
         )
         (button 
             :width {size-music-controls}
             :height {size-music-controls}
-            (label :text {true ? "" : ""})
+            :onclick {playing == "Playing" ? "./scripts/music-control.sh pause" : "./scripts/music-control.sh play"}
+            (label :text {playing == "Playing" ? "" : ""})
         )
         (button 
             :width {size-music-controls}
             :height {size-music-controls}
-            (label :text "")
+            :onclick "./scripts/music-control.sh next"
+            (label :text "")
         )
     )
 )
@@ -163,8 +186,8 @@
 ; -- toggles --
 
 (defvar tgl-bluetooth true)
+(defvar tgl-mute true)
 (defvar tgl-nightlight false)
-(defvar tgl-mute false)
 (defvar tgl-dnd false)
 
 (defwidget toggles-box []
@@ -324,7 +347,7 @@
             :icon ""
         )
         (sliders-scale ; mic volume
-            :icon ""
+            :icon {tgl-mute ? "" : ""}
         )
         (sliders-scale ; brightness
             :icon ""

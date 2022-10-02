@@ -64,10 +64,10 @@ $folder4: rgb(187, 189, 66);
 .song, .artist {
     font-size: 15px;
     :nth-child(1) { // icon
-        margin-left: 20px;
+        margin-left: 15px;
         margin-right: 10px;
     }
-    :nth-child(2) { // song name
+    :nth-child(2) { // text
         
     }
 }
@@ -83,8 +83,11 @@ $folder4: rgb(187, 189, 66);
 }
 
 .music-controls {
+    font-size: 18px;
     padding: 2px;
     margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
     button {
         background-color: rgba(0, 0, 0, 0);
         border: 0;

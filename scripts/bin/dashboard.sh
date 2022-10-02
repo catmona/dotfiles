@@ -50,6 +50,14 @@ else
 fi
 
 
+# --- music ---
+
+
+# ~/.config/eww/scripts/music-control.sh title
+# ~/.config/eww/scripts/music-control.sh artist
+# ~/.config/eww/scripts/music-control.sh playing
+
+
 # --- weather ---
 
 
