@@ -128,8 +128,14 @@
 ; (defvar artist "")
 ; (defvar title "")
 (deflisten playing "playerctl --follow status")
-(deflisten artist "playerctl --follow metadata --format '{{ lc(artist) }}'")
-(deflisten title "playerctl --follow metadata --format '{{ lc(title) }}'")
+(deflisten title 
+    :initial "---------" 
+    "playerctl --follow metadata --format '{{ lc(title) }}'"
+)
+(deflisten 
+    artist :initial "---------" 
+    "playerctl --follow metadata --format '{{ lc(artist) }}'"
+)
 
 
 (defwidget music-box []
@@ -338,6 +344,11 @@
 ; -- sliders --
 
 
+(defvar vol 50)
+(defvar rec 50)
+(defvar bright 16)
+
+
 (defwidget sliders-box []
     (box
         :class "sliders-box section"
@@ -345,29 +356,42 @@
         :vexpand true
         (sliders-scale ; volume
             :icon ""
+            :val {vol}
+            :cmd "./scripts/volume-control.sh"
+            :cls "slider-vol"
         )
         (sliders-scale ; mic volume
             :icon {tgl-mute ? "" : ""}
+            :val {rec}
+            :cmd "./scripts/mic-control.sh"
+            :cls {tgl-mute ? "slider-mic" : "slider-mic-muted"}
         )
         (sliders-scale ; brightness
             :icon ""
+            :val {bright}
+            :cmd "./scripts/brightness-control.sh"
+            :cls "slider-bright"
         )
     )
 )
 
-(defwidget sliders-scale [icon]
+(defwidget sliders-scale [icon val cmd cls]
     (box
         :orientation "horizontal"
+        :class {cls}
         :space-evenly false
         (label
             :class "slider-icon"
             :text {icon}
         )
         (scale
-            :value 50
+            :value {val}
             :class "slider-scale"
             :hexpand true
-            :cursor "pointer"
+            :min 0
+            :max 100
+            :onchange "${cmd} {}"
+            :tooltip "${val}%"
         )
     )
     

@@ -51,11 +51,19 @@ fi
 
 
 # --- music ---
-
-
 # ~/.config/eww/scripts/music-control.sh title
 # ~/.config/eww/scripts/music-control.sh artist
 # ~/.config/eww/scripts/music-control.sh playing
+
+
+# --- sliders ---
+vol=$(awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Master))
+mic=$(awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Capture))
+bright=$(xbacklight)
+
+eww update vol="${vol::-1}"
+eww update rec="${mic::-1}"
+eww update bright="$bright"
 
 
 # --- weather ---

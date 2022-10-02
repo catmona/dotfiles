@@ -12,6 +12,7 @@ $storage: rgb(179, 201, 120);
 
 $volume: rgb(224, 156, 156);
 $mic: rgb(99, 221, 106);
+$mic-muted: rgb(74, 88, 75);
 $brightness: rgb(110, 171, 211);
 
 $song: rgb(186, 199, 131);
@@ -194,7 +195,7 @@ $folder4: rgb(187, 189, 66);
 
 .sliders-box {
     // background-color: blue;
-    :nth-child(1) { //volume
+    .slider-vol { //volume
         .slider-scale contents trough highlight {
             background-color: $volume;
         }
@@ -202,7 +203,7 @@ $folder4: rgb(187, 189, 66);
             color: $volume;
         }
     }
-    :nth-child(2) { //mic
+    .slider-mic { //mic
         .slider-scale contents trough highlight {
             background-color: $mic;
         }
@@ -210,7 +211,15 @@ $folder4: rgb(187, 189, 66);
             color: $mic;
         }
     }
-    :nth-child(3) { //brightness
+    .slider-mic-muted { //mic muted
+        .slider-scale contents trough highlight {
+            background-color: $mic-muted;
+        }
+        .slider-icon {
+            color: $mic-muted;
+        }
+    }
+    .slider-bright { //brightness
         .slider-scale contents trough highlight {
             background-color: $brightness;
         }
