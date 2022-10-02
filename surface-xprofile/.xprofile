@@ -21,7 +21,7 @@ synclient PalmDetect=1
 #appearance
 nitrogen --restore &
 picom --experimental-backend -b
-redshift &
+#redshift &
 
 #systray
 xfce4-power-manager &

@@ -1,0 +1,273 @@
+$bg: #18191b;
+$section-bg: #242527;
+$fg: #2f3033;
+$text: white;
+
+$button-hover: red;
+$toggle-on: yellow;
+
+$power: #fcc891;
+$memory: rgb(118, 199, 192);
+$storage: rgb(179, 201, 120);
+
+$volume: rgb(224, 156, 156);
+$mic: rgb(99, 221, 106);
+$brightness: rgb(110, 171, 211);
+
+$song: rgb(186, 199, 131);
+$artist: rgb(101, 209, 115);
+
+$folder1: rgb(79, 79, 148);
+$folder2: rgb(76, 164, 175);
+$folder3: rgb(185, 62, 148);
+$folder4: rgb(187, 189, 66);
+
+
+.background {
+    background-color: $bg;
+}
+
+.section {
+    margin: 10px;
+    border-radius: 10px;
+    background-color: $section-bg;
+}
+
+
+// --- profile ---
+
+
+.profile-box {
+    // background-color: red;
+}
+
+.profile-pic {
+    // background-color: $bg;
+    // border-radius: 50%;
+    margin: 10px;
+    padding: 0px;
+}
+
+.profile-name {
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+
+// --- music ---
+
+
+.music-box {
+    // background-color: yellow;
+}
+
+.song, .artist {
+    font-size: 15px;
+    :nth-child(1) { // icon
+        margin-left: 20px;
+        margin-right: 10px;
+    }
+    :nth-child(2) { // song name
+        
+    }
+}
+
+.song {
+    margin-top: 10px;
+    color: $song;
+}
+
+.artist {
+    margin-top: 10px;
+    color: $artist;
+}
+
+.music-controls {
+    padding: 2px;
+    margin-top: 10px;
+    button {
+        background-color: rgba(0, 0, 0, 0);
+        border: 0;
+        
+    }
+    button:hover {
+        color: $button-hover;
+    }
+}
+
+
+// --- toggles ---
+
+
+.toggles-box {
+    // background-color: green;
+    padding: 10px;
+}
+
+.toggle-button {
+    border-radius: 50%;
+    //margin-left: 7px;
+    //margin-right: 7px;
+    label {
+        font-size: 20px;
+    }
+}
+
+.toggle-button:hover {
+    background-color: $button-hover;
+}
+
+.toggle-on {
+    background-color: blue;
+}
+
+.toggle-off {
+    background-color: $fg;
+}
+
+
+// --- folders ---
+
+
+.folder-box {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    .folder1 { color: $folder1; }
+    .folder2 { color: $folder2; }
+    .folder3 { color: $folder3; }
+    .folder4 { color: $folder4; }
+}
+
+.folder-button {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 15px;
+    
+    box :nth-child(1) { // icon
+        margin-right: 12px;
+    }
+}
+
+.folder-button:hover {
+    color: $button-hover;
+}
+
+
+// --- weather box ---
+
+
+.weather-box {
+    font-size: 15px;
+    padding: 1px;
+}
+
+.weather-icon {
+    font-size: 40px;
+    margin-left: 18px;
+    margin-top: 2px;
+}
+
+.weather-curr {
+    margin-top: -2px;
+    font-weight: 600;
+}
+
+.weather-act {
+    margin-top: 3px;
+}
+
+.weather-act, .weather-feel {
+    font-size: 28px;
+    font-weight: 300;
+    margin-left: 0px;
+    margin-right: 10px;
+}
+
+
+// --- sliders ---
+
+
+.sliders-box {
+    // background-color: blue;
+    :nth-child(1) { //volume
+        .slider-scale contents trough highlight {
+            background-color: $volume;
+        }
+        .slider-icon {
+            color: $volume;
+        }
+    }
+    :nth-child(2) { //mic
+        .slider-scale contents trough highlight {
+            background-color: $mic;
+        }
+        .slider-icon {
+            color: $mic;
+        }
+    }
+    :nth-child(3) { //brightness
+        .slider-scale contents trough highlight {
+            background-color: $brightness;
+        }
+        .slider-icon {
+            color: $brightness;
+        }
+    }
+}
+
+.slider-icon {
+    margin: 10px;
+    font-size: 20px;
+}
+
+.slider-scale {
+    margin-right: 5px;
+    contents trough {
+        background-color: $fg;
+        min-height: 15px;
+        border-radius: 15px;
+        
+        slider {
+            background-color: rgba(0, 0, 0, 0); 
+            border: none;
+            min-width: 20px;
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+        highlight {
+            border-radius: 15px;
+        }
+    }
+}
+
+// --- monitor ---
+
+
+.monitor-box {
+    // background-color: purple;
+    padding: 5px;
+    
+    :nth-child(1) { //power
+        color: $power;
+    }
+    :nth-child(2) { //memory
+        color: $memory;
+    }
+    :nth-child(3) { //storage
+        color: $storage;
+    }
+}
+
+.monitor-progress {
+    background-color: $fg;
+    margin: 5px;
+}
+
+.monitor-icon {
+    background-color: $section-bg;
+    font-size: 28px;
+}
+
+

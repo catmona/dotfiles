@@ -247,6 +247,15 @@ bindings.globalkeys = gears.table.join(
         end,
         {description = "open todo-list", group = "launcher"}
     ),
+    
+      -- launch dashboard
+      awful.key({modkey}, "`",
+      function()
+          awful.spawn("./bin/dashboard.sh &", false)
+      end,
+      {description = "open dashboard", group = "launcher"}
+      
+    ),
 
 
 
