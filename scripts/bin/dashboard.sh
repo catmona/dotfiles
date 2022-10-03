@@ -66,9 +66,15 @@ eww update rec="${mic::-1}"
 eww update bright="$bright"
 
 
+# --- profile stuff ---
+up=$(uptime -p)
+pkgs=$(checkupdates | wc -l)
+
+eww update uptime="$up"
+eww update pkgs="$pkgs"
+
+
 # --- weather ---
-
-
 mapfile -t warr <<< "$(curl "wttr.in/?format=%c\n%C\n%t\n%f\n")"
 warr[2]=${warr[2]#+}
 warr[3]=${warr[3]#+}

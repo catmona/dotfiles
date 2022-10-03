@@ -1,11 +1,16 @@
 $bg: #18191b;
 $section-bg: #242527;
 $fg: #2f3033;
+
 $text: #f1f1f1;
+$font: "noto sans mono";
+
+$uptime: #807a79;
+$update: #AED0C9;
 
 $button-hover: #575252;
-$button-on-hover: #5c9da0;
-$toggle-on: #7bc9cc;
+$button-on-hover: #99485a;
+$toggle-on: #d87389;
 
 $power: #fcc891;
 $memory: #AED0C9;
@@ -41,18 +46,56 @@ $folder4: #ff9296;
 
 .profile-box {
     // background-color: red;
+    background-color: $bg;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0;
 }
 
 .profile-pic {
     // background-color: $bg;
     // border-radius: 50%;
-    margin: 10px;
+    //margin: 10px;
     padding: 0px;
+    margin-top: -10px;
 }
 
 .profile-name {
-    font-size: 30px;
-    margin-left: 10px;
+    font-size: 34px;
+    font-family: "source code pro";
+    margin-left: 8px;
+    margin-top: 4px; 
+}
+
+.uptime {
+    color: $uptime;
+    margin-left: 15px;
+    margin-top: -3px;
+}
+
+.updates {
+    font-size: 16px;
+    font-family: $font;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    margin-right: -8px;
+    margin-left: 8px;
+    color: $update;
+    background-color: $section-bg;
+    border-radius: 10px;
+
+    :nth-child(1) { // num packages
+        
+        
+    }
+    :nth-child(2) { // icon
+        margin-bottom: 1px;
+    }
+}
+
+.updates-hidden {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0);
 }
 
 
@@ -64,13 +107,15 @@ $folder4: #ff9296;
 }
 
 .song, .artist {
-    font-size: 15px;
+    font-size: 16px;
+    font-family: $font;
     :nth-child(1) { // icon
         margin-left: 15px;
-        margin-right: 10px;
+        margin-right: 8px;
     }
     :nth-child(2) { // text
         color: $text;
+        font-size: 14;
     }
 }
 
@@ -170,7 +215,9 @@ $folder4: #ff9296;
 
 
 .weather-box {
+    //background-color: $bg;
     font-size: 15px;
+    font-family: $font;
     padding: 1px;
 }
 
@@ -178,11 +225,13 @@ $folder4: #ff9296;
     font-size: 40px;
     margin-left: 18px;
     margin-top: 2px;
+    margin-right: -26px;
 }
 
 .weather-curr {
     margin-top: -2px;
-    font-weight: 600;
+    margin-left: -2px;
+    font-weight: 500;
 }
 
 .weather-act {
@@ -251,7 +300,7 @@ $folder4: #ff9296;
         slider {
             background-color: rgba(0, 0, 0, 0); 
             border: none;
-            min-width: 20px;
+            min-width: 15px;
             border-radius: 15px;
             margin-right: 10px;
         }

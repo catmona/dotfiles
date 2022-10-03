@@ -17,7 +17,7 @@
 (defvar size-toggles 20)
     
 ; weather
-(defvar width-weather 150)   
+(defvar width-weather 172)   
 
 ; monitors
 (defvar width-right-box 130)
@@ -34,7 +34,7 @@
         :width "35%" 
         :height "60%"
         ; :anchor "top center"
-        ; :y "45px"
+        :y "45px"
     )
     (big-box)
 )
@@ -86,7 +86,12 @@
 
 
 ; --- profile ---
-   
+
+
+(defvar profile-pic "./assets/profile.png")   
+(defvar profile-name "catherine")
+(defvar uptime 0)
+(defvar pkgs 0)
 
 (defwidget profile-box [] 
     (box 
@@ -96,17 +101,43 @@
         :space-evenly false
         (image 
             :class "profile-pic" 
-            :path "./assets/profile.png"
+            :path {profile-pic}
             :image-width {size-profile-pic}
             :image-height {size-profile-pic}
         )
-        (label 
-            :class "profile-name"
-            :text "cat"
-            :xalign 0
-            :yalign 0.3
+        (box
+            :orientation "vertical"
+            :space-evenly false
+            (label 
+                :class "profile-name"
+                :text {profile-name}
+                :xalign 0.5
+            )
+            (box
+                :orientation "horizontal"
+                :space-evenly false
+                (label
+                    :class "uptime"
+                    :text {uptime}
+                    :hexpand true
+                    :xalign 0
+                    :yalign 0
+                )
+            )
         )
-        ; TODO maybe uptime? packages?
+        (box
+            :orientation "vertical"
+            :class {pkgs == 0 ? "updates updates-hidden" : "updates"}
+            :halign "end"
+            :height 50
+            :width 35
+            (label
+                :text "${pkgs}"
+            )
+            (label
+                :text ""
+            )
+        ) 
     )
 )
 
@@ -114,19 +145,6 @@
 ; -- music --
 
 
-; (defvar playing false)
-; ; (defpoll artist 
-; ;     :interval "3s"
-; ;     :initial ""
-; ;     `./scripts/music-control.sh artist`
-; ; )
-; ; (defpoll title 
-; ;     :interval "3s"
-; ;     :initial ""
-; ;     `./scripts/music-control.sh title`
-; ; )
-; (defvar artist "")
-; (defvar title "")
 (deflisten playing "playerctl --follow status")
 (deflisten title 
     :initial "---------" 
@@ -149,14 +167,14 @@
             :space-evenly false
             :tooltip {title}
             (label :text "")
-            (label :limit-width 10 :text {title})
+            (label :show-truncated true:limit-width 11 :text {title})
         )
         (box :orientation "horizontal"
             :class "artist"
             :space-evenly false
             :tooltip {artist}
             (label :text "")
-            (label :limit-width 10 :text {artist})
+            (label :show-truncated true:limit-width 11 :text {artist})
         )
         (music-controls)
     )
@@ -202,7 +220,7 @@
         :orientation "horizontal"
         :valign "start"
         :height {height-toggles}
-        :spacing 20
+        :spacing 22
         (toggle-button ; bluetooth
             :icon ""
             :tgl {tgl-bluetooth}
