@@ -20,7 +20,7 @@ synclient PalmDetect=1
 
 #appearance
 nitrogen --restore &
-picom --experimental-backend -b
+picom -b
 #redshift &
 
 #systray

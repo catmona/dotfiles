@@ -18,7 +18,7 @@ Use [Stow](https://www.gnu.org/software/stow/#navigation) to manage dotfiles
 * [PCManFM](https://github.com/lxde/pcmanfm)
 * [Fd-find](https://github.com/sharkdp/fd)
 * [Rofi todo](https://github.com/claudiodangelis/rofi-todo)
-* [Picom-jonaburg-fix](https://aur.archlinux.org/packages/picom-jonaburg-fix)
+* [Picom-ibhagwan](https://github.com/ibhagwan/picom)
 * [Nitrogen](https://github.com/l3ib/nitrogen)
 * [BetterDiscord](https://betterdiscord.app/)
 * [Flameshot](https://github.com/flameshot-org/flameshot)
