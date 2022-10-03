@@ -93,6 +93,7 @@
 (defvar profile-name "catherine")
 (defvar uptime 0)
 (defpoll pkgs :interval "1h" `checkupdates | wc -l`)
+(defvar logout `betterlockscreen -l dim & eww close-all`)
 
 (defwidget profile-box [] 
     (overlay
@@ -109,12 +110,24 @@
             :orientation "horizontal"
             :hexpand true
             :space-evenly false
-            (image 
-                :class "profile-pic" 
-                :path {profile-pic}
-                :image-width {size-profile-pic}
-                :image-height {size-profile-pic}
+            (overlay
+                (image 
+                    :class "profile-pic" 
+                    :path {profile-pic}
+                    :image-width {size-profile-pic}
+                    :image-height {size-profile-pic}
+                    
+                )
+                (button
+                    :class "logout-button"
+                    :width 67
+                    :onclick {logout}
+                    (label
+                        :text ""
+                    )
+                )
             )
+            
             (box
                 :orientation "vertical"
                 :space-evenly false

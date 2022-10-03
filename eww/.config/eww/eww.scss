@@ -72,6 +72,26 @@ $folder-hover: #807a79;
     margin-top: -10px;
 }
 
+.logout-button {
+    border-radius: 50%;
+    margin-top: 12px;
+    margin-bottom: 22px;
+    margin-left: -2px;
+    background-color: rgba(0, 0, 0, 0);
+    label {
+        font-size: 35px;
+        color: rgba(0, 0, 0, 0);
+    }
+}
+
+.logout-button:hover {
+    background-color: rgba(0, 0, 0, 0.493);
+    label {
+        color: #f7d9b9;
+        text-shadow: 2px 2px #000;
+    }
+}
+
 .profile-name {
     font-size: 34px;
     font-family: "source code pro";
