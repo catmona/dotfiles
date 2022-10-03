@@ -33,8 +33,9 @@
     :geometry (geometry 
         :width "35%" 
         :height "60%"
-        ; :anchor "top center"
+        :anchor "top left"
         :y "45px"
+        :x "10px"
     )
     (big-box)
 )
@@ -91,53 +92,63 @@
 (defvar profile-pic "./assets/profile.png")   
 (defvar profile-name "catherine")
 (defvar uptime 0)
-(defvar pkgs 0)
+(defpoll pkgs :interval "1h" `checkupdates | wc -l`)
 
 (defwidget profile-box [] 
-    (box 
-        :class "profile-box section"
-        :orientation "horizontal"
+    (overlay
         :hexpand true
-        :space-evenly false
-        (image 
-            :class "profile-pic" 
-            :path {profile-pic}
-            :image-width {size-profile-pic}
-            :image-height {size-profile-pic}
+        (image
+            :class "bongo-cat"
+            :hexpand true
+            :path "./assets/bongo.png"
+            :image-width 180
+            :image-height 180
         )
-        (box
-            :orientation "vertical"
+        (box 
+            :class "profile-box section"
+            :orientation "horizontal"
+            :hexpand true
             :space-evenly false
-            (label 
-                :class "profile-name"
-                :text {profile-name}
-                :xalign 0.5
+            (image 
+                :class "profile-pic" 
+                :path {profile-pic}
+                :image-width {size-profile-pic}
+                :image-height {size-profile-pic}
             )
             (box
-                :orientation "horizontal"
+                :orientation "vertical"
                 :space-evenly false
-                (label
-                    :class "uptime"
-                    :text {uptime}
-                    :hexpand true
-                    :xalign 0
-                    :yalign 0
+                (label 
+                    :class "profile-name"
+                    :text {profile-name}
+                    :xalign 0.5
+                )
+                (box
+                    :orientation "horizontal"
+                    :space-evenly false
+                    (label
+                        :class "uptime"
+                        :text {uptime}
+                        :hexpand true
+                        :xalign 0
+                        :yalign 0
+                    )
                 )
             )
+            (box
+                :orientation "vertical"
+                :class {pkgs == 0 ? "updates updates-hidden" : "updates"}
+                :halign "end"
+                :height 50
+                :width 35
+                (label
+                    :text "${pkgs}"
+                )
+                (label
+                    :text ""
+                )
+            ) 
         )
-        (box
-            :orientation "vertical"
-            :class {pkgs == 0 ? "updates updates-hidden" : "updates"}
-            :halign "end"
-            :height 50
-            :width 35
-            (label
-                :text "${pkgs}"
-            )
-            (label
-                :text ""
-            )
-        ) 
     )
 )
 

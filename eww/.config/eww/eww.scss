@@ -5,7 +5,7 @@ $fg: #2f3033;
 $text: #f1f1f1;
 $font: "noto sans mono";
 
-$uptime: #807a79;
+$uptime: #a39c9b;
 $update: #AED0C9;
 
 $button-hover: #575252;
@@ -23,11 +23,15 @@ $brightness: #fcc891;
 
 $song:  #f8c2e2;
 $artist: #fcc891;
+$music-controls: #f1f1f1;
+$music-play-pause: #f7d9b9;
+$music-controls-hover: #807a79;
 
 $folder1: #f8c2e2;
 $folder2: #CEFDFF;
 $folder3: #fcc891;
 $folder4: #ff9296;
+$folder-hover: #807a79;
 
 
 .background {
@@ -38,6 +42,7 @@ $folder4: #ff9296;
     margin: 10px;
     border-radius: 10px;
     background-color: $section-bg;
+    box-shadow: 2px 2px 4px 0px #111;
 }
 
 
@@ -46,10 +51,17 @@ $folder4: #ff9296;
 
 .profile-box {
     // background-color: red;
-    background-color: $bg;
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
     margin-top: 0;
     margin-bottom: 0;
     margin-right: 0;
+}
+
+.bongo-cat {
+    opacity: 0.2;
+    margin-left: 125px;
+    margin-top: 6px;
 }
 
 .profile-pic {
@@ -65,17 +77,22 @@ $folder4: #ff9296;
     font-family: "source code pro";
     margin-left: 8px;
     margin-top: 4px; 
+    font-weight: 400;
+    text-shadow: 2px 2px #000;
 }
 
 .uptime {
     color: $uptime;
     margin-left: 15px;
     margin-top: -3px;
+    font-weight: 500;
+    text-shadow: 2px 2px #000;
 }
 
 .updates {
     font-size: 16px;
     font-family: $font;
+    text-shadow: 2px 2px #000;
     margin-top: 10px;
     margin-bottom: 40px;
     margin-right: -8px;
@@ -94,8 +111,7 @@ $folder4: #ff9296;
 }
 
 .updates-hidden {
-    background-color: rgba(0, 0, 0, 0);
-    color: rgba(0, 0, 0, 0);
+    opacity: 0;
 }
 
 
@@ -109,6 +125,7 @@ $folder4: #ff9296;
 .song, .artist {
     font-size: 16px;
     font-family: $font;
+    text-shadow: 2px 2px #000;
     :nth-child(1) { // icon
         margin-left: 15px;
         margin-right: 8px;
@@ -130,7 +147,7 @@ $folder4: #ff9296;
 }
 
 .music-controls {
-    font-size: 18px;
+    font-size: 19px;
     padding: 2px;
     margin-top: 12px;
     margin-left: 5px;
@@ -138,10 +155,13 @@ $folder4: #ff9296;
     button {
         background-color: rgba(0, 0, 0, 0);
         border: 0;
-        
+        color: $music-controls;
     }
     button:hover {
-        color: $button-hover;
+        color: $music-controls-hover;
+    }
+    :nth-child(2) { // pause play
+        color: $music-play-pause;
     }
 }
 
@@ -159,6 +179,7 @@ $folder4: #ff9296;
     //margin-left: 7px;
     //margin-right: 7px;
     label {
+        
         font-size: 21px;
     }
 }
@@ -200,6 +221,7 @@ $folder4: #ff9296;
     margin-left: 15px;
     margin-right: 15px;
     font-size: 15px;
+    text-shadow: 2px 2px #000;
     
     box :nth-child(1) { // icon
         margin-right: 12px;
@@ -207,7 +229,7 @@ $folder4: #ff9296;
 }
 
 .folder-button:hover {
-    color: $button-hover;
+    color: $folder-hover;
 }
 
 
@@ -219,6 +241,7 @@ $folder4: #ff9296;
     font-size: 15px;
     font-family: $font;
     padding: 1px;
+    text-shadow: 2px 2px #000;
 }
 
 .weather-icon {

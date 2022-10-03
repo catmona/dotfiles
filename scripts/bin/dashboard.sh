@@ -68,10 +68,10 @@ eww update bright="$bright"
 
 # --- profile stuff ---
 up=$(uptime -p)
-pkgs=$(checkupdates | wc -l)
+#pkgs=$(checkupdates | wc -l)
 
 eww update uptime="$up"
-eww update pkgs="$pkgs"
+#eww update pkgs="$pkgs"
 
 
 # --- weather ---
