@@ -457,12 +457,12 @@
         )
         (monitor-progress ; memory
             :val {EWW_RAM.used_mem_perc}
-            :hover "${EWW_RAM.used_mem_perc}% used mem"
+            :hover "${round((EWW_RAM.used_mem / 1073741824), 2)} gb used mem"
             :icon ""
         )
         (monitor-progress ; storage
             :val {storage-used-perc}
-            :hover "${storage-free-perc}% free space"
+            :hover "${round(storage-free-perc, 1)}% free space"
             :icon ""
         )
     )

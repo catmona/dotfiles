@@ -19,6 +19,7 @@ autostart.autorunApps = {
     --"pkill volumeicon",
     "nm-applet",
     "blueman-applet",
+    "rfkill block bluetooth",
     "if [[ $(pgrep -c volumeicon) == 0 ]]; then volumeicon &; fi;",
     "if [[ $(pgrep -c volumeicon) == 0 ]]; then volumeicon &; fi;"
     --"volumeicon &"
@@ -28,7 +29,7 @@ autostart.autorunApps = {
 function autostart.autorun()
     if autostart.autorun then
         local app = 1
-        gears.timer.start_new(1, function()
+        gears.timer.start_new(1.5, function()
             awful.spawn.with_shell(autostart.autorunApps[app])
             app = app+1
             if(app > #autostart.autorunApps)

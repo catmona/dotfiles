@@ -4,7 +4,7 @@
 # --- open control center ---
 eww open --toggle control-center
 
-if [[ $(eww windows | grep -c "*") == 0 ]]; then
+if [[ $(eww windows | grep -c "*control-center") == 0 ]]; then
     echo "closing early!"
     exit
 fi
