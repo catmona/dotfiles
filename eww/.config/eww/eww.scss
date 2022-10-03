@@ -34,8 +34,14 @@ $folder4: #ff9296;
 $folder-hover: #807a79;
 
 
-.background {
+.big-box {
     background-color: $bg;
+    border-radius: 10px;
+}
+
+.background {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 10px;
 }
 
 .section {
@@ -241,10 +247,15 @@ $folder-hover: #807a79;
     margin-left: 15px;
     margin-right: 15px;
     font-size: 15px;
+    font-family: $font;
     text-shadow: 2px 2px #000;
     
     box :nth-child(1) { // icon
         margin-right: 12px;
+    }
+    box :nth-child(2) { // text
+        margin-top: 3px;
+        font-size: 13px;
     }
 }
 
@@ -283,7 +294,7 @@ $folder-hover: #807a79;
 
 .weather-act, .weather-feel {
     font-size: 28px;
-    font-weight: 300;
+    font-weight: 200;
     margin-left: 0px;
     margin-right: 10px;
 }

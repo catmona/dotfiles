@@ -4,6 +4,10 @@
 # --- open control center ---
 eww open --toggle control-center
 
+if [[ $(eww windows | grep -c "*") == 0 ]]; then
+    echo "closing early!"
+    exit
+fi
 
 # --- update storage variables ---
 current=$(/usr/sbin/btrfs fi usage / 2>/dev/null | grep 'Free (estimated)' | grep -o -P '\d*\.\d*' | head -1)
