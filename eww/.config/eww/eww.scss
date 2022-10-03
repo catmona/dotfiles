@@ -277,14 +277,15 @@ $folder-hover: #807a79;
 
 .weather-icon {
     font-size: 40px;
-    margin-left: 18px;
+    //margin-left: 18px;
     margin-top: 2px;
     margin-right: -26px;
 }
 
 .weather-curr {
-    margin-top: -2px;
-    margin-left: -2px;
+    font-size: 13px;
+    margin-top: -12px;
+    margin-left: 5px;
     font-weight: 500;
 }
 

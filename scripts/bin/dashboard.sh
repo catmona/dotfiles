@@ -79,11 +79,11 @@ eww update uptime="$up"
 
 
 # --- weather ---
-mapfile -t warr <<< "$(curl "wttr.in/?format=%c\n%C\n%t\n%f\n")"
+mapfile -t warr <<< "$(curl 'wttr.in/?format=%c\n%C\n%t\n%f\n')"
 warr[2]=${warr[2]#+}
 warr[3]=${warr[3]#+}
 
 eww update weather-emoji="${warr[0]}"
-eww update weather-curr=`echo ${warr[1]} | tr '[:upper:]' '[:lower:]'`
+eww update weather-curr="$(echo ${warr[1]} | tr '[:upper:]' '[:lower:]')"
 eww update weather-act="${warr[2]::-1}"
 eww update weather-feel="${warr[3]::-1}"
