@@ -66,7 +66,7 @@ theme.useless_gap = dpi(5)
 theme.gap_single_client = true
 
 -- Window Borders
-theme.border_width = dpi(2)
+theme.border_width = dpi(0)
 theme.border_normal = theme.bg_normal
 theme.border_focus =  theme.bg_normal -- "#d87389"
 theme.border_marked = theme.fg_urgent
