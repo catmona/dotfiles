@@ -6,7 +6,7 @@
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 
 local globals = {
-    theme = "kitty.lua",
+    theme = "dork.lua",
     terminal = "kitty",
     editor = os.getenv("EDITOR") or "nano",
     modkey = "Mod4",

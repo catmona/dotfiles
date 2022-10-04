@@ -191,14 +191,14 @@
             :space-evenly false
             :tooltip {title}
             (label :text "")
-            (label :show-truncated true:limit-width 11 :text {title})
+            (label :show-truncated true :limit-width 11 :text {title})
         )
         (box :orientation "horizontal"
             :class "artist"
             :space-evenly false
             :tooltip {artist}
             (label :text "")
-            (label :show-truncated true:limit-width 11 :text {artist})
+            (label :show-truncated true :limit-width 11 :text {artist})
         )
         (music-controls)
     )
@@ -363,6 +363,8 @@
             )
             (label 
                 :class "weather-curr"
+                :limit-width 10
+                :show-truncated false
                 :text {weather-curr}
             )
         )
