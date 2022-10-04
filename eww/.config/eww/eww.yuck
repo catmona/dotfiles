@@ -360,10 +360,12 @@
             (label 
                 :class "weather-icon"
                 :text {weather-emoji} 
+                :vexpand true
             )
             (label 
                 :class "weather-curr"
                 :limit-width 10
+                :valign "end"
                 :show-truncated false
                 :text {weather-curr}
             )

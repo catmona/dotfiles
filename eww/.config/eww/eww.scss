@@ -1,6 +1,6 @@
-$bg: #18191b;
-$section-bg: #242527;
-$fg: #2f3033;
+$bg: #201d24;
+$section-bg: #232027;
+$fg: rgb(51, 51, 61);
 
 $text: #f1f1f1;
 $font: "noto sans mono";
@@ -280,13 +280,15 @@ $folder-hover: #807a79;
     //margin-left: 18px;
     margin-top: 2px;
     margin-right: -26px;
+    margin-left: 18px;
 }
 
 .weather-curr {
     font-size: 13px;
-    margin-top: -12px;
+    margin-top: 0px;
     margin-left: 5px;
     font-weight: 500;
+    margin-bottom: 5px;
 }
 
 .weather-act {
