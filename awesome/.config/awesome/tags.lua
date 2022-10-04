@@ -16,6 +16,9 @@ local awful = require("awful")
 --shared tags module https://github.com/Drauthius/awesome-sharedtags
 local sharedtags = require("sharedtags")
 
+--quake terminal dropdown module https://github.com/lcpz/lain/blob/33c0e0c2360a04fcc6f51bccb0ad2a7a9e9c07b3/util/quake.lua
+local quake = require("quake")
+
 -- define module table
 local tags = {}
 
@@ -40,7 +43,13 @@ tags.tags = sharedtags({
 function tags.create()
 
     awful.screen.connect_for_each_screen(function(s)
-
+        
+        s.quake = quake({ app = "kitty", argname = "--title %s",
+                          extra = "--class QuakeDD -e tmux", 
+                          visible = true, height = 0.65, screen = s,
+                          overlap = false, width = 0.65, vert = "top", 
+                          horiz = "center", border = 0 })
+        
         -- local names = { "1", "2", "3", "4" }
         -- local l = awful.layout.suit -- alias
         -- local layouts = { l.tile, l.tile, l.tile, l.tile }

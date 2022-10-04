@@ -159,6 +159,15 @@ bindings.globalkeys = gears.table.join(
         end,
         {description = "open a terminal", group = "launcher"}
     ),
+    
+    -- quake dropdown terminal
+    awful.key({ modkey, }, "`", 
+        function () 
+            awful.screen.focused().quake:toggle() 
+        end, 
+        {description = "dropdown terminal", group = "launcher"}
+    ),
+
 
    -- launch rofi
     awful.key({modkey}, "a",
@@ -249,7 +258,7 @@ bindings.globalkeys = gears.table.join(
     ),
     
       -- launch dashboard
-      awful.key({modkey}, "`",
+      awful.key({modkey}, "space",
       function()
           awful.spawn("./bin/dashboard.sh &", false)
       end,
