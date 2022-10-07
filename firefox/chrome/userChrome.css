@@ -51,8 +51,8 @@
 
     @media (prefers-color-scheme: dark) { :root {
 
-        --window-colour:                     #18191b;
-        --secondary-colour:                  #242527;
+        --window-colour:                     #242229;
+        --secondary-colour:                  #35333d;
         --inverted-colour:                   #FAFAFC;
 
         /* Containter Tab Colours */
