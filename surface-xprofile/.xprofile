@@ -9,14 +9,8 @@
 #power management
 tlp start &
 
-#touchpad disable when typing
-syndaemon -i 0.5 -t -K -R -d
-
-#enable drag lock
-synclient TapAndDragGesture=1 LockedDrags=1 LockedDragTimeout=400
-
-#enable palm detect
-synclient PalmDetect=1
+#touchpad stuff
+~/bin/touchpad-setup.sh &
 
 #appearance
 nitrogen --restore &
@@ -28,4 +22,4 @@ xfce4-power-manager &
 cbatticon -i standard -n &
 
 #eww
-eww daemon
+eww daemon &
