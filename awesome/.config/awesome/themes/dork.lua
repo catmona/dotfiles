@@ -28,7 +28,7 @@ theme.name = "dork"
 -- Font
 theme.font = "Bitstream Vera Sans Mono 9"
 theme.title_font = "MesloLGS NF Bold 10"
-theme.taglist_font = "FontAwesome 12"
+theme.taglist_font = "FontAwesome 16"
 --theme.taglist_font = "fghrthsj 11 "
 
 -- Background

@@ -80,6 +80,9 @@
 		}},
 		"ArrayUtils": {"props": ["isArrayLike", "zipObject"]},
 		"ChannelUtils": {"props": ["selectChannel", "selectPrivateChannel"]},
+		"ChatRestrictionUtils": {"strings": ["openWarningPopout", "userCanUsePremiumMessageLength"], "exported": false, "value": "exports", "map": {
+			"applyChatRestrictions": ["openWarningPopout", "userCanUsePremiumMessageLength"]
+		}},
 		"ConnectionProviderUtils": {"props": ["get", "isSupported", "filter"]},
 		"ConnectionUtils": {"props": ["setShowActivity", "setVisibility"]},
 		"ContextMenuUtils": {"strings": ["renderLazy", "type:\"CONTEXT_MENU_CLOSE\""], "exported": false, "value": "exports", "map": {
@@ -5455,6 +5458,9 @@
 		}
 	},
 	"BDFDB_Patrons": {
+		"711765867016224798": 	{"active": true,	"tier": "t3",	"text": "I thought this was my Wendy's Order",		"color": "",			"id": "jthunter (JeHu)"},
+		"105509397211406336": 	{"active": true,	"tier": "t2",	"text": "",											"color": "",			"id": "samtino (SgJeff)"},
+		"142377892565876736": 	{"active": true,	"tier": "t2",	"text": "",											"color": "",			"id": "ken (JimC)"},
 		"323494393828999168": 	{"active": true,	"tier": "t2",	"text": "",											"color": "",			"id": "polak (SzKu)"},
 		"543435944582447104": 	{"active": true,	"tier": "t3",	"text": "",											"color": "",			"id": "oaklaza"},
 		"96563253466898432": 	{"active": true,	"tier": "t2",	"text": "",											"color": "",			"id": "katsuro"},
@@ -5465,7 +5471,7 @@
 		"620397524494057513": 	{"active": true,	"tier": "t2",	"text": "",											"color": "",			"id": "FUSL"},
 		"798499176220327966": 	{"active": true,	"tier": "t2",	"text": "",											"color": "",			"id": "void (JaUt)"},
 		"363785301195358221": 	{"active": true,	"tier": "t2",	"text": "",											"color": "",			"id": "TRENT (KABEL)"},
-		"264486632525135883": 	{"active": true,	"tier": "t3",	"text": "Mr. Morale",								"color": "",			"id": "strix (A1C)"}
+		"1027026862708379849": 	{"active": true,	"tier": "t3",	"text": "Mr. Morale",								"color": "",			"id": "strix (A1C)"}
 	},
 	"BDFDB_Patron_Tiers": {
 		"t1": {
