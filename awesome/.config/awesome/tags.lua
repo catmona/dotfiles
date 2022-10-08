@@ -14,10 +14,10 @@
 local awful = require("awful")
 
 --shared tags module https://github.com/Drauthius/awesome-sharedtags
-local sharedtags = require("sharedtags")
+local sharedtags = require("modules/sharedtags")
 
 --quake terminal dropdown module https://github.com/lcpz/lain/blob/33c0e0c2360a04fcc6f51bccb0ad2a7a9e9c07b3/util/quake.lua
-local quake = require("quake")
+local quake = require("modules/quake")
 
 -- define module table
 local tags = {}
@@ -29,10 +29,10 @@ local tags = {}
 
 
 tags.tags = sharedtags({
-    { name = "web", screen = 1, layout = awful.layout.suit.tile}, 
-    { name = "dev", screen = 1, layout = awful.layout.suit.tile}, 
-    { name = "media", screen = 2, layout = awful.layout.suit.tile}, 
-    { name = "[+]", screen = 1, layout = awful.layout.suit.tile}, 
+    { name = "♥", screen = 1, layout = awful.layout.suit.tile}, 
+    { name = "♦", screen = 1, layout = awful.layout.suit.tile}, 
+    { name = "♠", screen = 2, layout = awful.layout.suit.tile}, 
+    { name = "♣", screen = 1, layout = awful.layout.suit.tile}, 
     -- { name = "\u{f10c}", screen = 1, layout = awful.layout.suit.tile }, -- games
     -- { name = "\u{f10c}", screen = 2, layout = awful.layout.suit.tile }, -- chat & spotify
     -- { name = "\u{f10c}", screen = 2, layout = awful.layout.suit.tile }, -- web (documentation)

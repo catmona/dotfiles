@@ -21,23 +21,16 @@ local menubar = require("menubar")
 local bar = {}
 
 -- ===================================================================
--- Bar
+-- Define Widgets
 -- ===================================================================
 
 function bar.create()
 
-    -- -- Menubar configuration
-    -- menubar.utils.terminal = terminal -- Set the terminal for applications that require it
-    -- -- }}}
-
-    -- -- Keyboard map indicator and switcher
-    -- mykeyboardlayout = awful.widget.keyboardlayout()
-
-    -- {{{ Wibar
-    -- Create a textclock widget
+    -- clock
     mytextclock = wibox.widget.textclock(" %a %b %d, %I:%M ")
 
-    -- Create a wibox for each screen and add it
+    
+    -- taglist
     local taglist_buttons = gears.table.join(
         awful.button({ }, 1, function(t) t:view_only() end),
         awful.button({ modkey }, 1, function(t)
@@ -55,7 +48,8 @@ function bar.create()
         awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
     )
     
-    -- Tasklist
+    
+    -- tasklist
     local tasklist_buttons = gears.table.join(
         awful.button({ }, 1, function (c)
             if c == client.focus then
@@ -78,17 +72,14 @@ function bar.create()
             awful.client.focus.byidx(-1)
         end)
     )
-
+    
+    -- ===================================================================
+    -- Bar Layout
+    -- ===================================================================
+    
+    
     awful.screen.connect_for_each_screen(function(s)
-        -- Create an imagebox widget which will contain an icon indicating which layout we're using.
-        -- We need one layoutbox per screen.
-        s.mylayoutbox = awful.widget.layoutbox(s)
 
-        s.mylayoutbox:buttons(gears.table.join(
-                            awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
         -- Taglist
         s.mytaglist = awful.widget.taglist {

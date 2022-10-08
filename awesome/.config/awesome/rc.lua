@@ -68,7 +68,7 @@ local tags = require("tags")
 tags.create()
 
 --import bar
-local bar = require("bar")
+local bar = require("widgets/bar/bar")
 bar.create()
 
 

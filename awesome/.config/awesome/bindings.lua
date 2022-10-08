@@ -28,7 +28,7 @@ local modkey = globals.modkey
 local altkey = globals.altkey
 
 local tags = require("tags")
-local sharedtags = require("sharedtags")
+local sharedtags = require("modules/sharedtags")
 
 -- define module table
 local bindings = {}
