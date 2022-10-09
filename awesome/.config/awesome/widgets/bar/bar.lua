@@ -13,10 +13,11 @@
 local awful = require("awful")
 local gears = require("gears")
 
-local beautiful = require("beautiful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
+
 
 -- define module table
 local bar = {}
@@ -73,6 +74,12 @@ function bar.create()
         }
     }
     
+    -- local battery = modules.lain.widget.bat ({
+    --     settings = function()
+            
+    --     end
+    -- })
+    
     -- wifi
     wificon = wibox.widget {
         widget = wibox.widget.background,
@@ -86,6 +93,10 @@ function bar.create()
         }
     }
     
+    -- local network = lain.widget.net ({
+        
+    -- })
+    
     -- volume
     volicon = wibox.widget {
         widget = wibox.widget.background,
@@ -98,6 +109,10 @@ function bar.create()
             font = "icomoon feather regular 13",
         }
     }
+    
+    -- local volume = lain.widget.pulsebar({
+        
+    -- })
     
     
     
