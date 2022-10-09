@@ -78,16 +78,16 @@ theme.taglist_bg_occupied = theme.bg_occupied
 theme.taglist_bg_urgent = theme.bg_urgent
 theme.taglist_bg_focus = theme.bg_focus
 
-theme.taglist_fg_occupied = theme.fg_normal
-theme.taglist_fg_focus = theme.fg_focus
-theme.taglist_fg_empty = "#808080"
-
 theme.workspace_colors = {
     "#fc6399",
     "#00f8fb",
-    "#ffd700",
-    "#98fb98",
+    "#fcc891",
+    "#8fda8f",
 }
+
+theme.taglist_fg_occupied = theme.fg_normal
+theme.taglist_fg_focus = theme.workspace_colors[1]
+theme.taglist_fg_empty = "#808080"
 
 -- Tasklist
 theme.tasklist_font = theme.font
@@ -127,6 +127,11 @@ theme.systray_icon_spacing = dpi(5)
 
 -- Titlebars
 theme.titlebars_enabled = false
+
+-- bar stuff
+theme.volicon = "#f8c2e2"
+theme.wificon = "#94e2d5"
+theme.baticon = "#fcc891"
 
 
 -- ===================================================================

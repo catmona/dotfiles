@@ -17,7 +17,7 @@ local awful = require("awful")
 local sharedtags = require("modules/sharedtags")
 
 --quake terminal dropdown module https://github.com/lcpz/lain/blob/33c0e0c2360a04fcc6f51bccb0ad2a7a9e9c07b3/util/quake.lua
-local quake = require("modules/quake")
+local quake = require("modules/lain/util/quake")
 
 -- define module table
 local tags = {}

@@ -49,30 +49,17 @@ function taglist.create(s)
         buttons = taglist_buttons,
         widget_template = {
             {
-                -- {
-                    -- layout = wibox.layout.fixed.vertical,
+                {
                     {
-                        {
-                            id = 'text_role',
-                            widget = wibox.widget.textbox,
-                        },
-                        left = 5,
-                        right = 5,
-                        top = 1,
-                        bottom = 1,
-                        widget = wibox.container.margin
+                        id = 'text_role',
+                        widget = wibox.widget.textbox,
                     },
-                    -- {
-                    --     {
-                    --         top = 2.5, -- size of underline
-                    --         widget = wibox.container.margin
-                    --     },
-                    --     id = 'overline',
-                    --     bg = '#ffffff',
-                    --     shape = gears.shape.rectangle,
-                    --     widget = wibox.container.background
-                    -- },
-                -- },
+                    left = 5,
+                    right = 5,
+                    top = 1,
+                    bottom = 1,
+                    widget = wibox.container.margin
+                },    
                 left = 1,
                 right = 1,
                 widget = wibox.container.margin
@@ -92,6 +79,7 @@ function taglist.create(s)
                 
                 if focused then
                     beautiful.taglist_fg_focus = beautiful.workspace_colors[index]
+                    --awesome.emit_signal("tag_updated")
                     -- self:get_children_by_id("overline")[1].bg = beautiful.taglist_fg_focus
                 else 
                     -- self:get_children_by_id("overline")[1].bg = beautiful.bg_normal
@@ -109,10 +97,12 @@ function taglist.create(s)
                 
                 if focused then
                     beautiful.taglist_fg_focus = beautiful.workspace_colors[index]
+                    taglist.mytaglist:emit_signal("tag_updated")
                     -- self:get_children_by_id("overline")[1].bg = beautiful.taglist_fg_focus
                 else 
                     -- self:get_children_by_id("overline")[1].bg = beautiful.bg_normal
                 end
+                
             end
         },
     } 
