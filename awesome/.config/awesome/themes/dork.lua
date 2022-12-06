@@ -118,7 +118,7 @@ theme.notification_max_height = dpi(125)
 theme.notification_icon_size = dpi(115)
 theme.notification_opacity = 0.94
 theme.notification_shape = gears.shape.rounded_rect
-theme.notification_border_color = theme.fg_occupied
+theme.notification_border_color = theme.bg_normal
 theme.notification_spacing = 8
 
 -- System Tray

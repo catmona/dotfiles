@@ -1,3 +1,12 @@
 [submodule "awesome/.config/awesome/modules/lain"]
 	path = awesome/.config/awesome/modules/lain
 	url = git@github.com:lcpz/lain.git
+[submodule "awesome/.config/awesome/modules/vicious"]
+	path = awesome/.config/awesome/modules/vicious
+	url = git@github.com:vicious-widgets/vicious.git
+[submodule "awesome/.config/awesome/vicious"]
+	path = awesome/.config/awesome/vicious
+	url = git@github.com:vicious-widgets/vicious.git
+[submodule "awesome/.config/awesome/modules/rubato"]
+	path = awesome/.config/awesome/modules/rubato
+	url = git@github.com:andOrlando/rubato.git

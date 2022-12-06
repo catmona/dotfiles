@@ -10,7 +10,7 @@
     "OpenSteamLinksInApp": false,
     "PinDMs": false,
     "PluginRepo": true,
-    "PronounDB": true,
+    "PronounDB": false,
     "SplitLargeMessages": true,
     "StaffTag": false,
     "ThemeRepo": true,

@@ -18,6 +18,7 @@ local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
+local vicious = require("vicious")
 
 -- define module table
 local bar = {}
@@ -59,26 +60,56 @@ function bar.create()
             fg_color = beautiful.wificon,
         }
     })
+    
     calendar:attach(mytextclock, "tr")
     
     -- battery
-    baticon = wibox.widget {
-        widget = wibox.widget.background,
-        valign = "center",
-        align = "center",
-        fg = beautiful.baticon,
+    bat = wibox.widget.textbox()
+    batslide = wibox.widget.textbox()
+    
+    battery = wibox.widget {
+        layout = wibox.layout.fixed.horizontal,
         {
-            widget = wibox.widget.textbox,
-            text = "",
-            font = "icomoon feather regular 13",
+            widget = batslide,
+            text = "65%",
+            visible = false,
+            font = "bitstream vera sans mono 13",
+        },
+        {
+            widget = wibox.widget.background,
+            valign = "center",
+            align = "center",
+            fg = beautiful.baticon,
+            {
+                widget = bat,
+                text = "temp",
+                font = "icomoon feather regular 13",
+                
+            }
         }
     }
     
-    -- local battery = modules.lain.widget.bat ({
-    --     settings = function()
-            
-    --     end
-    -- })
+    
+    
+    vicious.register (
+        bat,
+        vicious.widgets.bat,
+        function(widget, args) 
+            if args[2] <= 10 then
+                return ""
+            elseif args[2] <= 30 then
+                return ""
+            elseif args[2] <= 60 then
+                return ""
+            elseif args[2] <= 90 then
+                return ""
+            else
+                return ""
+            end
+        end,
+        20,
+        "BAT1"
+    )
     
     -- wifi
     wificon = wibox.widget {
@@ -113,7 +144,6 @@ function bar.create()
     -- local volume = lain.widget.pulsebar({
         
     -- })
-    
     
     
     -- ===================================================================
@@ -214,24 +244,26 @@ function bar.create()
         -- ===================================================================
     
         
-        s.widgetbar = awful.wibar({
+        s.widgetbar = awful.popup({
             position = "top", 
+            preferred_positions = "left",
+            preferred_anchors = "middle",
             screen = s, 
             bg = beautiful.bg_normal,
             --shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h, 9) end,
-            width = dpi(95),
+            width = dpi(100),
             height = dpi(35),
+            widget = {
+                forced_height = dpi(35),
+                layout = wibox.layout.align.horizontal,
+                valign = "center",
+                align = "right",
+                wibox.layout.margin(volicon, 11, 8, 3, 3),
+                wibox.layout.margin(wificon, 3, 8, 3, 3),
+                wibox.layout.margin(battery, 3, 8, 3, 3),
+            }
         })
-        
-        s.widgetbar:setup {
-            layout = wibox.layout.fixed.horizontal,
-            valign = "center",
-            align = "center",
-            wibox.layout.margin(volicon, 11, 8, 3, 3),
-            wibox.layout.margin(wificon, 3, 8, 3, 3),
-            wibox.layout.margin(baticon, 3, 8, 3, 3),
-        }
-        
+
         
         -- ===================================================================
         -- Placement
@@ -243,6 +275,8 @@ function bar.create()
             left = beautiful.useless_gap * 2,
             top = beautiful.useless_gap,
         }})
+        
+        s.dashbar:struts{top = s.dashbar.height } --+ beautiful.useless_gap}
     
         -- tagbar placement
         awful.placement.top_left(s.tagbar, {margins = {
@@ -250,39 +284,38 @@ function bar.create()
             top = beautiful.useless_gap,
         }})
         
+        s.tagbar:struts{top = s.tagbar.height } --+ beautiful.useless_gap}
+        
         -- clockbar placement
         awful.placement.top_right(s.clockbar, {margins = {
             right = beautiful.useless_gap * 2,
             top = beautiful.useless_gap,
         }})
         
-        -- widgetbar placement
-        awful.placement.top_right(s.widgetbar, {margins = {
-            right = beautiful.useless_gap * 4 + s.clockbar.width,
-            top = beautiful.useless_gap,
-        }})
-        
-        
-        -- ===================================================================
-        -- Reserved Space
-        -- ===================================================================
-    
-        
-        s.dashbar:struts{top = s.dashbar.height } --+ beautiful.useless_gap}
-        s.tagbar:struts{top = s.tagbar.height } --+ beautiful.useless_gap}
         s.clockbar:struts{top = s.clockbar.height } --+ beautiful.useless_gap}
-        s.widgetbar:struts{top = s.widgetbar.height } --+ beautiful.useless_gap}
         
+        function widgplace()
+            -- widgetbar placement
+            awful.placement.top_right(s.widgetbar, {margins = {
+                right = beautiful.useless_gap * 4 + s.clockbar.width,
+                top = beautiful.useless_gap,
+            }})
+            
+            s.widgetbar:struts{top = s.widgetbar.height } --+ beautiful.useless_gap}
+        end
+        
+        widgplace()
+    
         
         -- ===================================================================
         -- Widget Signals
         -- ===================================================================
     
         
+        -- dashboard signals
         s.dashbar:connect_signal("button::press", function() 
             awful.spawn("./bin/dashboard.sh &", false)
         end)
-        
         
         -- s.dashbar:connect_signal("mouse::enter", function ()
 
@@ -293,14 +326,44 @@ function bar.create()
         -- end)
         
         
+        -- taglist signals
         taglist.mytaglist:connect_signal("tag_updated", function()
             s.dashbar.bg = beautiful.taglist_fg_focus
         end)
         
-        baticon:connect_signal("button::press", function() 
+        
+        -- battery signals
+        battery:connect_signal("button::press", function() 
            awful.spawn("xfce4-power-manager -c", false)
         end)
-
+        
+        battery:connect_signal("mouse::enter", function ()
+            --widgetbarwidth.target = dpi(150)
+            batslide.text = vicious.call(vicious.widgets.bat, "$2", "BAT1")
+            -- s.widgetbar.width = dpi(110)
+            batslide.visible = true
+        end)
+        
+        battery:connect_signal("mouse::leave", function ()
+            --widgetbarwidth.target = dpi(100)
+            -- s.widgetbar.width = dpi(100)
+            batslide.visible = false
+        end)
+        
+        
+        -- wifi signals
+        wificon:connect_signal("button::press", function() 
+            awful.spawn("xfce4-power-manager -c", false)
+         end)
+         
+         
+         
+         -- volume signals
+         volicon:connect_signal("button::press", function() 
+            awful.spawn("xfce4-power-manager -c", false)
+         end)
+         
+         
         
     end)
 end
