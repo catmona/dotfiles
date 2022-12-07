@@ -70,10 +70,14 @@ function bar.create()
     battery = wibox.widget {
         layout = wibox.layout.fixed.horizontal,
         {
-            widget = batslide,
-            text = "65%",
-            visible = false,
-            font = "bitstream vera sans mono 13",
+            widget = wibox.widget.background,
+            fg = beautiful.baticon,
+            {
+                widget = batslide,
+                text = "65%",
+                visible = false,
+                font = "bitstream vera sans mono 13",
+            }
         },
         {
             widget = wibox.widget.background,
@@ -117,10 +121,14 @@ function bar.create()
     wifi = wibox.widget {
         layout = wibox.layout.fixed.horizontal,
         {
-            widget = wifislide,
-            text = "none",
-            visible = false,
-            font = "bitstream vera sans mono 13",
+            widget = wibox.widget.background,
+            fg = beautiful.wificon,
+            {
+                widget = wifislide,
+                text = "none",
+                visible = false,
+                font = "bitstream vera sans mono 13",
+            }
         },
         {
             widget = wibox.widget.background,
@@ -171,10 +179,14 @@ function bar.create()
     volume = wibox.widget {
         layout = wibox.layout.fixed.horizontal,
         {
-            widget = volslide,
-            text = "0%",
-            visible = false,
-            font = "bitstream vera sans mono 13",
+            widget = wibox.widget.background,
+            fg = beautiful.volicon,
+            {
+                widget = volslide,
+                text = "0%",
+                visible = false,
+                font = "bitstream vera sans mono 13",
+            }
         },
         {
             widget = wibox.widget.background,
@@ -307,23 +319,31 @@ function bar.create()
         
         s.widgetbar = awful.popup({
             position = "top", 
-            preferred_positions = "right",
+            --preferred_positions = "right",
             -- preferred_anchors = "top",
             screen = s, 
             bg = beautiful.bg_normal,
             --shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h, 9) end,
             width = dpi(100),
             height = dpi(35),
+            expand = "none",
             widget = {
-                forced_height = dpi(35),
-                layout = wibox.layout.align.horizontal,
-                valign = "center",
-                align = "right",
-                wibox.layout.margin(volume, 11, 8, 3, 3),
-                wibox.layout.margin(wifi, 3, 8, 3, 3),
-                wibox.layout.margin(battery, 3, 8, 3, 3),
+                
             }
         })
+        
+        s.widgetbar:setup {
+                layout = wibox.container.place,
+                forced_height = dpi(35),
+                halign = "right",
+                {
+
+                    layout = wibox.layout.align.horizontal,
+                    wibox.layout.margin(volume, 11, 8, 3, 3),
+                    wibox.layout.margin(wifi, 3, 8, 3, 3),
+                    wibox.layout.margin(battery, 3, 8, 3, 3),
+                },
+        }
 
         
         -- ===================================================================

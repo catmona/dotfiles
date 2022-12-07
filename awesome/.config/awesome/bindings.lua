@@ -347,7 +347,10 @@ bindings.globalkeys = gears.table.join(
 
     -- Reload Awesome
     awful.key({modkey, "Control"}, "r",
-        awesome.restart,
+        --function()
+            awesome.restart,
+            --awful.spawn("nitrogen --restore &", false)
+        --end,
         {description = "reload awesome", group = "awesome"}
     ),
 
