@@ -64,7 +64,7 @@ function bar.create()
     calendar:attach(mytextclock, "tr")
     
     -- battery
-    bat = wibox.widget.textbox()
+    baticon = wibox.widget.textbox()
     batslide = wibox.widget.textbox()
     
     battery = wibox.widget {
@@ -81,18 +81,16 @@ function bar.create()
             align = "center",
             fg = beautiful.baticon,
             {
-                widget = bat,
-                text = "temp",
+                widget = baticon,
+                text = "0%",
                 font = "icomoon feather regular 13",
                 
             }
         }
     }
     
-    
-    
     vicious.register (
-        bat,
+        baticon,
         vicious.widgets.bat,
         function(widget, args) 
             if args[2] <= 10 then
@@ -113,32 +111,32 @@ function bar.create()
     
     
      -- wifi
-     wificon = wibox.widget.textbox()
-     wifislide = wibox.widget.textbox()
+    wificon = wibox.widget.textbox()
+    wifislide = wibox.widget.textbox()
      
-     wifi = wibox.widget {
-         layout = wibox.layout.fixed.horizontal,
-         {
-             widget = wifislide,
-             text = "none",
-             visible = false,
-             font = "bitstream vera sans mono 13",
-         },
-         {
-             widget = wibox.widget.background,
-             valign = "center",
-             align = "center",
-             fg = beautiful.wificon,
-             {
-                 widget = wificon,
-                 text = "",
-                 font = "icomoon feather regular 13",
-                 
-             }
-         }
-     }
-    
-     vicious.register (
+    wifi = wibox.widget {
+        layout = wibox.layout.fixed.horizontal,
+        {
+            widget = wifislide,
+            text = "none",
+            visible = false,
+            font = "bitstream vera sans mono 13",
+        },
+        {
+            widget = wibox.widget.background,
+            valign = "center",
+            align = "center",
+            fg = beautiful.wificon,
+            {
+                widget = wificon,
+                text = "",
+                font = "icomoon feather regular 13",
+                
+            }
+        }
+    }
+
+    vicious.register (
         wificon,
         vicious.widgets.wifi,
         function(widget, args) 
@@ -152,22 +150,61 @@ function bar.create()
         "mlan0"
     )
     
+    
     -- volume
-    volicon = wibox.widget {
-        widget = wibox.widget.background,
-        valign = "center",
-        align = "center",
-        fg = beautiful.volicon,
+    -- volicon = wibox.widget {
+    --     widget = wibox.widget.background,
+    --     valign = "center",
+    --     align = "center",
+    --     fg = beautiful.volicon,
+    --     {
+    --         widget = wibox.widget.textbox,
+    --         text = "",
+    --         font = "icomoon feather regular 13",
+    --     }
+    -- }
+
+    
+    volicon = wibox.widget.textbox()
+    volslide = wibox.widget.textbox()
+     
+    volume = wibox.widget {
+        layout = wibox.layout.fixed.horizontal,
         {
-            widget = wibox.widget.textbox,
-            text = "",
-            font = "icomoon feather regular 13",
+            widget = volslide,
+            text = "0%",
+            visible = false,
+            font = "bitstream vera sans mono 13",
+        },
+        {
+            widget = wibox.widget.background,
+            valign = "center",
+            align = "center",
+            fg = beautiful.volicon,
+            {
+                widget = volicon,
+                text = "",
+                font = "icomoon feather regular 13",
+                
+            }
         }
     }
     
-    -- local volume = lain.widget.pulsebar({
-        
-    -- })
+    vicious.register (
+        volicon,
+        vicious.widgets.volume,
+        function(widget, args) 
+            if args[2] >= 50 then
+                return ""
+            elseif args[2] > 0 then
+                return ""
+            else 
+                return ""
+            end
+        end,
+        120,
+        "Master"
+    )
     
     
     -- ===================================================================
@@ -282,7 +319,7 @@ function bar.create()
                 layout = wibox.layout.align.horizontal,
                 valign = "center",
                 align = "right",
-                wibox.layout.margin(volicon, 11, 8, 3, 3),
+                wibox.layout.margin(volume, 11, 8, 3, 3),
                 wibox.layout.margin(wifi, 3, 8, 3, 3),
                 wibox.layout.margin(battery, 3, 8, 3, 3),
             }
@@ -363,7 +400,10 @@ function bar.create()
         
         battery:connect_signal("mouse::enter", function ()
             --widgetbarwidth.target = dpi(150)
-            batslide.text = vicious.call(vicious.widgets.bat, "$2", "BAT1")
+            batslide.text = vicious.call(vicious.widgets.bat, 
+            function(widget, args)
+                return args[2] .. "% "
+            end, "BAT1")
             -- s.widgetbar.width = dpi(110)
             batslide.visible = true
         end)
@@ -384,7 +424,7 @@ function bar.create()
             --widgetbarwidth.target = dpi(150)
             wifislide.text = vicious.call_async(vicious.widgets.wifi, "${ssid}", "mlan0", 
             function(arg)
-                wifislide.text = arg
+                wifislide.text = arg .. " "
                 wifislide.visible = true
             end)
             -- s.widgetbar.width = dpi(110)
@@ -397,11 +437,26 @@ function bar.create()
         end)
          
          
-         
          -- volume signals
-         volicon:connect_signal("button::press", function() 
-            awful.spawn("xfce4-power-manager -c", false)
+         volume:connect_signal("button::press", function() 
+            awful.spawn("pavucontrol", false)
          end)
+         
+         volume:connect_signal("mouse::enter", function ()
+            --widgetbarwidth.target = dpi(150)
+            volslide.text = vicious.call_async(vicious.widgets.volume, "$1", "Master", 
+            function(arg)
+                volslide.text = arg .. "% "
+                volslide.visible = true
+            end)
+            -- s.widgetbar.width = dpi(110)
+        end)
+        
+        volume:connect_signal("mouse::leave", function ()
+            --widgetbarwidth.target = dpi(100)
+            -- s.widgetbar.width = dpi(100)
+            volslide.visible = false
+        end)
          
          
         
