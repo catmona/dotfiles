@@ -17,11 +17,12 @@ autostart.autorun = true
 autostart.autorunApps = {
     --"picom -b",
     --"pkill volumeicon",
-    "nm-applet",
-    "blueman-applet",
+    --"nm-applet",
+    --"blueman-applet",
+    "nitrogen --restore &",
     "rfkill block bluetooth",
-    "if [[ $(pgrep -c volumeicon) == 0 ]]; then volumeicon &; fi;",
-    "if [[ $(pgrep -c volumeicon) == 0 ]]; then volumeicon &; fi;"
+    --"if [[ $(pgrep -c volumeicon) == 0 ]]; then volumeicon &; fi;",
+    --"if [[ $(pgrep -c volumeicon) == 0 ]]; then volumeicon &; fi;"
     --"volumeicon &"
     --"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
 }

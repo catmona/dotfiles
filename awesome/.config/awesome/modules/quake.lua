@@ -69,6 +69,7 @@ function quake:display()
     client.ontop = true
     client.above = true
     client.skip_taskbar = true
+    client.y = 5
 
     -- Additional user settings
     if self.settings then self.settings(client) end

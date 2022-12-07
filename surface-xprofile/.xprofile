@@ -19,7 +19,7 @@ picom -b
 
 #systray
 xfce4-power-manager &
-cbatticon -i standard -n &
+#cbatticon -i standard -n &
 
 #eww
 eww daemon &
