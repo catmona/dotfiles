@@ -76,13 +76,13 @@ function bar.create()
                 widget = batslide,
                 text = "65%",
                 visible = false,
-                font = "bitstream vera sans mono 13",
+                font = "bitstream vera sans mono 11",
             }
         },
         {
             widget = wibox.widget.background,
             valign = "center",
-            align = "center",
+            halign = "center",
             fg = beautiful.baticon,
             {
                 widget = baticon,
@@ -127,7 +127,7 @@ function bar.create()
                 widget = wifislide,
                 text = "none",
                 visible = false,
-                font = "bitstream vera sans mono 13",
+                font = "bitstream vera sans mono 11",
             }
         },
         {
@@ -159,20 +159,6 @@ function bar.create()
     )
     
     
-    -- volume
-    -- volicon = wibox.widget {
-    --     widget = wibox.widget.background,
-    --     valign = "center",
-    --     align = "center",
-    --     fg = beautiful.volicon,
-    --     {
-    --         widget = wibox.widget.textbox,
-    --         text = "",
-    --         font = "icomoon feather regular 13",
-    --     }
-    -- }
-
-    
     volicon = wibox.widget.textbox()
     volslide = wibox.widget.textbox()
      
@@ -185,7 +171,7 @@ function bar.create()
                 widget = volslide,
                 text = "0%",
                 visible = false,
-                font = "bitstream vera sans mono 13",
+                font = "bitstream vera sans mono 11",
             }
         },
         {
@@ -318,31 +304,39 @@ function bar.create()
     
         
         s.widgetbar = awful.popup({
-            position = "top", 
-            --preferred_positions = "right",
-            -- preferred_anchors = "top",
+            placement = function(c) 
+                return awful.placement.top_right(c, { margins = {
+                    right = beautiful.useless_gap * 4 + s.clockbar.width,
+                    top = beautiful.useless_gap,
+                }})
+            end,
+
             screen = s, 
             bg = beautiful.bg_normal,
-            --shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h, 9) end,
             width = dpi(100),
             height = dpi(35),
-            expand = "none",
+            halign = "right",
+            align = "right",
             widget = {
                 
             }
         })
         
+        s.widgetbar:struts{top = s.widgetbar.height }
+        
         s.widgetbar:setup {
-                layout = wibox.container.place,
                 forced_height = dpi(35),
+                layout = wibox.container.place,
                 halign = "right",
                 {
-
                     layout = wibox.layout.align.horizontal,
+                    halign = "right",
+                    align = "right",
                     wibox.layout.margin(volume, 11, 8, 3, 3),
                     wibox.layout.margin(wifi, 3, 8, 3, 3),
-                    wibox.layout.margin(battery, 3, 8, 3, 3),
-                },
+                    wibox.layout.margin(battery, 8, 8, 3, 3),
+                }
+                
         }
 
         
@@ -374,18 +368,6 @@ function bar.create()
         }})
         
         s.clockbar:struts{top = s.clockbar.height } --+ beautiful.useless_gap}
-        
-        function widgplace()
-            -- widgetbar placement
-            awful.placement.top_right(s.widgetbar, {margins = {
-                right = beautiful.useless_gap * 4 + s.clockbar.width,
-                top = beautiful.useless_gap,
-            }})
-            
-            s.widgetbar:struts{top = s.widgetbar.height } --+ beautiful.useless_gap}
-        end
-        
-        widgplace()
     
         
         -- ===================================================================
@@ -419,19 +401,20 @@ function bar.create()
         end)
         
         battery:connect_signal("mouse::enter", function ()
-            --widgetbarwidth.target = dpi(150)
             batslide.text = vicious.call(vicious.widgets.bat, 
             function(widget, args)
                 return args[2] .. "% "
             end, "BAT1")
-            -- s.widgetbar.width = dpi(110)
+            
             batslide.visible = true
+            wifislide.visible = false
+            volslide.visible = false
         end)
         
         battery:connect_signal("mouse::leave", function ()
-            --widgetbarwidth.target = dpi(100)
-            -- s.widgetbar.width = dpi(100)
             batslide.visible = false
+            wifislide.visible = false
+            volslide.visible = false
         end)
         
         
@@ -441,44 +424,54 @@ function bar.create()
          end)
          
         wifi:connect_signal("mouse::enter", function ()
-            --widgetbarwidth.target = dpi(150)
-            wifislide.text = vicious.call_async(vicious.widgets.wifi, "${ssid}", "mlan0", 
-            function(arg)
-                wifislide.text = arg .. " "
-                wifislide.visible = true
-            end)
-            -- s.widgetbar.width = dpi(110)
+            if wifislide.visible == false then
+                wifislide.text = vicious.call_async(vicious.widgets.wifi, "${ssid}", "mlan0", 
+                function(arg)
+                    wifislide.text = arg .. " "
+                    wifislide.visible = true
+                    batslide.visible = false
+                    volslide.visible = false
+                end)
+            end
         end)
         
         wifi:connect_signal("mouse::leave", function ()
-            --widgetbarwidth.target = dpi(100)
-            -- s.widgetbar.width = dpi(100)
             wifislide.visible = false
-        end)
-         
-         
-         -- volume signals
-         volume:connect_signal("button::press", function() 
-            awful.spawn("pavucontrol", false)
-         end)
-         
-         volume:connect_signal("mouse::enter", function ()
-            --widgetbarwidth.target = dpi(150)
-            volslide.text = vicious.call_async(vicious.widgets.volume, "$1", "Master", 
-            function(arg)
-                volslide.text = arg .. "% "
-                volslide.visible = true
-            end)
-            -- s.widgetbar.width = dpi(110)
-        end)
-        
-        volume:connect_signal("mouse::leave", function ()
-            --widgetbarwidth.target = dpi(100)
-            -- s.widgetbar.width = dpi(100)
+            batslide.visible = false
             volslide.visible = false
         end)
          
          
+         -- volume signals
+        volume:connect_signal("button::press", function() 
+            awful.spawn("pavucontrol", false)
+        end)
+         
+        volume:connect_signal("mouse::enter", function ()
+            if volslide.visible == false then
+                volslide.text = vicious.call_async(vicious.widgets.volume, "$1", "Master", 
+                function(arg)
+                    volslide.text = arg .. "% "
+                    volslide.visible = true
+                    batslide.visible = false
+                    wifislide.visible = false
+                end)
+            end
+        end)
+        
+        volume:connect_signal("mouse::leave", function ()
+            volslide.visible = false
+            batslide.visible = false
+            wifislide.visible = false
+        end)
+         
+         
+        -- just in case signals
+        s.widgetbar:connect_signal("mouse::leave", function ()
+            volslide.visible = false
+            batslide.visible = false
+            wifislide.visible = false
+        end)
         
     end)
 end
