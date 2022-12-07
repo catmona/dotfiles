@@ -194,9 +194,9 @@ function bar.create()
         volicon,
         vicious.widgets.volume,
         function(widget, args) 
-            if args[2] >= 50 then
+            if args[1] >= 50 then
                 return ""
-            elseif args[2] > 0 then
+            elseif args[1] > 0 then
                 return ""
             else 
                 return ""
