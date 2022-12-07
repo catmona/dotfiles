@@ -107,26 +107,50 @@ function bar.create()
                 return ""
             end
         end,
-        20,
+        120,
         "BAT1"
     )
     
-    -- wifi
-    wificon = wibox.widget {
-        widget = wibox.widget.background,
-        valign = "center",
-        align = "center",
-        fg = beautiful.wificon,
-        {
-            widget = wibox.widget.textbox,
-            text = "",
-            font = "icomoon feather regular 13",
-        }
-    }
     
-    -- local network = lain.widget.net ({
-        
-    -- })
+     -- wifi
+     wificon = wibox.widget.textbox()
+     wifislide = wibox.widget.textbox()
+     
+     wifi = wibox.widget {
+         layout = wibox.layout.fixed.horizontal,
+         {
+             widget = wifislide,
+             text = "none",
+             visible = false,
+             font = "bitstream vera sans mono 13",
+         },
+         {
+             widget = wibox.widget.background,
+             valign = "center",
+             align = "center",
+             fg = beautiful.wificon,
+             {
+                 widget = wificon,
+                 text = "",
+                 font = "icomoon feather regular 13",
+                 
+             }
+         }
+     }
+    
+     vicious.register (
+        wificon,
+        vicious.widgets.wifi,
+        function(widget, args) 
+            if args["{ssid}"] == nil then
+                return ""
+            else
+                return ""
+            end
+        end,
+        120,
+        "mlan0"
+    )
     
     -- volume
     volicon = wibox.widget {
@@ -246,8 +270,8 @@ function bar.create()
         
         s.widgetbar = awful.popup({
             position = "top", 
-            preferred_positions = "left",
-            preferred_anchors = "middle",
+            preferred_positions = "right",
+            -- preferred_anchors = "top",
             screen = s, 
             bg = beautiful.bg_normal,
             --shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h, 9) end,
@@ -259,7 +283,7 @@ function bar.create()
                 valign = "center",
                 align = "right",
                 wibox.layout.margin(volicon, 11, 8, 3, 3),
-                wibox.layout.margin(wificon, 3, 8, 3, 3),
+                wibox.layout.margin(wifi, 3, 8, 3, 3),
                 wibox.layout.margin(battery, 3, 8, 3, 3),
             }
         })
@@ -352,9 +376,25 @@ function bar.create()
         
         
         -- wifi signals
-        wificon:connect_signal("button::press", function() 
-            awful.spawn("xfce4-power-manager -c", false)
+        wifi:connect_signal("button::press", function() 
+            awful.spawn("kitty nmtui", false)
          end)
+         
+        wifi:connect_signal("mouse::enter", function ()
+            --widgetbarwidth.target = dpi(150)
+            wifislide.text = vicious.call_async(vicious.widgets.wifi, "${ssid}", "mlan0", 
+            function(arg)
+                wifislide.text = arg
+                wifislide.visible = true
+            end)
+            -- s.widgetbar.width = dpi(110)
+        end)
+        
+        wifi:connect_signal("mouse::leave", function ()
+            --widgetbarwidth.target = dpi(100)
+            -- s.widgetbar.width = dpi(100)
+            wifislide.visible = false
+        end)
          
          
          
