@@ -5,7 +5,7 @@
     "DashToSpaceInChannelName": true,
     "DetailedServerTooltips": false,
     "EditUsers": false,
-    "JoinedAtDate": true,
+    "JoinedAtDate": false,
     "OpenSpotifylinksInSpotify": false,
     "OpenSteamLinksInApp": false,
     "PinDMs": false,

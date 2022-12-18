@@ -1,18 +1,9 @@
 /**
-* @name Dork
+* @name dork
 * @author cat
 * @description a dorky theme for dorky girls
 * @version 1
 */
-
-/** GOALS: 
-*   - modal settings from slate/dracula
-*   - lights next to channels from ulta
-*   - zelk switches & spacing
-*   - rainbow text from kitty
-*   - easy color scheme changing by UI element
-*/
-
 
 /* 
 ======================================================
@@ -172,6 +163,9 @@ SETTINGS
 .colorPrimary-2AuQVo, .lookOutlined-3yKVGo {
     color: var(--text1) !important;
 }
+.lookFilled-yCfaCM:hover {
+    color: var(--text1) !important;
+}
 
 .deviceOptionLabel-iFH7Qi {
     color: var(--text1) !important;
@@ -266,10 +260,22 @@ BASE
 }
 
 /* voice channel */
+.mainContent-20q_Hp[role="button"] {
+    background-color: var(--bg1);
+    filter: contrast(91%);
+    border-radius: 5px;
+}
 .mainContent-20q_Hp[role="button"] .channelName-3KPsGw {
     color: var(--subtext) !important;
-    font-style: italic;
+    /* font-style: italic; */
     font-weight: 500;
+    margin-left: 12px;
+}
+.mainContent-20q_Hp[role="button"] .channelName-3KPsGw:before {
+    color: var(--accent);
+    /* content: "・";
+    margin-right: 5px; */
+    
 }
 
 
@@ -327,6 +333,77 @@ MISC
     color: var(--bg1) !important;
 }
 
+/* pinned messages popup */
+.messagesPopout-eVzQcI, .messageGroupWrapper-1jf_7C {
+    background-color: var(--bg1) !important;
+}
+.messageGroupWrapper-1jf_7C:hover {
+    background-color: var(--bg2) !important;
+}
+.header-1w9Q93 h1 {
+    color: var(--text1) !important;
+}
+
+/* notification settings popup */
+.menu-1QACrS {
+    background-color: var(--bg1);
+}
+.focused-3qFvc8, .focused-3qFvc8 .subtext-2GlkbE {
+    background-color: var(--bg2) !important;
+    color: var(--text1) !important;
+}
+.radioSelection-1UHp0b {
+    color: var(--accent) !important;
+}
+
+/* search popup */
+.container-2McqkF, .queryContainer-ZunrLZ, .resultsGroup-cfY57t, .searchHeader-1r_ZSh {
+    background-color: var(--bg1) !important;
+}
+.queryText-j8z984 {
+    background-color: var(--fg) !important;
+}
+.queryText-j8z984 strong {
+    color: var(--text1) !important;
+}
+
+/* voice text channel popout */
+.root-22AK9z {
+    background-color: var(--bg1);
+}
+
+/* voice call end call button */
+.red-3T8maV {
+    background-color: var(--danger) !important;
+}
+
+/* voice call mic toggled button */
+.white-11auuQ {
+    background-color: var(--text1) !important;
+}
+.slash-2yrR11 {
+    color: var(--bg1) !important;
+}
+
+/* voice call name & other dark buttons */
+.colorWhite-1H92hK div, .overlayTitleText-3xOA3Q {
+    color: var(--text1) !important;
+}
+.joinButton-2KP9ZZ {
+    background-color: var(--positive) !important;
+}
+.joinButton-2KP9ZZ:hover {
+    color: var(--bg1) !important;
+}
+
+/* voice call top icons */
+.controlIcon-10O-4h:hover {
+    color: var(--text1) !important;
+}
+.selected-29KTGM svg {
+    color: var(--accent) !important;
+}
+
 
 /* 
 ======================================================
@@ -351,6 +428,7 @@ DISCORD VARS
     --background-tertiary: var(--bg1); /* channel list & search bar */
     --background-accent: var(--accent); /* server icon accents in corner thing */
     --background-floating: var(--bg2); /* background of some icons */
+    --background-modifier-selected: var(--bg2); /* selected channel background */
     --modal-background: var(--bg1);
     --modal-footer-background: var(--bg1);
     --input-background: var(--fg);
@@ -364,6 +442,7 @@ DISCORD VARS
     --info-help-text: #fff;
     --status-warning-text: #000;
     --status-danger: var(--text3); /* crossed out icons */
+    --status-red-500: var(--text3); /* more crossed out icons */
     --status-danger-background: var(--danger);
     --status-positive-background: var(--positive);
     --status-green-600: var(--accent); /* server list bottom buttons */
@@ -375,6 +454,7 @@ DISCORD VARS
     --brand-experiment-hover: #6f6af64d;
     --brand-experiment-360: var(--accent); /* "invite people" text */
     --brand-experiment-560: var(--bg2); /* some button hovers */
+    --brand-experiment-500: var(--accent); /* checkboxes in video call menu */
     --brand-500: var(--accent); /* "beta" labels */
     --white-500: var(--bg1); /* text inside of accent buttons */
     --channels-default: var(--text1); /* channel & category text */
@@ -386,6 +466,7 @@ DISCORD VARS
     --selected-indicator: var(--positive);
     --hover-indicator: var(--text3);
     --button-positive-background: var(--positive);
+    --primary-dark-300: var(--subtext); /* some icons & status text & other random subtext */
 }
 
 /* 
