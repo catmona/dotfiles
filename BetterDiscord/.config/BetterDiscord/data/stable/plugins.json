@@ -14,7 +14,7 @@
     "SplitLargeMessages": true,
     "StaffTag": false,
     "ThemeRepo": true,
-    "ThemeSettings": true,
+    "ThemeSettings": false,
     "CallTimeCounter": true,
     "ChatAliases": true,
     "DisableStickerSuggestions": false,

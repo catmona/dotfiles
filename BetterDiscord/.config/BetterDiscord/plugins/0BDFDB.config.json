@@ -2,17 +2,17 @@
 	"all": {
 		"changeLogs": {
 			"BDFDB": "3.0.6",
-			"ChatAliases": "2.4.3",
+			"ChatAliases": "2.4.4",
 			"EditUsers": "4.4.3",
-			"JoinedAtDate": "1.3.4",
+			"JoinedAtDate": "9.9.9",
 			"OpenSteamLinksInApp": "1.1.4",
 			"PinDMs": "1.8.5",
-			"PluginRepo": "2.3.7",
+			"PluginRepo": "2.4.5",
 			"ShowConnections": "1.0.7",
-			"SplitLargeMessages": "1.7.7",
+			"SplitLargeMessages": "1.7.9",
 			"StaffTag": "1.4.8",
-			"ThemeRepo": "2.3.9",
-			"ThemeSettings": "1.3.5"
+			"ThemeRepo": "2.4.8",
+			"ThemeSettings": "9.9.9"
 		},
 		"choices": {
 			"toastPosition": "right"

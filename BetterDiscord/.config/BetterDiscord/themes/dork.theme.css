@@ -51,17 +51,16 @@ COLOR SCHEME
 
 :root {
     --bg1: #242229; 
-    --bg2: #35333d;
-    --fg: #35333d;
+    --bg2: #35333d; /* hover effects and other background panels */
+    --fg: #35333d; /* mainly used for textboxes */
     --accent: #b4befe;
     
     --icons1: #e3d7fd;
-    --icons2: white;
     
-    --text1: #eae4f8;
-    --text2: #807a79;
-    --text3: #cefdff;
-    --subtext: #bab3c5;
+    --text1: #eae4f8; /* default text color */
+    --text2: #807a79; 
+    --text3: #cefdff; /* some headers */
+    --subtext: #bab3c5; /* muted text color */
     
     --danger: #d87389;
     --warning: #f7d9b9;
@@ -122,7 +121,7 @@ HOME
     background-color: var(--positive) !important;
 }
 .addFriend-emTWY1 span {
-    color: var(--bg2) !important;
+    color: var(--bg1) !important;
 }
 
 /* search bar */
@@ -156,11 +155,17 @@ SETTINGS
 .bd-button, .bd-filled-checkmark {
     background-color: var(--accent);
 }
+.bd-button div {
+    color: var(--bg1) !important;
+}
 .bd-empty-updates svg {
     fill: var(--accent);
 }
 .bd-button-danger {
     background-color: var(--danger) !important;
+}
+.notice-2HEN-u {
+    background-color: var(--accent);
 }
 
 /* buttons text with dark background */
@@ -279,7 +284,7 @@ MISC
     background-color: yellow !important;
 }
 .overlayBackground-1KgwVi {
-    background-color: var(--bg1) !important;
+    /* background-color: var(--bg1) !important; */
 }
 
 /* emoji & sticker selector */
@@ -292,7 +297,7 @@ MISC
 .categoryItemDefaultCategory-3haEDq svg, .stickerCategoryGenericSelected-DnO2K8 svg {
     color: var(--accent) !important;
 }
-.contents-3ca1mk {
+.stickersNavItem-9B2BzM {
     color: var(--text1);
 }
 
@@ -352,7 +357,7 @@ DISCORD VARS
     --channeltextarea-background: var(--fg); /* chat box */
     --info-positive-text: #fff;
     --info-warning-text: #fff;
-    --info-warning-foreground: #6e6af6;
+    --info-warning-foreground: var(--accent); /* mention accent */
     --button-danger-background: var(--danger);
     --button-outline-danger-border: var(--danger);
     --info-danger-text: #fff;
@@ -371,7 +376,7 @@ DISCORD VARS
     --brand-experiment-360: var(--accent); /* "invite people" text */
     --brand-experiment-560: var(--bg2); /* some button hovers */
     --brand-500: var(--accent); /* "beta" labels */
-    --white-500: var(--bg2); /* text inside of accent buttons */
+    --white-500: var(--bg1); /* text inside of accent buttons */
     --channels-default: var(--text1); /* channel & category text */
     --selected-indicator: #97ffa5;
     --hover-indicator: #ffffff;
