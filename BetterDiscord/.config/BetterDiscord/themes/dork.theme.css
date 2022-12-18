@@ -38,6 +38,9 @@ IMPORTS
 /* minified memmber list */
 @import url("https://cdn.jsdelivr.net/gh/goldyflakes/dotfiles@master/BetterDiscord/.config/BetterDiscord/themes/dorkMemberList.css"); 
 
+/* font */
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
 
 /* 
 ======================================================
@@ -60,6 +63,9 @@ COLOR SCHEME
     --text3: #cefdff;
     --subtext: #bab3c5;
     
+    --danger: #d87389;
+    --warning: #f7d9b9;
+    --positive: #94e2d5;
     
 }
 
@@ -73,6 +79,31 @@ CHAT
 .form-3gdLxP {
     margin-right: 55px !important;
 }
+
+/* no reaction border */
+.reaction-3vwAF2.reactionMe-1PwQAc {
+    border: 1px solid transparent;
+}
+
+/* hide gift button from text box */
+.container-3Csys8 {
+    display: none;
+}
+
+/* seperator when theres new messages */
+.isUnread-3Lojb- {
+    border-color: var(--accent);
+    color: var(--accent) !important;
+}
+.isUnread-3Lojb- span {
+    color: var(--accent) !important;
+}
+
+/* emoji icon */
+.sprite-2lxwfc {
+    filter: grayscale(100);
+}
+
 
 /* 
 ======================================================
@@ -88,11 +119,135 @@ SETTINGS
 */
 
 
+/* switch colors */
+.bd-switch-checked .bd-switch-body, .checked-25WXMf {
+    background-color: var(--accent) !important;
+}
+.bd-switch-body, .container-2nx-BQ:not(.checked-25WXMf) {
+    background-color: var(--bg2) !important;
+}
+.bd-switch-symbol, .slider-32CRPX svg {
+    display: none;
+}
+.bd-switch-slider {
+    /* margin: 0px !important; */
+
+}
+
+/* misc BD elements */
+.bd-button, .bd-filled-checkmark {
+    background-color: var(--accent);
+}
+.bd-empty-updates svg {
+    fill: var(--accent);
+}
+.bd-button-danger {
+    background-color: var(--danger) !important;
+}
+
+/* buttons text with dark background */
+.colorPrimary-2AuQVo, .lookOutlined-3yKVGo {
+    color: var(--text1) !important;
+}
+
+.deviceOptionLabel-iFH7Qi {
+    color: var(--text1) !important;
+}
+
+
+
 /* 
 ======================================================
 BASE
 ======================================================
 */
+
+
+/* "report raid" button */
+.colorDanger-3n-KnP {
+    color: var(--danger) !important;
+}
+
+/* server name */
+.name-3Uvkvr {
+    background-image: linear-gradient(to left, #f8c2e2, #b4befe, #cefdff, #94e2d5, #f7d9b9, #d87389);   
+    -webkit-background-clip: text;
+    background-clip: text;
+    -moz-background-clip: text;
+    color: transparent !important;
+}
+
+/* channel name in header */
+.title-17SveM {
+    background-image: linear-gradient(to right, #b4befe, #cefdff, #AED0C9);   
+    -webkit-background-clip: text;
+    background-clip: text;
+    -moz-background-clip: text;
+    color: transparent !important;
+}
+
+/* member list role name */
+.membersGroup-2eiWxl {
+    background-image: linear-gradient(to left, #b4befe, #cefdff, #AED0C9); 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -moz-background-clip: text;
+    color: transparent !important;
+}
+
+/* channel category name */
+.name-3BUDLf {
+    color: var(--icons1);
+    font-weight: 700;
+}
+
+/* font */
+::placeholder, body, button, input, select, textarea {
+    font-family: 'Cabin', sans-serif;
+}
+
+/* replace normal channel icons with glowing light indicator */
+.modeSelected-3DmyhH .mainContent-20q_Hp::before {
+    position: relative;
+    background-color: var(--selected-indicator);
+    box-shadow: 0 0 20px 4px var(--selected-indicator);
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    left: -11px;
+}
+.mainContent-20q_Hp:hover::before {
+    position: relative;
+    background-color: var(--hover-indicator);
+    box-shadow: 0 0 20px 4px var(--hover-indicator);
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    left: -11px;
+}
+.mainContent-20q_Hp:hover {
+    color: var(--interactive-active);
+}
+.mainContent-20q_Hp {
+    position: relative;
+    left: 15px;
+    height: 30px;
+}
+.modeSelected-3DmyhH .mainContent-20q_Hp,
+.mainContent-20q_Hp:hover {
+    position: relative;
+    left: 10px;
+}
+.iconContainer-21RCa3 {
+    display: none;
+}
+
+/* voice channel */
+.mainContent-20q_Hp[role="button"] .channelName-3KPsGw {
+    color: var(--subtext) !important;
+    font-style: italic;
+    font-weight: 500;
+}
 
 
 /* 
@@ -101,10 +256,47 @@ MISC
 ======================================================
 */
 
+/* profile popouts */
+.userProfileInnerThemedNonPremium-1gT-zY {
+    background-color: yellow !important;
+}
+.overlayBackground-1KgwVi {
+    background-color: var(--bg1) !important;
+}
 
-/* no reaction border */
-.reaction-3vwAF2.reactionMe-1PwQAc {
-    border: 1px solid transparent;
+/* emoji selector */
+.contentWrapper-3vHNP2, .wrapper-22rqw6, .wrapper-1NNaWG, .inspector-DFKXwB, .header-11eigE, .list-3V14yy {
+    background-color: var(--bg1) !important;
+}
+.searchBar-2M9mRP {
+    background-color: var(--fg) !important;
+}
+.categoryItemDefaultCategory-3haEDq svg {
+    color: var(--accent) !important;
+}
+.contents-3ca1mk {
+    color: var(--text1);
+}
+
+/* discord icon */
+#icon {
+    color: var(--accent) !important;
+}
+
+/* messages popout */
+.container-iA3Qrz, .channelHeader-DFRX8q, .messageContainer-3VTXBC {
+    background-color: var(--bg1) !important;
+}
+.channelName-3APnhp, .selected-g-kMVV {
+    color: var(--text1) !important;
+}
+
+/* threads popout */
+.list-3YHPPb {
+    background-color: var(--bg1);
+}
+.title-10Au0i {
+    color: var(--text1);
 }
 
 
@@ -117,7 +309,7 @@ DISCORD VARS
     --text-normal: var(--text1);
     --text-muted: var(--subtext);
     --text-link: var(--accent);
-    --text-positive: #50dc7d;
+    --text-positive: var(--positive);
     --text-warning: #8d4949;
     --text-danger: #8d4949;
     --text-brand: magenta;
@@ -130,24 +322,41 @@ DISCORD VARS
     --background-secondary-alt: var(--bg1); /* user controls */
     --background-tertiary: var(--bg1); /* channel list & search bar */
     --background-accent: var(--accent); /* server icon accents in corner thing */
-    --background-floating: magenta;
+    --background-floating: var(--bg2); /* background of some icons */
+    --modal-background: var(--bg1);
+    --modal-footer-background: var(--bg1);
+    --input-background: var(--fg);
     --channeltextarea-background: var(--fg); /* chat box */
     --info-positive-text: #fff;
     --info-warning-text: #fff;
     --info-warning-foreground: #6e6af6;
+    --button-danger-background: var(--danger);
+    --button-outline-danger-border: var(--danger);
     --info-danger-text: #fff;
     --info-help-text: #fff;
     --status-warning-text: #000;
+    --status-danger: var(--text3); /* crossed out icons */
+    --status-danger-background: var(--danger);
+    --status-green-600: var(--accent); /* server list bottom buttons */
     --background-mentioned: var(--bg2);
     --background-mentioned-hover: var(--bg2);
     --background-message-hover: rgba(4, 4, 5, 0.07);
     --scrollbar-auto-thumb: var(--fg); /* scrollbar */
     --brand-experiment: var(--accent);
     --brand-experiment-hover: #6f6af64d;
-    --brand-experiment-560: magenta;
+    --brand-experiment-360: var(--accent); /* "invite people" text */
+    --brand-experiment-560: var(--bg2); /* some button hovers */
+    --brand-500: var(--accent); /* "beta" labels */
+    --white-500: var(--bg2); /* text inside of accent buttons */
     --channels-default: var(--text1); /* channel & category text */
     --selected-indicator: #97ffa5;
     --hover-indicator: #ffffff;
+    --header-primary: var(--text1);
+    --profile-gradient-primary-color: var(--bg1);
+    --profile-gradient-secondary-color: var(--bg1);
+    --selected-indicator: var(--text3);
+    --hover-indicator: var(--accent);
+    --button-positive-background: var(--positive);
 }
 
 /* 
@@ -168,15 +377,15 @@ IMPORT VARS
   
     --rs-avatar-shape: 50%; /* 50% for round - 0% for square */
   
-    --rs-online-color: #43b581; /* Colour for online status */
-    --rs-idle-color: #faa61a; /* Colour for idle status */
-    --rs-dnd-color: #f04747; /* Colour for dnd status */
-    --rs-offline-color: #636b75; /* Colour for offline status */
+    --rs-online-color: var(--accent); /* Colour for online status */
+    --rs-idle-color: var(--warning); /* Colour for idle status */
+    --rs-dnd-color: var(--danger); /* Colour for dnd status */
+    --rs-offline-color: var(--bg2); /* Colour for offline status */
     --rs-streaming-color: #643da7; /* Colour for streaming status */
     --rs-invisible-color: #747f8d; /* Colour for invisible status - Note: this will only show for your own invisibility */
-    --rs-phone-color: var(--rs-online-color); /* Colour of the ring and phone icon when a user is on their phone |  */
+    --rs-phone-color: #cefdff; /* Colour of the ring and phone icon when a user is on their phone |  */
   
-    --rs-phone-visible: block; /* Visibility of the phone icon next to a users avatar. | block = visible | none = hidden */
+    --rs-phone-visible: none; /* Visibility of the phone icon next to a users avatar. | block = visible | none = hidden */
   }
   
 /*  usrbg | snippet by _david_#0218  */
