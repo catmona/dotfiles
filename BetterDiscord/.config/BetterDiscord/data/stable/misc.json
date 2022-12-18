@@ -1,5 +1,5 @@
 {
-    "version": "1.8.0",
+    "version": "1.8.4",
     "emoteVersion": "v1.5.1",
     "drawerStates": {
         "settings": {
@@ -8,6 +8,11 @@
             "customcss": true,
             "addons": false,
             "developer": true
+        }
+    },
+    "addonlistControls": {
+        "theme": {
+            "view": "list"
         }
     }
 }

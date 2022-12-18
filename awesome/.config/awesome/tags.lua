@@ -46,7 +46,7 @@ function tags.create()
         
         s.quake = quake({ app = "kitty", argname = "--title %s",
                           extra = "--class QuakeDD -e tmux", 
-                          visible = false, height = 0.65, screen = s,
+                          visible = false, height = 0.6, screen = s,
                           overlap = true, width = 0.65, vert = "top", 
                           horiz = "center", border = 0 })
         

@@ -1,0 +1,197 @@
+/**
+* @name Dork
+* @author cat
+* @description a dorky theme for dorky girls
+* @version 1
+*/
+
+/** GOALS: 
+*   - modal settings from slate/dracula
+*   - lights next to channels from ulta
+*   - zelk switches & spacing
+*   - rainbow text from kitty
+*   - easy color scheme changing by UI element
+*/
+
+
+/* 
+======================================================
+IMPORTS
+==============;========================================
+*/
+
+/* animations */
+@import "https://tiredmala.github.io/animcord/animcordmain.css";
+
+/* radial status icons */
+@import url("https://discordstyles.github.io/RadialStatus/dist/RadialStatus.css");
+
+/* user backgrounds without nitro */
+@import url("https://discord-custom-covers.github.io/usrbg/dist/usrbg.css");
+
+/* changes Discord’s hardcoded colours to use their variable counterparts */
+@import url("https://thecommieaxolotl.github.io/BetterDiscord-Stuff/Imports/Touchup.css");
+
+/* gives categories in settings menu icons */
+@import url("https://mwittrien.github.io/BetterDiscordAddons/Themes/_res/SettingsIcons.css");
+
+/* minified memmber list */
+@import url("dorkMemberList.css"); 
+
+
+/* 
+======================================================
+COLOR SCHEME
+======================================================
+*/
+
+
+:root {
+    --bg1: #242229; 
+    --bg2: #35333d;
+    --fg: #35333d;
+    --accent: #b4befe;
+    
+    --icons1: #e3d7fd;
+    --icons2: white;
+    
+    --text1: #eae4f8;
+    --text2: #807a79;
+    --text3: #cefdff;
+    --subtext: #bab3c5;
+    
+    
+}
+
+/* 
+======================================================
+CHAT
+======================================================
+*/
+
+
+/* 
+======================================================
+HOME
+======================================================
+*/
+
+
+/* 
+======================================================
+SETTINGS
+======================================================
+*/
+
+
+/* 
+======================================================
+BASE
+======================================================
+*/
+
+
+/* 
+======================================================
+MISC
+======================================================
+*/
+
+
+/* no reaction border */
+.reaction-3vwAF2.reactionMe-1PwQAc {
+    border: 1px solid transparent;
+}
+
+
+/* 
+======================================================
+DISCORD VARS
+======================================================
+*/
+:root {
+    --text-normal: var(--text1);
+    --text-muted: var(--subtext);
+    --text-link: var(--accent);
+    --text-positive: #50dc7d;
+    --text-warning: #8d4949;
+    --text-danger: #8d4949;
+    --text-brand: magenta;
+    --interactive-normal: var(--icons1); /* most icons */
+    --interactive-hover: var(--accent); /* channel text, hover */
+    --interactive-active: var(--accent); /* channel text, notifs */
+    --interactive-muted: var(--text2); /* channel text, muted */
+    --background-primary: var(--bg1); /* chat tab */
+    --background-secondary: var(--bg1); /* channel & member list */
+    --background-secondary-alt: var(--bg1); /* user controls */
+    --background-tertiary: var(--bg1); /* channel list & search bar */
+    --background-accent: var(--accent); /* server icon accents in corner thing */
+    --background-floating: magenta;
+    --channeltextarea-background: var(--fg); /* chat box */
+    --info-positive-text: #fff;
+    --info-warning-text: #fff;
+    --info-warning-foreground: #6e6af6;
+    --info-danger-text: #fff;
+    --info-help-text: #fff;
+    --status-warning-text: #000;
+    --background-mentioned: var(--bg2);
+    --background-mentioned-hover: var(--bg2);
+    --background-message-hover: rgba(4, 4, 5, 0.07);
+    --scrollbar-auto-thumb: var(--fg); /* scrollbar */
+    --brand-experiment: var(--accent);
+    --brand-experiment-hover: #6f6af64d;
+    --brand-experiment-560: magenta;
+    --channels-default: var(--text1); /* channel & category text */
+    --selected-indicator: #97ffa5;
+    --hover-indicator: #ffffff;
+}
+
+/* 
+======================================================
+IMPORT VARS
+======================================================
+*/
+
+/* radial status settings */
+:root {
+    --rs-small-spacing: 2px; /* Gap between avatar and status for members list/dms | MUST end in px */
+    --rs-medium-spacing: 3px; /* Gap between avatar and status for User popout | MUST end in px */
+    --rs-large-spacing: 4px; /* Gap between avatar and status for User profiles | MUST end in px */
+  
+    --rs-small-width: 2px; /* Thickness of status border for members list/dms | MUST end in px */
+    --rs-medium-width: 3px; /* Thickness of status border for User popout | MUST end in px */
+    --rs-large-width: 4px; /* Thickness of status border for User profile | MUST end in px */
+  
+    --rs-avatar-shape: 50%; /* 50% for round - 0% for square */
+  
+    --rs-online-color: #43b581; /* Colour for online status */
+    --rs-idle-color: #faa61a; /* Colour for idle status */
+    --rs-dnd-color: #f04747; /* Colour for dnd status */
+    --rs-offline-color: #636b75; /* Colour for offline status */
+    --rs-streaming-color: #643da7; /* Colour for streaming status */
+    --rs-invisible-color: #747f8d; /* Colour for invisible status - Note: this will only show for your own invisibility */
+    --rs-phone-color: var(--rs-online-color); /* Colour of the ring and phone icon when a user is on their phone |  */
+  
+    --rs-phone-visible: block; /* Visibility of the phone icon next to a users avatar. | block = visible | none = hidden */
+  }
+  
+/*  usrbg | snippet by _david_#0218  */
+.userPopout-2j1gM4[style*="--user-background"] .banner-1YaD3N, .root-8LYsGj[style*="--user-background"] .banner-1YaD3N {
+    height: 120px;
+    background: var(--background-tertiary) var(--user-background) var(--user-popout-position, center) center / cover !important;
+}
+.root-8LYsGj[style*="--user-background"] .banner-1YaD3N {
+    height: 240px;
+}
+  
+/* minified member list */
+:root {
+	--seperator-color: #707e81;
+}
+
+
+
+
+
+    
+    

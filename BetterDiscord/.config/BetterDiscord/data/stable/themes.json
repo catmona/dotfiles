@@ -1,5 +1,18 @@
 {
     "null": false,
     "dark null": false,
-    "kitty null": true
+    "kitty null": false,
+    "Discord+": false,
+    "LilyPichu": false,
+    "Black Hole": false,
+    "Dark+": false,
+    "DiscordNight": false,
+    "Zelk": false,
+    "RadialStatus": false,
+    "Ultra": false,
+    "Slate": false,
+    "dracula": false,
+    "Roundmoled": false,
+    "Dork": true,
+    "Dark Neon": false
 }
