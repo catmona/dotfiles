@@ -101,7 +101,7 @@ CHAT
 
 /* emoji icon */
 .sprite-2lxwfc {
-    filter: grayscale(100);
+    filter: grayscale(100%) !important;
 }
 
 
@@ -111,6 +111,24 @@ HOME
 ======================================================
 */
 
+
+/* home/friends list header */
+.container-ZMc96U {
+    background-color: var(--bg1) !important;
+}
+
+/* add friend button */
+.addFriend-emTWY1 {
+    background-color: var(--positive) !important;
+}
+.addFriend-emTWY1 span {
+    color: var(--bg2) !important;
+}
+
+/* search bar */
+.input-2m5SfJ {
+    background-color: var(--fg);
+}
 
 /* 
 ======================================================
@@ -264,14 +282,14 @@ MISC
     background-color: var(--bg1) !important;
 }
 
-/* emoji selector */
+/* emoji & sticker selector */
 .contentWrapper-3vHNP2, .wrapper-22rqw6, .wrapper-1NNaWG, .inspector-DFKXwB, .header-11eigE, .list-3V14yy {
     background-color: var(--bg1) !important;
 }
-.searchBar-2M9mRP {
+.searchBar-2M9mRP, .input-2FSSDe, .container-1SX9VC {
     background-color: var(--fg) !important;
 }
-.categoryItemDefaultCategory-3haEDq svg {
+.categoryItemDefaultCategory-3haEDq svg, .stickerCategoryGenericSelected-DnO2K8 svg {
     color: var(--accent) !important;
 }
 .contents-3ca1mk {
@@ -299,6 +317,11 @@ MISC
     color: var(--text1);
 }
 
+/* event button */
+.joinButton-1HdI2a .contents-3ca1mk {
+    color: var(--bg1) !important;
+}
+
 
 /* 
 ======================================================
@@ -314,7 +337,7 @@ DISCORD VARS
     --text-danger: #8d4949;
     --text-brand: magenta;
     --interactive-normal: var(--icons1); /* most icons */
-    --interactive-hover: var(--accent); /* channel text, hover */
+    --interactive-hover: var(--text1); /* channel text, hover */
     --interactive-active: var(--accent); /* channel text, notifs */
     --interactive-muted: var(--text2); /* channel text, muted */
     --background-primary: var(--bg1); /* chat tab */
@@ -337,10 +360,11 @@ DISCORD VARS
     --status-warning-text: #000;
     --status-danger: var(--text3); /* crossed out icons */
     --status-danger-background: var(--danger);
+    --status-positive-background: var(--positive);
     --status-green-600: var(--accent); /* server list bottom buttons */
     --background-mentioned: var(--bg2);
     --background-mentioned-hover: var(--bg2);
-    --background-message-hover: rgba(4, 4, 5, 0.07);
+    --background-message-hover: var(--bg2); /* forum hover */
     --scrollbar-auto-thumb: var(--fg); /* scrollbar */
     --brand-experiment: var(--accent);
     --brand-experiment-hover: #6f6af64d;
