@@ -36,7 +36,7 @@ IMPORTS
 @import url("https://mwittrien.github.io/BetterDiscordAddons/Themes/_res/SettingsIcons.css");
 
 /* minified memmber list */
-@import url("dorkMemberList.css"); 
+@import url("https://cdn.jsdelivr.net/gh/goldyflakes/dotfiles@master/BetterDiscord/.config/BetterDiscord/themes/dorkMemberList.css"); 
 
 
 /* 
@@ -69,6 +69,10 @@ CHAT
 ======================================================
 */
 
+/* keeps chat window from going behind minimized member list */
+.form-3gdLxP {
+    margin-right: 55px !important;
+}
 
 /* 
 ======================================================
@@ -186,7 +190,7 @@ IMPORT VARS
   
 /* minified member list */
 :root {
-	--seperator-color: #707e81;
+	--seperator-color: var(--text2);
 }
 
 
