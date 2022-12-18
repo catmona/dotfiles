@@ -19,11 +19,16 @@
     height: 2px;
     border-radius: 50px;
     background: unset;
-    background-color: var(--seperator-color);
+    /* background-color: var(--seperator-color); */
     position: absolute;
     left: -28px;
     top: 29px;
     margin-left: 0px;
+    background-image: linear-gradient(to left, #b4befe, #cefdff, #AED0C9); 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -moz-background-clip: text;
+    background-color: transparent !important;
 }
 
 :not(.ChannelDms-channelmembers-wrap) .membersWrap-3NUR2t {

@@ -280,7 +280,7 @@ MISC
 
 /* discord icon */
 #icon {
-    color: var(--accent) !important;
+    fill: var(--accent) !important;
 }
 
 /* messages popout */
@@ -354,8 +354,8 @@ DISCORD VARS
     --header-primary: var(--text1);
     --profile-gradient-primary-color: var(--bg1);
     --profile-gradient-secondary-color: var(--bg1);
-    --selected-indicator: var(--text3);
-    --hover-indicator: var(--accent);
+    --selected-indicator: var(--positive);
+    --hover-indicator: var(--text3);
     --button-positive-background: var(--positive);
 }
 
