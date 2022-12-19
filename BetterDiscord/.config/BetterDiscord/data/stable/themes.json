@@ -15,5 +15,7 @@
     "Roundmoled": false,
     "Dork": true,
     "Dark Neon": false,
-    "dork": true
+    "dork": true,
+    "MinimalCord": false,
+    "Float": false
 }

@@ -32,6 +32,13 @@ IMPORTS
 /* font */
 @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
 
+/* settings modal */
+@import url("https://mwittrien.github.io/BetterDiscordAddons/Themes/SettingsModal/SettingsModal.css");
+
+/* allow smaller size window */
+@import url("https://maendisease.github.io/BetterDiscordStuff/Themes/Float/addon/RemoveMinimumSize.css") (width: 940px);
+@import url("https://maendisease.github.io/BetterDiscordStuff/Themes/Float/Float.css") (max-width: 940px);
+
 
 /* 
 ======================================================
@@ -85,8 +92,11 @@ CHAT
     border-color: var(--accent);
     color: var(--accent) !important;
 }
-.isUnread-3Lojb- span {
+.isUnread-3Lojb- span:not(.isUnread-3Lojb- .unreadPill-3nEWYM) {
     color: var(--accent) !important;
+}
+.unreadPill-3nEWYM {
+    color: var(--bg1) !important;
 }
 
 /* emoji icon */
@@ -143,8 +153,8 @@ SETTINGS
 }
 
 /* misc BD elements */
-.bd-button, .bd-filled-checkmark {
-    background-color: var(--accent);
+.bd-button, .bd-filled-checkmark, .bd-view-button {
+    background-color: var(--accent) !important;
 }
 .bd-button div {
     color: var(--bg1) !important;
@@ -157,6 +167,9 @@ SETTINGS
 }
 .notice-2HEN-u {
     background-color: var(--accent);
+}
+.bd-button-title {
+    color: var(--bg1);
 }
 
 /* buttons text with dark background */
@@ -201,6 +214,12 @@ BASE
     background-clip: text;
     -moz-background-clip: text;
     color: transparent !important;
+}
+
+/* unread channel text */
+.modeUnread-3Cxepe .channelName-3KPsGw {
+    color: var(--text1) !important;
+    filter: brightness(1.2);
 }
 
 /* member list role name */
@@ -404,6 +423,16 @@ MISC
     color: var(--accent) !important;
 }
 
+/* server list unread item indicator */
+.item-2LIpTv {
+    background-color: var(--accent);
+}
+
+/* invite to server hover */
+.lookFilled-yCfaCM.colorGreen-3y-Z79:hover {
+    color: var(--bg1) !important;
+}
+
 
 /* 
 ======================================================
@@ -466,7 +495,9 @@ DISCORD VARS
     --selected-indicator: var(--positive);
     --hover-indicator: var(--text3);
     --button-positive-background: var(--positive);
+    --button-positive-background-hover: var(--positive);
     --primary-dark-300: var(--subtext); /* some icons & status text & other random subtext */
+    --primary-dark-600: var(--bg1); /* footer of invite popup */
 }
 
 /* 
@@ -510,6 +541,49 @@ IMPORT VARS
 /* minified member list */
 :root {
 	--seperator-color: var(--text2);
+}
+
+/* settings modal */
+:root {
+    --settingsmodalbackground: transparent; /* default:	transparent		(lowest bg color of changed windows, change it in case another theme turns them transparent)	*/
+    --settingsmodalwidth: 960px; /* default:	960px			(width of the settings modal, px/vw)															*/
+    --settingsmodalheight: 80vh; /* default:	80vh			(height of the settings modal, px/vh)															*/
+}
+
+/* smaller sized window */
+:root {
+    /* Guildlist */
+    --guildicon-size: 48;
+    --enable-if-using-favorites-experiment: 0; /* boolean */
+    --guildlist-collapse: 0; /* boolean */
+    
+    /* Channel sidebar */
+    --slide-window-on-hover: 1; /* boolean */
+    --float-sidebar-width: 48;
+    --sidebar-hover-width: 240px;
+    --sidebar-hover-delay: 0.2s;
+    --sidebar-transition-duration: 0.4s;
+    --sidebar-window-gap: 8px;
+    --sidebar-border-radius: 8px;
+    --sidebar-usersettings-width: 66px;
+    
+    /* Memberlist */
+    --float-members-width: 65px;
+    --members-hover-width: 240px;
+    --members-hover-delay: 1.5s;
+    --members-transition-duration: 0.4s;
+
+    /* Channelheader */
+    --topic-opacity: 1;
+    --toolbar-visibility: flex; /* [flex][none] */
+
+    /* Textarea buttons */ /* [flex][none] */
+    --textarea-buttons-gif: flex;
+    --textarea-buttons-sticker: flex;
+    --textarea-buttons-gift: none;
+
+    /* Theme compatibility */
+    /* --float-guildlist-width-correction: 0px; */
 }
 
 
