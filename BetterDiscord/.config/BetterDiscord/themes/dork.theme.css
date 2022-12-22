@@ -297,6 +297,20 @@ BASE
     
 }
 
+/* tooltips */
+.tooltip-14MtrL {
+    background-color: var(--fg) !important;
+}
+.tooltipContent-Nejnvh, .guildNameText-jBFbNC {
+    background-image: linear-gradient(to right, #b4befe, #cbb9eb, #f8c2e2, #da8a9b);   
+    -webkit-background-clip: text;
+    background-clip: text;
+    -moz-background-clip: text;
+    color: transparent !important;
+    
+    font-weight: 800;
+}
+
 
 /* 
 ======================================================
@@ -328,7 +342,13 @@ MISC
 
 /* discord icon */
 #icon {
+    fill: var(--accent);
+}
+.selected-1Drb7Z div svg g rect {
     fill: var(--accent) !important;
+}
+.selected-1Drb7Z #icon {
+    fill: var(--text1) !important;
 }
 
 /* messages popout */
