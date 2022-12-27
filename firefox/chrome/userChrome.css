@@ -470,8 +470,13 @@ window,
 
 }
 
-
-
+/* Remove New Tab Flash */
+    
+@-moz-document url("chrome://browser/content/browser.xul") {
+    tabbrowser tabpanels {
+      background-color: #242229 !important;
+    }
+  }
 
 
 /* transition to oneline */

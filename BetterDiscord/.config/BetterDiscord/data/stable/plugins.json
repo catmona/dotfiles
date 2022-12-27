@@ -18,5 +18,6 @@
     "CallTimeCounter": true,
     "ChatAliases": true,
     "DisableStickerSuggestions": false,
-    "DiscordActivities": true
+    "DiscordActivities": true,
+    "BetterAnimations": false
 }
