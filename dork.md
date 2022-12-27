@@ -1,6 +1,6 @@
 # :saxophone::bug: **dork color scheme** :saxophone::bug:
 
- ### *a blackish-purplish-pastel theme with a focus on color and vibrancy!*
+ ### *a blackish-purplish-boldish-pastel theme with a focus on color and vibrancy, Inspired by Catpuccin and Rose Pine!*
 #
 
 #
@@ -33,37 +33,37 @@
 ---
 #
 
-* ![](https://dummyimage.com/20/f8c2e2/000000?text=+) `#f8c2e2` | **pink**
+* ![](https://dummyimage.com/20/d49af7/000000?text=+) `#d49af7` | **violet**
 
-* ![](https://dummyimage.com/20/B594B6/000000?text=+) `#b594b6` | **mauve**
-
-#
-
-* ![](https://dummyimage.com/20/d87389/000000?text=+) `#d87389` | **red**
-
-* ![](https://dummyimage.com/20/ff9296/000000?text=+) `#ff9296` | **maroon**
-#
-
-* ![](https://dummyimage.com/20/fcc891/000000?text=+) `#fcc891` | **peach**
-
-* ![](https://dummyimage.com/20/f7d9b9/000000?text=+) `#f7d9b9` | **yellow**
+* ![](https://dummyimage.com/20/fdb1df/000000?text=+) `#fdb1df` | **pink**
 
 #
 
-* ![](https://dummyimage.com/20/8fda8f/000000?text=+) `#8fda8f` | **green**
+* ![](https://dummyimage.com/20/fc6399/000000?text=+) `#fc6399` | **red**
 
-* ![](https://dummyimage.com/20/94e2d5/000000?text=+) `#94e2d5` | **mint**
-<!-- catpuccin color -->
-
-#
-
-* ![](https://dummyimage.com/20/CEFDFF/000000?text=+) `#cefdff` | **sky**
-
-* ![](https://dummyimage.com/20/AED0C9/000000?text=+) `#AED0C9` | **opal**
+* ![](https://dummyimage.com/20/f587a6/000000?text=+) `#f587a6` | **maroon**
 
 #
 
-* ![](https://dummyimage.com/20/6694CC/000000?text=+) `#6694cc` | **blue**
+* ![](https://dummyimage.com/20/fccd9b/000000?text=+) `#fccd9b` | **yellow**
+
+* ![](https://dummyimage.com/20/f8d6bf/000000?text=+) `#f8d6bf` | **peach**
+
+#
+
+* ![](https://dummyimage.com/20/a0daa0/000000?text=+) `#a0daa0` | **green**
+
+* ![](https://dummyimage.com/20/97eed8/000000?text=+) `#97eed8` | **mint**
+
+#
+
+* ![](https://dummyimage.com/20/adffff/000000?text=+) `#adffff` | **sky**
+
+* ![](https://dummyimage.com/20/94eaea/000000?text=+) `#94eaea` | **opal**
+
+#
+
+* ![](https://dummyimage.com/20/9fa7ea/000000?text=+) `#9fa7ea` | **blue**
 
 * ![](https://dummyimage.com/20/b4befe/000000?text=+) `#b4befe` | **lavender**
 <!-- catpuccin color -->
