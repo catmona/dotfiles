@@ -34,9 +34,9 @@ theme.taglist_font = "FontAwesome 16"
 -- Background
 theme.bg_normal = "#242229"
 theme.bg_dark = "#000000"
-theme.bg_focus = "#1f1f1f"
+theme.bg_focus = "#222027"
 theme.bg_occupied = theme.bg_normal
-theme.bg_urgent = "#3b3741"
+theme.bg_urgent = "#35333d"
 theme.bg_minimize = "#444444"
 
 
@@ -44,7 +44,7 @@ theme.bg_minimize = "#444444"
 theme.fg_normal = "#e7defc"
 theme.fg_focus = "#b4befe"
 theme.fg_occupied = "#B594B6"
-theme.fg_urgent = "#d87389"
+theme.fg_urgent = "#fc6399"
 theme.fg_minimize = "#ffffff"
 
 -- Hotkeys
@@ -79,10 +79,10 @@ theme.taglist_bg_urgent = theme.bg_urgent
 theme.taglist_bg_focus = theme.bg_focus
 
 theme.workspace_colors = {
-    "#d87389",
-    "#fcc891",
-    "#6694cc",
-    "#8fda8f",
+    "#fc6399",
+    "#fccd9b",
+    "#d49af7",
+    "#a0daa0",
 }
 
 theme.taglist_fg_occupied = theme.fg_normal
@@ -129,9 +129,9 @@ theme.systray_icon_spacing = dpi(5)
 theme.titlebars_enabled = false
 
 -- bar stuff
-theme.volicon = "#f8c2e2"
-theme.wificon = "#94e2d5"
-theme.baticon = "#fcc891"
+theme.volicon = "#fdb1df"
+theme.wificon = "#adffff"
+theme.baticon = "#fccd9b"
 
 
 -- ===================================================================
