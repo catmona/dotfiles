@@ -32,7 +32,7 @@ theme.taglist_font = "FontAwesome 16"
 --theme.taglist_font = "fghrthsj 11 "
 
 -- Background
-theme.bg_normal = "#201d24"
+theme.bg_normal = "#242229"
 theme.bg_dark = "#000000"
 theme.bg_focus = "#1f1f1f"
 theme.bg_occupied = theme.bg_normal
@@ -41,18 +41,18 @@ theme.bg_minimize = "#444444"
 
 
 -- Foreground
-theme.fg_normal = "#ffffff"
-theme.fg_focus = "#f8c2e2"
+theme.fg_normal = "#e7defc"
+theme.fg_focus = "#b4befe"
 theme.fg_occupied = "#B594B6"
-theme.fg_urgent = "#DA627D"
+theme.fg_urgent = "#d87389"
 theme.fg_minimize = "#ffffff"
 
 -- Hotkeys
 theme.hotkeys_bg = theme.bg_normal
 theme.hotkeys_fg = "#f1f1f1"
-theme.hotkeys_border_color = "#f8c2e2"
+theme.hotkeys_border_color = theme.hotkeys_bg
 theme.hotkeys_border_width = dpi(0)
-theme.hotkeys_modifiers_fg = "#9C6E81"
+theme.hotkeys_modifiers_fg = "#b4befe"
 theme.hotkeys_modifiers_bg = theme.hotkeys_bg
 theme.hotkeys_label_fg = "#1f1f1f"
 theme.hotkeys_font = theme.title_font
@@ -70,7 +70,7 @@ theme.border_width = dpi(0)
 theme.border_normal = theme.bg_normal
 theme.border_focus =  theme.bg_normal -- "#d87389"
 theme.border_marked = theme.fg_urgent
-theme.rounded_corners = false
+theme.rounded_corners = false -- handled by compositor
 
 -- Taglist
 theme.taglist_bg_empty = theme.bg_normal
@@ -79,9 +79,9 @@ theme.taglist_bg_urgent = theme.bg_urgent
 theme.taglist_bg_focus = theme.bg_focus
 
 theme.workspace_colors = {
-    "#fc6399",
-    "#00f8fb",
+    "#d87389",
     "#fcc891",
+    "#6694cc",
     "#8fda8f",
 }
 

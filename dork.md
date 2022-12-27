@@ -9,13 +9,13 @@
 ---
 #
 
-* ![1](https://dummyimage.com/20/242229/000000?text=+) `#242229` | **background**
+* ![](https://dummyimage.com/20/242229/000000?text=+) `#242229` | **background**
 
-* ![2](https://dummyimage.com/20/222027/000000?text=+) `#222027` | **panel**
+* ![](https://dummyimage.com/20/222027/000000?text=+) `#222027` | **panel**
 
-* ![3](https://dummyimage.com/20/35333d/000000?text=+) `#35333d` | **surface**
+* ![](https://dummyimage.com/20/35333d/000000?text=+) `#35333d` | **surface**
 
-* ![4](https://dummyimage.com/20/807a79/000000?text=+) `#807a79` | **selection**
+* ![](https://dummyimage.com/20/807a79/000000?text=+) `#807a79` | **selection**
 
 # 
 ---
@@ -53,6 +53,7 @@
 * ![](https://dummyimage.com/20/8fda8f/000000?text=+) `#8fda8f` | **green**
 
 * ![](https://dummyimage.com/20/94e2d5/000000?text=+) `#94e2d5` | **mint**
+<!-- catpuccin color -->
 
 #
 
@@ -65,3 +66,4 @@
 * ![](https://dummyimage.com/20/6694CC/000000?text=+) `#6694cc` | **blue**
 
 * ![](https://dummyimage.com/20/b4befe/000000?text=+) `#b4befe` | **lavender**
+<!-- catpuccin color -->
