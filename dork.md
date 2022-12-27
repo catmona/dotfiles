@@ -9,7 +9,7 @@
 ---
 #
 
-* ![1](https://via.placeholder.com/20/242229/000000?text=+) `#242229` | **background**
+* ![1](https://via.placeholder.com/20.png/242229/000000?text=+) `#242229` | **background**
 
 * ![2](https://via.placeholder.com/20/222027/000000?text=+) `#222027` | **panel**
 
