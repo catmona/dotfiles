@@ -1,4 +1,4 @@
 configuration {
     terminal: "kitty";
 }
-    @theme "~/.config/rofi/themes/kitty.rasi"
+    @theme "~/.config/rofi/themes/dork.rasi"
