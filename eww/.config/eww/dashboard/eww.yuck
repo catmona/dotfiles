@@ -1,0 +1,491 @@
+
+
+; --- variables ---
+
+
+(defvar height-top-box 50)
+
+; profile
+(defvar size-profile-pic 65)
+
+; music
+(defvar width-music 150)
+(defvar size-music-controls 5)
+    
+; toggles
+(defvar height-toggles 100)
+(defvar size-toggles 20)
+    
+; weather
+(defvar width-weather 172)   
+
+; monitors
+(defvar width-right-box 130)
+
+
+; --- layout ---
+
+
+(defwindow control-center
+    :stacking "fg"
+    :windowtype "normal"
+    :wm-ignore true
+    :geometry (geometry 
+        :width "35%" 
+        :height "60%"
+        :anchor "top left"
+        :y "45px"
+        :x "10px"
+    )
+    (big-box)
+)
+
+(defwidget big-box [] 
+    (box :orientation "vertical"
+        :class "big-box"
+        :space-evenly false
+        
+        ; --- top box ---
+        (box :orientation "horizontal"
+            :height {height-top-box}
+            :valign "start"
+            :space-evenly false
+            (profile-box)
+            (weather-box)
+        )
+        
+        ; --- bottom box ---
+        (box :orientation "horizontal"
+            :vexpand true
+            :space-evenly false
+            
+            ; --- left box ---
+            (box :orientation "vertical"
+                :space-evenly false
+                :hexpand true
+                (toggles-box)
+                
+                ; --- small box ---
+                (box :orientation "horizontal"
+                    :hexpand true
+                    (folder-box)
+                    (music-box)
+                )
+                    
+                (sliders-box)
+            )
+            
+            ; --- right box ---
+            (box :orientation "vertical"
+                :halign "end"
+                :width {width-right-box}
+                (monitor-box)
+            )
+        )
+    )
+)
+
+
+; --- profile ---
+
+
+(defvar profile-pic "./assets/profile.png")   
+(defvar profile-name "catherine")
+(defvar uptime 0)
+(defpoll pkgs :interval "1h" :inital 0 `checkupdates | wc -l`)
+(defvar logout `betterlockscreen -l dim & eww close-all`)
+
+(defwidget profile-box [] 
+    (overlay
+        :hexpand true
+        (image
+            :class "bongo-cat"
+            :hexpand true
+            :path "./assets/bongo.png"
+            :image-width 180
+            :image-height 180
+        )
+        (box 
+            :class "profile-box section"
+            :orientation "horizontal"
+            :hexpand true
+            :space-evenly false
+            (overlay
+                (image 
+                    :class "profile-pic" 
+                    :path {profile-pic}
+                    :image-width {size-profile-pic}
+                    :image-height {size-profile-pic}
+                    
+                )
+                (button
+                    :class "logout-button"
+                    :width 67
+                    :onclick {logout}
+                    (label
+                        :text ""
+                    )
+                )
+            )
+            
+            (box
+                :orientation "vertical"
+                :space-evenly false
+                (label 
+                    :class "profile-name"
+                    :text {profile-name}
+                    :xalign 0.5
+                )
+                (box
+                    :orientation "horizontal"
+                    :space-evenly false
+                    (label
+                        :class "uptime"
+                        :text {uptime}
+                        :hexpand true
+                        :xalign 0
+                        :yalign 0
+                    )
+                )
+            )
+            (box
+                :orientation "vertical"
+                :class {pkgs == 0 ? "updates updates-hidden" : "updates"}
+                :halign "end"
+                :height 50
+                :width 35
+                (label
+                    :text "${pkgs}"
+                )
+                (label
+                    :text ""
+                )
+            ) 
+        )
+    )
+)
+
+
+; -- music --
+
+
+(deflisten playing "playerctl --follow status")
+(deflisten title 
+    :initial "---------" 
+    "playerctl --follow metadata --format '{{ lc(title) }}'"
+)
+(deflisten 
+    artist :initial "---------" 
+    "playerctl --follow metadata --format '{{ lc(artist) }}'"
+)
+
+
+(defwidget music-box []
+    (box
+        :class "music-box section"
+        :orientation "vertical"
+        :width {width-music}
+        :space-evenly false
+        (box :orientation "horizontal"
+            :class "song"
+            :space-evenly false
+            :tooltip {title}
+            (label :text "")
+            (label :show-truncated true :limit-width 11 :text {title})
+        )
+        (box :orientation "horizontal"
+            :class "artist"
+            :space-evenly false
+            :tooltip {artist}
+            (label :text "")
+            (label :show-truncated true :limit-width 11 :text {artist})
+        )
+        (music-controls)
+    )
+)
+
+(defwidget music-controls []
+    (box
+        :class "music-controls"
+        :orientation "horizontal"
+        
+        (button 
+            :width {size-music-controls}
+            :height {size-music-controls}
+            :onclick "./scripts/music-control.sh prev"
+            (label :text "")
+        )
+        (button 
+            :width {size-music-controls}
+            :height {size-music-controls}
+            :onclick {playing == "Playing" ? "./scripts/music-control.sh pause" : "./scripts/music-control.sh play"}
+            (label :text {playing == "Playing" ? "" : ""})
+        )
+        (button 
+            :width {size-music-controls}
+            :height {size-music-controls}
+            :onclick "./scripts/music-control.sh next"
+            (label :text "")
+        )
+    )
+)
+
+
+; -- toggles --
+
+(defvar tgl-bluetooth true)
+(defvar tgl-mute true)
+(defvar tgl-nightlight false)
+(defvar tgl-dnd false)
+
+(defwidget toggles-box []
+    (box
+        :class "toggles-box section"
+        :orientation "horizontal"
+        :valign "start"
+        :height {height-toggles}
+        :spacing 22
+        (toggle-button ; bluetooth
+            :icon ""
+            :tgl {tgl-bluetooth}
+            :script "./scripts/tgl-bluetooth.sh"
+            :hover "bluetooth"
+        )
+        (toggle-button ; mute
+            :icon ""
+            :tgl {tgl-mute}
+            :script "./scripts/tgl-mute.sh"
+            :hover "microphone"
+        )
+        (toggle-button ; nightlight
+            :icon ""
+            :tgl {tgl-nightlight}
+            :script "./scripts/tgl-nightlight.sh"
+            :hover "night light"
+        )
+        (toggle-button ; do not disturb
+            :icon ""
+            :tgl {tgl-dnd}
+            :script "./scripts/tgl-dnd.sh"
+            :hover "do not disturb"
+        )
+        
+    )
+)
+
+(defwidget toggle-button [icon tgl script hover]  
+    (eventbox  
+        :cursor "pointer"
+        (button 
+            :class {tgl ? "toggle-button toggle-on" : "toggle-button toggle-off"}
+            ; :height {size-toggles}
+            ; :width {size-toggles} 
+            :onclick {tgl ? "${script} off" :"${script} on"}
+            :tooltip {hover}
+            (label :text {icon})
+        )
+    )
+)
+
+
+; -- folders --
+
+
+(defwidget folder-box []
+    (box
+        :class "folder-box section"
+        :orientation "vertical"
+        :vexpand true
+        (folder 
+            :cls "folder1" 
+            :name "downloads"
+            :link "~/downloads/"
+        )
+        (folder 
+            :cls "folder2" 
+            :name "pictures"
+            :link "~/media/pics/"
+        )
+        (folder 
+            :cls "folder3" 
+            :name "dotfiles"
+            :link "~/dotfiles/"
+        )
+        (folder 
+            :cls "folder4" 
+            :name ".config"
+            :link "~/.config/"
+        )
+    )
+)
+
+(defwidget folder [name cls link]
+    (eventbox
+        :cursor "pointer"
+        (button
+            :height "20"
+            :class "folder-button ${cls}"
+            :onclick "./scripts/open-folder.sh ${link}"
+            (box 
+                :orientation "horizontal"
+                :space-evenly false
+                (label :text "")
+                (label :text {name})
+            )
+        )
+    )
+)
+
+
+; -- weather --
+
+(defvar weather-emoji 0)
+(defvar weather-curr 0)
+(defvar weather-act 0)
+(defvar weather-feel 0)
+
+
+(defwidget weather-box [] 
+    (box 
+        :class "weather-box section"
+        :orientation "horizontal"
+        :space-evenly false
+        :halign "end"
+        :width {width-weather}
+        (box
+            :orientation "vertical"
+            :space-evenly false
+            :hexpand true
+            :halign "start"
+            (label 
+                :class "weather-icon"
+                :text {weather-emoji} 
+                :vexpand true
+            )
+            (label 
+                :class "weather-curr"
+                :limit-width 10
+                :valign "end"
+                :show-truncated false
+                :text {weather-curr}
+            )
+        )
+        (box
+            :orientation "vertical"   
+            :space-evenly false
+            :halign "end"
+            (label 
+                :class "weather-act"
+                :text {weather-act}
+                :tooltip "actual temperature"
+            )
+            (label 
+                :class "weather-feel"
+                :text {weather-feel}
+                :tooltip "real feel"
+            )
+        )
+
+    )
+)
+
+
+; -- sliders --
+
+
+(defvar vol 50)
+(defvar rec 50)
+(defvar bright 16)
+
+
+(defwidget sliders-box []
+    (box
+        :class "sliders-box section"
+        :orientation "vertical"
+        :vexpand true
+        (sliders-scale ; volume
+            :icon ""
+            :val {vol}
+            :cmd "./scripts/volume-control.sh"
+            :cls "slider-vol"
+        )
+        (sliders-scale ; mic volume
+            :icon {tgl-mute ? "" : ""}
+            :val {rec}
+            :cmd "./scripts/mic-control.sh"
+            :cls {tgl-mute ? "slider-mic" : "slider-mic-muted"}
+        )
+        (sliders-scale ; brightness
+            :icon ""
+            :val {bright}
+            :cmd "./scripts/brightness-control.sh"
+            :cls "slider-bright"
+        )
+    )
+)
+
+(defwidget sliders-scale [icon val cmd cls]
+    (box
+        :orientation "horizontal"
+        :class {cls}
+        :space-evenly false
+        (label
+            :class "slider-icon"
+            :text {icon}
+        )
+        (scale
+            :value {val}
+            :class "slider-scale"
+            :hexpand true
+            :min 0
+            :max 100
+            :onchange "${cmd} {}"
+            :tooltip "${val}%"
+        )
+    )
+    
+)
+
+
+; -- monitor --
+
+
+(defvar storage-free-perc 0)
+(defvar storage-used-perc 0)
+
+(defwidget monitor-box []
+    (box
+        :class "monitor-box section"
+        :orientation "vertical"
+        (monitor-progress ; battery
+            :val {EWW_BATTERY.BAT1.capacity}
+            :hover "${EWW_BATTERY.BAT1.capacity}% battery, ${EWW_BATTERY.BAT1.status}"
+            :icon ""
+        )
+        (monitor-progress ; memory
+            :val {EWW_RAM.used_mem_perc}
+            :hover "${round((EWW_RAM.used_mem / 1073741824), 2)} gb used mem"
+            :icon ""
+        )
+        (monitor-progress ; storage
+            :val {storage-used-perc}
+            :hover "${round(storage-free-perc, 1)}% free space"
+            :icon ""
+        )
+    )
+)
+
+(defwidget monitor-progress [val hover icon]
+    (circular-progress 
+        :class "monitor-progress"
+        :thickness 10
+        :start-at 75
+        :clockwise false
+        :value {val}
+        :tooltip {hover}
+        (label
+            :class "monitor-icon"
+            :text {icon}
+        )
+    )
+)
