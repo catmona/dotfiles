@@ -2,7 +2,7 @@
  * @name EditUsers
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 4.7.8
+ * @version 4.7.9
  * @description Allows you to locally edit Users
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -283,9 +283,7 @@ module.exports = (_ => {
 				
 				BDFDB.PatchUtils.patch(this, BDFDB.LibraryModules.MemberDisplayUtils, "getUserProfile", {after: e => {
 					if (!e.returnValue || !changedUsers[e.methodArguments[0]] || !changedUsers[e.methodArguments[0]].color5 && !changedUsers[e.methodArguments[0]].color6 && !changedUsers[e.methodArguments[0]].color7) return;
-					let newProfileObject = {};
-					for (let key in e.returnValue) newProfileObject[key] = e.returnValue[key];
-					for (let key of Reflect.ownKeys(e.returnValue.constructor.prototype)) if (!newProfileObject[key] && e.returnValue[key] !== undefined) newProfileObject[key] = e.returnValue[key];
+					let newProfileObject = BDFDB.ObjectUtils.copy(e.returnValue);
 					if (changedUsers[e.methodArguments[0]].color5) newProfileObject.primaryColor = newProfileObject.accentColor = BDFDB.ColorUtils.convert(changedUsers[e.methodArguments[0]].color5, "INT");
 					if (changedUsers[e.methodArguments[0]].color6 || changedUsers[e.methodArguments[0]].color7) {
 						let isLightTheme = BDFDB.DiscordUtils.getTheme() == BDFDB.disCN.themelight;
@@ -542,7 +540,11 @@ module.exports = (_ => {
 				}
 				else if (changedUsers[e.instance.props.user.id].banner) {
 					e.instance.props.bannerSrc = changedUsers[e.instance.props.user.id].banner;
-					if (e.instance.props.displayProfile) e.instance.props.displayProfile.banner = changedUsers[e.instance.props.user.id].banner;
+					if (e.instance.props.displayProfile) {
+						e.instance.props.displayProfile = BDFDB.ObjectUtils.copy(e.instance.props.displayProfile);
+						e.instance.props.displayProfile.banner = changedUsers[e.instance.props.user.id].banner;
+						e.instance.props.displayProfile.premiumType = 2;
+					}
 				}
 			}
 
@@ -562,7 +564,9 @@ module.exports = (_ => {
 					}
 					else if (changedUsers[e.instance.props.user.id].banner) {
 						e.instance.props.hasBanner = true;
+						e.instance.props.displayProfile = BDFDB.ObjectUtils.copy(e.instance.props.displayProfile);
 						e.instance.props.displayProfile.banner = changedUsers[e.instance.props.user.id].banner;
+						e.instance.props.displayProfile.premiumType = 2;
 					}
 				}
 			}
@@ -1284,10 +1288,8 @@ module.exports = (_ => {
 				if (!user) return new BDFDB.DiscordObjects.User({});
 				let data = change && changedUsers[user.id];
 				if (data) {
-					let newUserObject = {}, nativeObject = new BDFDB.DiscordObjects.User(user);
-					for (let key in nativeObject) newUserObject[key] = nativeObject[key];
-					newUserObject.tag = nativeObject.tag;
-					newUserObject.createdAt = nativeObject.createdAt;
+					let nativeObject = new BDFDB.DiscordObjects.User(user);
+					let newUserObject = BDFDB.ObjectUtils.copy(nativeObject);
 					newUserObject.username = !keepName && data.name || nativeObject.username;
 					newUserObject.usernameNormalized = !keepName && data.name && data.name.toLowerCase() || nativeObject.usernameNormalized;
 					if (data.removeIcon) {
@@ -1883,28 +1885,28 @@ module.exports = (_ => {
 						};
 					case "el":		// Greek
 						return {
-							confirm_reset:						"Είστε βέβαιοι ότι θέλετε να επαναφέρετε αυτόν τον χρήστη,",
-							confirm_resetall:					"Είστε βέβαιοι ότι θέλετε να επαναφέρετε όλους τους χρήστες,",
-							context_localusersettings:			"Ρυθμίσεις τοπικού χρήστη",
+							confirm_reset:						"Θέλετε την επαναφορά αυτού του χρήστη;",
+							confirm_resetall:					"Θέλετε την επαναφορά όλων των χρηστών;",
+							context_localusersettings:			"Ρυθμίσεις χρήστη (τοπικά)",
 							modal_colorpicker1:					"Χρώμα ονόματος",
 							modal_colorpicker2:					"Χρώμα μηνύματος",
 							modal_colorpicker3:					"Χρώμα ετικέτας",
 							modal_colorpicker4:					"Χρώμα γραμματοσειράς",
-							modal_header:						"Ρυθμίσεις τοπικού χρήστη",
-							modal_ignoretagcolor:				"Χρησιμοποιήστε το χρώμα του ρόλου",
+							modal_header:						"Ρυθμίσεις χρήστη (τοπικά)",
+							modal_ignoretagcolor:				"Χρήση του χρώματος του ρόλου",
 							modal_invalidurl:					"Μη έγκυρη διεύθυνση URL",
 							modal_showaccountname:				"Εμφάνιση ονόματος",
 							modal_showservernick:				"Εμφάνιση ψευδωνύμου",
 							modal_tabheader1:					"Χρήστης",
 							modal_tabheader2:					"Χρώμα ονόματος",
 							modal_tabheader3:					"Ετικέτα",
-							modal_useravatar:					"Άβαταρ",
-							modal_username:						"Τοπικό όνομα χρήστη",
-							modal_userolecolor:					"Μην αντικαθιστάτε το χρώμα του ρόλου",
+							modal_useravatar:					"Εικόνα",
+							modal_username:						"Όνομα χρήστη (τοπικά)",
+							modal_userolecolor:					"Χωρίς αντικατάσταση του χρώματος του ρόλου",
 							modal_usertag:						"Ετικέτα",
-							modal_useservernick:				"Μην αντικαθιστάτε ψευδώνυμα",
+							modal_useservernick:				"Χωρίς αντικατάσταση των ψευδωνύμων",
 							submenu_resetsettings:				"Επαναφορά χρήστη",
-							submenu_usersettings:				"Αλλαξε ρυθμίσεις"
+							submenu_usersettings:				"Αλλαγή ρυθμίσεις"
 						};
 					case "es":		// Spanish
 						return {
