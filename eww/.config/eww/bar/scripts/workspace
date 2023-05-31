@@ -1,0 +1,9 @@
+#!/bin/sh
+workspaces() {
+   
+} 
+
+workspaces
+bspc subscribe desktop node_transfer | while read -r _ ; do
+workspaces
+done

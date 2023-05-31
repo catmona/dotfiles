@@ -1,0 +1,91 @@
+@import "../themes/dork.scss";
+
+
+// GENERAL
+
+* {
+    all: unset; //Unsets everything so you can style everything from scratch
+}
+
+.background {
+    background-color: $bg;
+}
+
+
+// DASH
+
+
+
+
+
+// WORKSPACES
+
+
+.ws {
+    background-color: $bg;
+    font-size: 21;
+    margin: 4px -5px 0px -5px;
+    border: 0;
+    color: $mic-muted;
+}
+
+.ws-active {
+    color: $text;
+}
+
+.ws-1 {
+    margin-left: 1px;
+    color: $ws1;
+}
+
+.ws-2 {
+    color: $ws2;
+    
+}
+
+.ws-3 {
+    color: $ws3;
+    
+}
+
+.ws-4 {
+    margin-right: 1px;
+    color: $ws4;
+    
+}
+
+
+// MONITORS
+
+
+.mon-box {
+
+}
+
+.monitor {
+
+}
+
+.volume {
+    
+}
+
+.wifi {
+    
+}
+
+.battery {
+    
+}
+
+.hidden {
+
+}
+
+
+// CLOCK
+
+
+// CALENDAR
+
+
