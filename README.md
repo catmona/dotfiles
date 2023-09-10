@@ -2,6 +2,13 @@
 
 Use [Stow](https://www.gnu.org/software/stow/#navigation) to manage dotfiles
 
+![image](https://github.com/catmona/dotfiles/assets/30540400/74c23b96-5664-4ce1-835d-e363c9ab40e1)
+
+![image](https://github.com/catmona/dotfiles/assets/30540400/ee0e25e2-444f-4049-8a7e-aaf6f47ce870)
+
+![image](https://github.com/catmona/dotfiles/assets/30540400/d96c9368-ea9a-4b3e-9e7b-06979d8ae325)
+
+
 
 ## Dependencies
 
